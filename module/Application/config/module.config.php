@@ -59,6 +59,7 @@ return array(
         ),
         'factories' => array(
             'translator' => 'Zend\Mvc\Service\TranslatorServiceFactory',
+            'Application\OAuth\Adapter\PdoAdapter'    => 'Application\OAuth\Factory\PdoAdapterFactory',
         ),
     ),
     'translator' => array(

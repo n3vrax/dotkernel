@@ -12,4 +12,41 @@
  */
 
 return array(
+    'db' => array(
+        'adapters' => array(
+            'database' => array(
+                'charset' => 'utf8',
+                'database' => 'dotkernel',
+                'driver' => 'PDO_Mysql',
+                'hostname' => 'localhost',
+                'username' => 'db_username',
+            ),
+        ),
+    ),
+    'zf-mvc-auth' => array(
+        'authentication' => array(
+            'adapters' => array(
+                'authentication' => array(
+                    'adapter' => 'ZF\\MvcAuth\\Authentication\\OAuth2Adapter',
+                    'storage' => array(
+                        'adapter' => 'pdo',
+                        'dsn' => 'mysql:hostname=localhost;dbname=dotkernel',
+                        'route' => '/oauth',
+                        'username' => 'username',
+                    ),
+                ),
+            ),
+        ),
+    ),
+    'zf-oauth2' => array(
+        'db' => array(
+            'dsn'      => 'mysql:hostname=localhost;dbname=dotkernel',
+            'username' => 'username',
+            'password' => 'password',
+        ),
+        'storage_settings' => array(
+            'user_table' => 'user',
+        ),
+    ),
 );
+
