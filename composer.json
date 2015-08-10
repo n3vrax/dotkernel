@@ -11,8 +11,13 @@
     "require": {
         "php": ">=5.5",
         "zendframework/zendframework": "~2.5",
+        "zendframework/zendservice-recaptcha" : "2.0.*",
         "zfcampus/zf-apigility": "~1.0",
-        "zfcampus/zf-apigility-documentation": "~1.0"
+        "zfcampus/zf-apigility-documentation": "~1.0",
+        "bjyoungblood/bjy-authorize" : "1.4.*",
+        "zf-commons/zfc-user": "1.2.*",
+        "acelaya/zf2-acmailer" : "~5.0"
+        
     },
     "require-dev": {
         "zfcampus/zf-apigility-admin": "~1.0",

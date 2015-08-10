@@ -1,0 +1,55 @@
+<?php 
+
+$title = 'Sign In';
+$this->headtitle($title);
+?>
+
+<h1><?php echo $this->translate($this->escapehtml($title)); ?></h1>
+<div class="form-container">
+<?php 
+$form = $this->loginForm;
+$form->setAttribute('action', $this->url('zfcuser/login'));
+$form->setAttribute('method', 'post');
+$form->setAttribute('class', 'form');
+$form->setAttribute('role', 'form');
+$form->prepare();
+
+echo $this->form()->openTag($form);
+?>
+
+<div class="form-group">
+<?php
+$form->get('identity')->setAttribute('class', 'form-control');
+echo $this->formRow($form->get('identity'));
+?>
+</div>
+<div class="form-group">
+<?php
+$form->get('credential')->setAttribute('class', 'form-control');
+echo $this->formRow($form->get('credential'));
+?>
+</div>
+
+<?php 
+
+$form->get('submit')->setAttribute('class', 'btn btn-default');
+echo $this->formButton($form->get('submit'));
+?>
+
+<?php if ($this->redirect): ?>
+<input type="hidden" name="redirect" value="<?php echo $this->escapeHtml($this->redirect) ?>" />
+<?php endif ?>
+
+<?php echo $this->form()->closeTag(); ?>
+
+</div>
+<br />
+
+<a href="<?=$this->url('zfcuser/recovery') ?>" ><?=$this->translate('Forgot your password?')?></a>
+
+<br /><br />
+
+<?php if ($this->enableRegistration) : ?>
+<?php echo $this->translate('Not registered?'); ?> <a href="<?php echo $this->url('zfcuser/register') . ($this->redirect ? '?redirect='.$this->escapeUrl($this->redirect) : '') ?>"><?php echo $this->translate('Sign up!'); ?></a>
+<?php endif; ?>
+

@@ -3,8 +3,47 @@ body {
     padding-bottom: 40px;
 }
 
-.zf-green {
-    color: #68b604;
+button[id$='-navbar-btn']{
+	/*margin-left: 5px;*/
+}
+
+.navbar-brand{
+	padding: 12px;
+}
+
+.form {
+	width: 100%;
+}
+
+.form label {
+	width: 100%;
+}
+
+.form-container{
+	width: 60%;
+}
+
+@media (max-width: 991px)
+{
+	.form-container{
+		width: 90%;
+	}
+}
+
+.form-group .input-error {
+	border-color: red;
+}
+
+.dot-orange {
+    color: #ff6622;
+}
+
+
+@media (max-width: 991px)
+{
+	.hide-on-collapse{
+		display: none;
+	}
 }
 
 .btn-success {
@@ -31,7 +70,7 @@ body {
 }
 
 div.container a.brand {
-    background: url("../img/zf2-logo.png") no-repeat scroll 0 10px transparent;
+    background: url("../img/logo.png") no-repeat scroll 0 10px transparent;
     margin-left: 0;
     padding: 8px 20px 12px 40px;
 }

@@ -7,6 +7,11 @@
 return array(
     'modules' => array(
         'Application',
+        'AcMailer',
+        'ZfcBase',
+        'ZfcUser',
+        'DotUser',
+        'BjyAuthorize',
         'ZF\\Apigility',
         'ZF\\Apigility\\Provider',
         'ZF\\Apigility\\Documentation',
@@ -22,6 +27,7 @@ return array(
         'ZF\\Versioning',
         'ZF\\DevelopmentMode',
         'TestApi',
+        'AdminApi',
     ),
     'module_listener_options' => array(
         'module_paths' => array(

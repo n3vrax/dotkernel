@@ -1,0 +1,16 @@
+<?php
+
+//move this to config/autoload and change to your recaptcha keys
+//to be used by register form
+
+return array(
+    'zfcuser' => array(
+        'form_captcha_options' => array(
+            'class' => 'recaptcha',
+            'options' => array(
+                'pubkey' => 'PUBLIC_KEY',
+                'privkey' => 'YOUR_PRIVATE_KEY',
+            ),
+        ),
+    ),
+);

@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/ZendSkeletonApplication for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -24,13 +24,13 @@ return array(
             // new controllers and actions without needing to create a new
             // module. Simply drop new controllers in, and you can access them
             // using the path /application/:controller/:action
-            'application' => array(
+            'page' => array(
                 'type'    => 'Literal',
                 'options' => array(
-                    'route'    => '/application',
+                    'route'    => '/page',
                     'defaults' => array(
                         '__NAMESPACE__' => 'Application\Controller',
-                        'controller'    => 'Index',
+                        'controller'    => 'Page',
                         'action'        => 'index',
                     ),
                 ),
@@ -39,12 +39,14 @@ return array(
                     'default' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                            'route'    => '/[:controller[/:action]]',
+                            'route'    => '[/:action]',
                             'constraints' => array(
-                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
                             ),
                             'defaults' => array(
+                                '__NAMESPACE__' => 'Application\Controller',
+                                'controller' => 'Page',
+                                'action' => 'index',
                             ),
                         ),
                     ),
@@ -52,16 +54,64 @@ return array(
             ),
         ),
     ),
+    'navigation' => array(
+    	'default' => array(
+    	   array(
+    	       'label' => 'Home',
+    	       'id' => 'home',
+    	       'route' => 'home',
+    	       'icon' => 'glyphicon glyphicon-home',
+    	   ),
+    	   array(
+    	   		'label' => 'Pages',
+    	   		'id' => 'pages',
+    	   		'route' => 'page/default',
+    	        'icon' => 'glyphicon glyphicon-book',
+    	   		'pages' => array(
+        	   		array(
+        	   				'label' => 'About Us',
+        	   				'id' => 'about_us',
+        	   				'route' => 'page/default',
+        	   				'controller' => 'page',
+        	   				'action' => 'about',
+        	   		),
+        	   		array(
+        	   				'label' => 'Who we are',
+        	   				'id' => 'who_we_are',
+        	   				'route' => 'page/default',
+        	   				'controller' => 'page',
+        	   				'action' => 'who-we-are',
+        	   		),
+    	        ),
+    	   ),
+        ),
+    ),
     'service_manager' => array(
+        'factories' => array(
+    	   'Navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
+           'Zend\Session\ManagerInterface' => 'Zend\Session\Service\SessionManagerFactory',
+           'Zend\Session\Config\ConfigInterface' => 'Zend\Session\Service\SessionConfigFactory',
+           'Application\OAuth\Adapter\PdoAdapter'    => 'Application\OAuth\Factory\PdoAdapterFactory',
+        ),
         'abstract_factories' => array(
             'Zend\Cache\Service\StorageCacheAbstractServiceFactory',
             'Zend\Log\LoggerAbstractServiceFactory',
         ),
-        'factories' => array(
-            'translator' => 'Zend\Mvc\Service\TranslatorServiceFactory',
-            'Application\OAuth\Adapter\PdoAdapter'    => 'Application\OAuth\Factory\PdoAdapterFactory',
+        'aliases' => array(
+            'translator' => 'MvcTranslator',
         ),
     ),
+    'session_manager' => array(
+        'validators' => [
+            'Zend\Session\Validator\HttpUserAgent',
+            'Zend\Session\Validator\RemoteAddr',
+        ],
+    ),
+    'session_config' => [
+        // Set the session and cookie expiries to 15 minutes
+        'cache_expire' => 900,
+        'cookie_lifetime' => 900,
+    ],
     'translator' => array(
         'locale' => 'en_US',
         'translation_file_patterns' => array(
@@ -74,7 +124,8 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Application\Controller\Index' => 'Application\Controller\IndexController'
+            'Application\Controller\Index' => 'Application\Controller\IndexController',
+            'Application\Controller\Page' => 'Application\Controller\PageController',
         ),
     ),
     'view_manager' => array(

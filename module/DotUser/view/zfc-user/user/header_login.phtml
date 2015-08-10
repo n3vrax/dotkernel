@@ -1,0 +1,35 @@
+<?php 
+$form = $this->loginForm;
+$form->setAttribute('action', $this->url('zfcuser/login'));
+$form->setAttribute('method', 'post');
+$form->setAttribute('class', 'navbar-form navbar-right');
+$form->setAttribute('id', 'sign-in-navbar-form');
+$form->setAttribute('role', 'form');
+$form->prepare();
+
+echo $this->form()->openTag($form);
+?>
+
+<div class="form-group">
+<?php
+$form->get('identity')->setAttribute('class', 'form-control')->setAttribute('placeholder', 'Email or Username');
+echo $this->formElement($form->get('identity'));
+?>
+</div>
+<div class="form-group">
+<?php
+$form->get('credential')->setAttribute('class', 'form-control')->setAttribute('placeholder', 'Password');
+echo $this->formElement($form->get('credential'));
+?>
+</div>
+
+<div class="form-group">
+    <?php 
+    $form->get('submit')->setAttribute('class', 'btn btn-default');
+    echo $this->formButton($form->get('submit'));
+    ?>
+    <button type="button" class="btn btn-primary" id="sign-up-navbar-btn">Sign Up</button>
+</div>
+
+<?php echo $this->form()->closeTag(); ?>
+

@@ -1,0 +1,45 @@
+<?php 
+$accountPage = null;
+?>
+
+<ul class="nav navbar-nav">
+<?php foreach ($this->container as $page): ?>
+
+    <?php
+        if($page->id === 'account')
+        {
+            $accountPage = $page;
+            continue;
+        }
+        $display = true;
+        if($page->resource){
+            if(!$this->isAllowed($page->resource, $page->privilege)) {
+                $display = false;
+            }
+        }
+        
+        if($display)
+            echo $this->partial('partial/navigation-menu-level', array('page' => $page, 'depth' => 0));
+            
+    ?>
+    
+<?php endforeach; ?>
+</ul>
+<?php if($accountPage): ?>
+<ul class="nav navbar-nav navbar-right">
+    <?php
+        if($this->zfcUserIdentity())
+            $accountPage->label = 'Hi, ' . $this->zfcUserDisplayName();
+        $display = true;
+        if($accountPage->resource){
+            if(!$this->isAllowed($accountPage->resource, $accountPage->privilege)) {
+                $display = false;
+            }
+        }
+        
+        if($display)
+            echo $this->partial('partial/navigation-menu-level', array('page' => $accountPage, 'depth' => 0));
+            
+    ?>
+</ul>
+<?php endif; ?>
