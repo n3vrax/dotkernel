@@ -4,8 +4,67 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e51a4c10812340adf70947ef74ae4a22",
+    "hash": "d79d4816042a1d52bd3d120bca9f7a10",
     "packages": [
+        {
+            "name": "acelaya/zf2-acmailer",
+            "version": "v5.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/acelaya/ZF2-AcMailer.git",
+                "reference": "1450dea0d7c8fa85cbeec825d4588633ca82538f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/acelaya/ZF2-AcMailer/zipball/1450dea0d7c8fa85cbeec825d4588633ca82538f",
+                "reference": "1450dea0d7c8fa85cbeec825d4588633ca82538f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0",
+                "zendframework/zend-eventmanager": "~2.2",
+                "zendframework/zend-mail": "~2.2",
+                "zendframework/zend-mime": "~2.2",
+                "zendframework/zend-modulemanager": "~2.2",
+                "zendframework/zend-mvc": "~2.2",
+                "zendframework/zend-servicemanager": "~2.2",
+                "zendframework/zend-stdlib": "~2.2",
+                "zendframework/zend-view": "~2.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0",
+                "squizlabs/php_codesniffer": "~1.0",
+                "zendframework/zendframework": "~2.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "AcMailer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alejandro Celaya Alastrué",
+                    "email": "alejandro@alejandrocelaya.com",
+                    "homepage": "http://www.alejandrocelaya.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Mail sending module for Zend Framework 2",
+            "homepage": "https://github.com/acelaya/ZF2-AcMailer",
+            "keywords": [
+                "mail",
+                "module",
+                "php",
+                "zend",
+                "zf2"
+            ],
+            "time": "2015-06-21 08:03:36"
+        },
         {
             "name": "bshaffer/oauth2-server-php",
             "version": "v1.7.1",

@@ -6,6 +6,7 @@
  */
 return array(
     'modules' => array(
+        'AcMailer',
         'Application',
         'ZF\\Apigility',
         'ZF\\Apigility\\Provider',
@@ -21,11 +22,12 @@ return array(
         'ZF\\Rpc',
         'ZF\\Versioning',
         'ZF\\DevelopmentMode',
+        'MailApi',
     ),
     'module_listener_options' => array(
         'module_paths' => array(
             './module',
-            './vendor',
+            './vendor','./module',
         ),
         'config_glob_paths' => array(
             'config/autoload/{{,*.}global,{,*.}local}.php',

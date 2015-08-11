@@ -21,7 +21,6 @@ return array(
         'ZF\\Rpc',
         'ZF\\Versioning',
         'ZF\\DevelopmentMode',
-        16 => 'AdminApi',
     ),
     'module_listener_options' => array(
         'module_paths' => array(

@@ -93,6 +93,7 @@ return array(
            'Zend\Session\Config\ConfigInterface' => 'Zend\Session\Service\SessionConfigFactory',
             
            'Application\OAuth\Adapter\PdoAdapter'    => 'Application\OAuth\Factory\PdoAdapterFactory',
+           'DotMailTransporter\Mapper\TransporterMapperInterface' => 'DotMailTransporter\Factory\TransporterDbMapperFactory',
         ),
         'abstract_factories' => array(
             'Zend\Cache\Service\StorageCacheAbstractServiceFactory',
