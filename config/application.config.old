@@ -6,10 +6,6 @@
  */
 return array(
     'modules' => array(
-        'ZfcBase',
-        'ZfcUser',
-        'BjyAuthorize',
-        'AcMailer',
         'Application',
         'ZF\\Apigility',
         'ZF\\Apigility\\Provider',
@@ -25,7 +21,7 @@ return array(
         'ZF\\Rpc',
         'ZF\\Versioning',
         'ZF\\DevelopmentMode',
-        'TestApi',
+        16 => 'AdminApi',
     ),
     'module_listener_options' => array(
         'module_paths' => array(

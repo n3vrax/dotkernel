@@ -91,6 +91,7 @@ return array(
     	   'Navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
            'Zend\Session\ManagerInterface' => 'Zend\Session\Service\SessionManagerFactory',
            'Zend\Session\Config\ConfigInterface' => 'Zend\Session\Service\SessionConfigFactory',
+            
            'Application\OAuth\Adapter\PdoAdapter'    => 'Application\OAuth\Factory\PdoAdapterFactory',
         ),
         'abstract_factories' => array(

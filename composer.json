@@ -14,9 +14,7 @@
         "zendframework/zendservice-recaptcha" : "2.0.*",
         "zfcampus/zf-apigility": "~1.0",
         "zfcampus/zf-apigility-documentation": "~1.0",
-        "bjyoungblood/bjy-authorize" : "1.4.*",
-        "zf-commons/zfc-user": "1.2.*",
-        "acelaya/zf2-acmailer" : "~5.0"
+        "zf-commons/zfc-user": "1.2.*"
         
     },
     "require-dev": {
