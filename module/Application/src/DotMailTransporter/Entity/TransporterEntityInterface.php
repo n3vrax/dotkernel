@@ -8,6 +8,10 @@ interface TransporterEntityInterface
     
     public function getId();
     
+    public function setName($name);
+    
+    public function getName();
+    
     public function setHostname($hostname);
     
     public function getHostname();

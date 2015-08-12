@@ -21,7 +21,20 @@ class TransporterResource extends AbstractResourceListener
      */
     public function create($data)
     {
-        return new ApiProblem(405, 'The POST method has not been defined');
+        try{
+            $inputFilter = $this->getInputFilter();
+            if($inputFilter)
+            {
+                $data = $inputFilter->getValues();
+            }
+            var_dump($data);exit;
+            return $this->mapper->create($data);
+        }
+        catch(\Exception $ex)
+        {
+            error_log($ex);
+            return new ApiProblem(500, 'Api Server error');
+        }
     }
 
     /**
@@ -59,6 +72,7 @@ class TransporterResource extends AbstractResourceListener
         }
         catch(\Exception $ex)
         {
+            error_log($ex);
             return new ApiProblem(500, 'Api Server error');
         }
     }
@@ -76,6 +90,7 @@ class TransporterResource extends AbstractResourceListener
         }
         catch(\Exception $ex)
         {
+            error_log($ex);
             return new ApiProblem(500, 'Api Server error');
         }
     }
@@ -112,6 +127,13 @@ class TransporterResource extends AbstractResourceListener
      */
     public function update($id, $data)
     {
-        return new ApiProblem(405, 'The PUT method has not been defined for individual resources');
+        try{
+            return $this->mapper->update($id, $data);
+        }
+        catch(\Exception $ex)
+        {
+            error_log($ex);
+            return new ApiProblem(500, 'Api Server error');
+        }
     }
 }

@@ -6,6 +6,8 @@ class TransporterEntity implements TransporterEntityInterface
 {
     protected $id;
     
+    protected $name;
+    
     protected $hostname;
     
     protected $port;
@@ -33,6 +35,18 @@ class TransporterEntity implements TransporterEntityInterface
     public function setId($id)
     {
         $this->id = $id;
+        return $this;
+    }
+    
+    public function getName()
+    {
+        return $this->name;
+    }
+    
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
     }
 
     /**
@@ -49,6 +63,7 @@ class TransporterEntity implements TransporterEntityInterface
     public function setHostname($hostname)
     {
         $this->hostname = $hostname;
+        return $this;
     }
 
     /**
@@ -65,6 +80,7 @@ class TransporterEntity implements TransporterEntityInterface
     public function setPort($port)
     {
         $this->port = $port;
+        return $this;
     }
 
     /**
@@ -81,6 +97,7 @@ class TransporterEntity implements TransporterEntityInterface
     public function setConnectionClass($connectionClass)
     {
         $this->connectionClass = $connectionClass;
+        return $this;
     }
 
     /**
@@ -97,6 +114,7 @@ class TransporterEntity implements TransporterEntityInterface
     public function setUsername($username)
     {
         $this->username = $username;
+        return $this;
     }
 
     /**
@@ -113,6 +131,7 @@ class TransporterEntity implements TransporterEntityInterface
     public function setPassword($password)
     {
         $this->password = $password;
+        return $this;
     }
 
     /**
@@ -129,6 +148,7 @@ class TransporterEntity implements TransporterEntityInterface
     public function setSecure($secure)
     {
         $this->secure = $secure;
+        return $this;
     }
 
     /**
@@ -145,6 +165,7 @@ class TransporterEntity implements TransporterEntityInterface
     public function setActive($active)
     {
         $this->active = $active;
+        return $this;
     }
 
     
