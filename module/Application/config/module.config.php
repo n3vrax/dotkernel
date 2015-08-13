@@ -86,7 +86,23 @@ return array(
     	   ),
         ),
     ),
+    
+    'input_filters' => array(
+        'invokables' => array(
+            'transporter_create_input_filter' => 'DotMailTransporter\Form\TransporterCreateInputFilter',
+            'transporter_update_input_filter' => 'DotMailTransporter\Form\TransporterUpdateInputFilter',
+        ),
+    ),
+    
     'service_manager' => array(
+        'invokables' => array(
+            //validators
+            'Application\Validator\IsBoolean' => 'Application\Validator\IsBoolean',
+            'Application\Validator\IsBooleanIgnoreNull' => 'Application\Validator\IsBooleanIgnoreNull',
+            'Application\Validator\StringLengthIgnoreNull' => 'Application\Validator\StringLengthIgnoreNull',
+            'Application\Validator\HostnameIgnoreNull' => 'Application\Validator\HostnameIgnoreNull',
+            'Application\Validator\IsIntIgnoreNull' => 'Application\Validator\IsIntIgnoreNull',
+        ),
         'factories' => array(
     	   'Navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
            'Zend\Session\ManagerInterface' => 'Zend\Session\Service\SessionManagerFactory',

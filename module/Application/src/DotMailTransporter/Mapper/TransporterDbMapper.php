@@ -7,15 +7,12 @@ use Zend\Paginator\Adapter\DbSelect;
 use Zend\Db\Sql\Expression;
 use DotMailTransporter\Entity\TransporterCollection;
 use Zend\Stdlib\Hydrator\HydratorInterface;
-use Zend\Db\Sql\Where;
 
 class TransporterDbMapper extends AbstractDbMapper implements TransporterMapperInterface
 {
     protected $tableName = 'email_transporter';
     
     protected $tmpSelect;
-    
-    protected $unsetOnNull = array('connectionClass','secure','active');
     
     public function getTableName()
     {
@@ -31,8 +28,11 @@ class TransporterDbMapper extends AbstractDbMapper implements TransporterMapperI
 
     public function delete($id)
     {
-        // TODO Auto-generated method stub
+        $result = parent::delete(array('id' => $id));
         
+        if(!$result) return false;
+        
+        return true;
     }
 
     public function fetch($id)
@@ -70,9 +70,11 @@ class TransporterDbMapper extends AbstractDbMapper implements TransporterMapperI
 
     public function update($id, $data)
     {
-        $where = new Where();
-        $where->equalTo('id', $id);
-        $result = parent::update($data, $where);
+        if(is_object($data))
+            $data = (array) $data;
+        
+        if(!empty($data))
+            $result = parent::update($data, array('id' => $id));
         
         return $this->fetch($id);
     }
@@ -96,12 +98,15 @@ class TransporterDbMapper extends AbstractDbMapper implements TransporterMapperI
     
     protected function doUnsetOnNull($data)
     {
-        foreach($this->unsetOnNull as $field)
+        $fields = array();
+        foreach($data as $k => $v)
         {
-            if(array_key_exists($field, $data) && null === $data[$field])
-            {
-                unset($data[$field]);
-            }
+            if(null === $v)
+                $fields[] = $k;
+        }
+        foreach($fields as $field)
+        {
+            unset($data[$field]);
         }
     
         return $data;

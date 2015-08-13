@@ -118,65 +118,8 @@ return array(
     ),
     'zf-content-validation' => array(
         'MailApi\\V1\\Rest\\Transporter\\Controller' => array(
-            //'input_filter' => 'MailApi\\V1\\Rest\\Transporter\\Validator',
-            'input_filter' => 'transporter_input_filter',
-        ),
-    ),
-    'input_filters' => array(
-        'invokables' => array(
-            'transporter_input_filter' => 'DotMailTransporter\Form\TransporterInputFilter',
-        ),
-    ),
-    'input_filter_specs' => array(
-        'MailApi\\V1\\Rest\\Transporter\\Validator' => array(
-            0 => array(
-                'required' => true,
-                'validators' => array(
-                    0 => array(
-                        'name' => 'Zend\\Validator\\StringLength',
-                        'options' => array(
-                            'max' => '255',
-                            'min' => '3',
-                        ),
-                    ),
-                ),
-                'filters' => array(
-                    0 => array(
-                        'name' => 'Zend\\Filter\\StringTrim',
-                        'options' => array(),
-                    ),
-                ),
-                'name' => 'name',
-                'description' => 'Name of the email transporter',
-                'error_message' => 'Invalid email transporter name',
-            ),
-            1 => array(
-                'required' => false,
-                'validators' => array(
-                    0 => array(
-                        'name' => 'Zend\\Validator\\NotEmpty',
-                        'options' => array(
-                            'type' => 'string',
-                        ),
-                    ),
-                    1 => array(
-                        'name' => 'Zend\\Validator\\InArray',
-                        'options' => array(
-                            'haystack' => array('smtp','plain','login','crammd5',null),
-                        ),
-                    ),
-                ),
-                'filters' => array(
-                    0 => array(
-                        'name' => 'Zend\\Filter\\StringTrim',
-                        'options' => array(),
-                    ),
-                ),
-                'name' => 'connectionClass',
-                'description' => 'Email transporter connection class',
-                'continue_if_empty' => true,
-                'error_message' => 'Invalid connection class',
-            ),
+            'input_filter' => 'transporter_update_input_filter',
+            'POST' => 'transporter_create_input_filter'
         ),
     ),
 );

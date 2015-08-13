@@ -27,7 +27,6 @@ class TransporterResource extends AbstractResourceListener
             {
                 $data = $inputFilter->getValues();
             }
-            var_dump($data);exit;
             return $this->mapper->create($data);
         }
         catch(\Exception $ex)
@@ -45,7 +44,14 @@ class TransporterResource extends AbstractResourceListener
      */
     public function delete($id)
     {
-        return new ApiProblem(405, 'The DELETE method has not been defined for individual resources');
+        try{
+            return $this->mapper->delete($id);
+        }
+        catch(\Exception $ex)
+        {
+            error_log($ex);
+            return new ApiProblem(500, 'Api Server error');
+        }
     }
 
     /**
@@ -104,7 +110,7 @@ class TransporterResource extends AbstractResourceListener
      */
     public function patch($id, $data)
     {
-        return new ApiProblem(405, 'The PATCH method has not been defined for individual resources');
+        return $this->update($id, $data);
     }
 
     /**
