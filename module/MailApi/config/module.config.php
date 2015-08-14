@@ -119,7 +119,121 @@ return array(
     'zf-content-validation' => array(
         'MailApi\\V1\\Rest\\Transporter\\Controller' => array(
             'input_filter' => 'transporter_update_input_filter',
-            'POST' => 'transporter_create_input_filter'
+            'POST' => 'transporter_create_input_filter',
+        ),
+        'MailApi\\V1\\Rpc\\Send\\Controller' => array(
+            'input_filter' => 'MailApi\\V1\\Rpc\\Send\\Validator',
+        ),
+    ),
+    'input_filter_specs' => array(
+        'MailApi\\V1\\Rpc\\Send\\Validator' => array(
+            0 => array(
+                'required' => true,
+                'validators' => array(
+                    array(
+                        'name' => 'Application\Validator\EmailAddressArray',
+                        'options' => array(),
+                    ),
+                ),
+                'filters' => array(),
+                'name' => 'to',
+                'description' => 'Address or array of destination email addresses',
+                'error_message' => 'Invalid destination addresses',
+            ),
+            1 => array(
+                'required' => true,
+                'validators' => array(
+                    0 => array(
+                        'name' => 'Zend\\Validator\\StringLength',
+                        'options' => array(
+                            'min' => '3',
+                            'max' => '255',
+                        ),
+                    ),
+                ),
+                'filters' => array(
+                    0 => array(
+                        'name' => 'Zend\\Filter\\StringTrim',
+                        'options' => array(),
+                    ),
+                ),
+                'name' => 'subject',
+                'description' => 'Email subject',
+                'error_message' => 'Invalid email subject',
+            ),
+            2 => array(
+                'required' => true,
+                'validators' => array(),
+                'filters' => array(
+                    0 => array(
+                        'name' => 'Zend\\Filter\\StringTrim',
+                        'options' => array(),
+                    ),
+                ),
+                'name' => 'body',
+                'description' => 'Email body to send',
+                'error_message' => 'Invalid email body',
+            ),
+            3 => array(
+                'required' => true,
+                'validators' => array(
+                    0 => array(
+                        'name' => 'Zend\\Validator\\EmailAddress',
+                        'options' => array(),
+                    ),
+                ),
+                'filters' => array(),
+                'name' => 'from',
+                'description' => 'From address',
+                'error_message' => 'Invalid from address',
+            ),
+            4 => array(
+                'required' => false,
+                'validators' => array(
+                    0 => array(
+                        'name' => 'Zend\\Validator\\StringLength',
+                        'options' => array(
+                            'min' => '3',
+                            'max' => '255',
+                        ),
+                    ),
+                ),
+                'filters' => array(
+                    0 => array(
+                        'name' => 'Zend\\Filter\\StringTrim',
+                        'options' => array(),
+                    ),
+                ),
+                'name' => 'from_name',
+                'description' => 'From name of the email',
+                'error_message' => 'Invalid from_name data',
+            ),
+            5 => array(
+                'required' => false,
+                'validators' => array(
+                    array(
+                        'name' => 'Application\Validator\EmailAddressArray',
+                        'options' => array(),
+                    ),
+                ),
+                'filters' => array(),
+                'name' => 'cc',
+                'description' => 'CC addreses to send email to',
+                'error_message' => 'Invalid cc address',
+            ),
+            6 => array(
+                'required' => false,
+                'validators' => array(
+                    array(
+                        'name' => 'Application\Validator\EmailAddressArray',
+                        'options' => array(),
+                    ),
+                ),
+                'filters' => array(),
+                'name' => 'bcc',
+                'description' => 'BCC email addresses',
+                'error_message' => 'Invalid bcc address',
+            ),
         ),
     ),
 );

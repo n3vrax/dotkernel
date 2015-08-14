@@ -255,11 +255,28 @@ return [
              * By default, the list of listeners is empty
              */
             //'mail_listeners' => []
-        ]
+        ],
 
         /*
          * You can define other service configurations here, with the same structure as in the 'default' block
          */
-
+        'mailapi' => [
+            'mail_adapter' => 'Zend\Mail\Transport\Smtp',
+            'smtp_options' => [
+                'host' => 'smtp.gmail.com',
+                'port' => 587,
+                'connection_class' => 'login',
+                'connection_config' => [
+                    //store username and password in mail.local.php
+                    //'username' => '',
+                    //'password' => '',
+                    
+                    'ssl' => 'tls',
+                ],
+            ],
+        ],
+        'support' => [
+            'extends' => 'mailapi',
+        ],
     ]
 ];

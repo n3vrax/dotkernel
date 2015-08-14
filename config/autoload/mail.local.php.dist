@@ -1,0 +1,14 @@
+<?php
+
+return [
+	'acmailer_options' => [
+		'support' => [
+			'smtp_options' => [
+				'connection_config' => [
+					'username' => 'your_username',
+					'password' => '',
+				],
+			],
+		],
+	],
+];

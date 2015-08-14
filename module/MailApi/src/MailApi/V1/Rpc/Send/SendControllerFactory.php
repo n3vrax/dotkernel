@@ -5,6 +5,11 @@ class SendControllerFactory
 {
     public function __invoke($controllers)
     {
-        return new SendController();
+        $sm = $controllers->getServiceLocator();
+        
+        $controller = new SendController();
+        $controller->setMailService($sm->get('acmailer.mailservice.mailapi'));
+        
+        return $controller;
     }
 }

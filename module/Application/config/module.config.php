@@ -94,7 +94,7 @@ return array(
         ),
     ),
     
-    'service_manager' => array(
+    'validators' => array(
         'invokables' => array(
             //validators
             'Application\Validator\IsBoolean' => 'Application\Validator\IsBoolean',
@@ -103,6 +103,12 @@ return array(
             'Application\Validator\HostnameIgnoreNull' => 'Application\Validator\HostnameIgnoreNull',
             'Application\Validator\IsIntIgnoreNull' => 'Application\Validator\IsIntIgnoreNull',
         ),
+        'factories' => array(
+            'Application\Validator\EmailAddressArray' => 'Application\Validator\Factory\EmailAddressArrayFactory',
+        ),
+    ),
+    
+    'service_manager' => array(
         'factories' => array(
     	   'Navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
            'Zend\Session\ManagerInterface' => 'Zend\Session\Service\SessionManagerFactory',
