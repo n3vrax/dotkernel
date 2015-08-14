@@ -45,7 +45,8 @@ class SendController extends AbstractActionController implements MailServiceAwar
             return array('message' => 'success');
         }
         
-        return array('message' => $result->getMessage());
+        error_log($result->getMessage());
+        return array('message' => 'The email could not be sent server side. Try again later');
         
     }
 }
