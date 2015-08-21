@@ -7,6 +7,7 @@
 return array(
     'modules' => array(
         'AcMailer',
+        'DotBase',
         'Application',
         'ZF\\Apigility',
         'ZF\\Apigility\\Provider',
@@ -23,7 +24,6 @@ return array(
         'ZF\\Versioning',
         'ZF\\DevelopmentMode',
         'MailApi',
-        'DotBase',
     ),
     'module_listener_options' => array(
         'module_paths' => array(

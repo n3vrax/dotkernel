@@ -5,8 +5,8 @@ namespace DotMailTransporter\Factory;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use DotMailTransporter\Mapper\TransporterDbMapper;
-use DotMailTransporter\Entity\TransporterEntity;
 use DotMailTransporter\Entity\TransporterEntityHydrator;
+use DotMailTransporter\Entity\TransporterEntity;
 
 class TransporterDbMapperFactory implements FactoryInterface
 {

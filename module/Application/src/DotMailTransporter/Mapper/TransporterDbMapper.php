@@ -5,8 +5,8 @@ namespace DotMailTransporter\Mapper;
 use ZfcBase\Mapper\AbstractDbMapper;
 use Zend\Paginator\Adapter\DbSelect;
 use Zend\Db\Sql\Expression;
-use DotMailTransporter\Entity\TransporterCollection;
 use Zend\Stdlib\Hydrator\HydratorInterface;
+use DotMailTransporter\Entity\TransporterCollection;
 
 class TransporterDbMapper extends AbstractDbMapper implements TransporterMapperInterface
 {
@@ -18,7 +18,7 @@ class TransporterDbMapper extends AbstractDbMapper implements TransporterMapperI
     {
         return $this->tableName;
     }
-    
+
     public function create($data)
     {
         $result = parent::insert($data);
@@ -63,8 +63,8 @@ class TransporterDbMapper extends AbstractDbMapper implements TransporterMapperI
         $countSelect->columns(array(DbSelect::ROW_COUNT_COLUMN_NAME => new Expression('COUNT(*)')));
         
         $paginatorAdapter = new DbSelect($select, $this->dbAdapter, $resultSet, $countSelect);
-        $collection = new TransporterCollection($paginatorAdapter);
         
+        $collection = new TransporterCollection($paginatorAdapter);
         return $collection;
     }
 

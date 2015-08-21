@@ -2,7 +2,7 @@
 
 namespace DotMailTransporter\Entity;
 
-class TransporterEntity implements TransporterEntityInterface
+class TransporterEntity
 {
     protected $id;
     
