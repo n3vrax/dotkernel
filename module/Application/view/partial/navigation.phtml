@@ -11,14 +11,14 @@ $accountPage = null;
             $accountPage = $page;
             continue;
         }
-        $display = true;
+        /*$display = true;
         if($page->resource){
             if(!$this->isAllowed($page->resource, $page->privilege)) {
                 $display = false;
             }
         }
         
-        if($display)
+        if($display)*/
             echo $this->partial('partial/navigation-menu-level', array('page' => $page, 'depth' => 0));
             
     ?>
@@ -42,4 +42,4 @@ $accountPage = null;
             
     ?>
 </ul>
-<?php endif; ?>
+<?php endif; ?>*/

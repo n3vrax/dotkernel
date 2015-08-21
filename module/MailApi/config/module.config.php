@@ -131,7 +131,7 @@ return array(
                 'required' => true,
                 'validators' => array(
                     array(
-                        'name' => 'Application\Validator\EmailAddressArray',
+                        'name' => 'DotBase\Validator\EmailAddressArray',
                         'options' => array(),
                     ),
                 ),
@@ -212,7 +212,7 @@ return array(
                 'required' => false,
                 'validators' => array(
                     array(
-                        'name' => 'Application\Validator\EmailAddressArray',
+                        'name' => 'DotBase\Validator\EmailAddressArray',
                         'options' => array(),
                     ),
                 ),
@@ -225,7 +225,7 @@ return array(
                 'required' => false,
                 'validators' => array(
                     array(
-                        'name' => 'Application\Validator\EmailAddressArray',
+                        'name' => 'DotBase\Validator\EmailAddressArray',
                         'options' => array(),
                     ),
                 ),

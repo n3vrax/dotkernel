@@ -1,6 +1,6 @@
 <?php
 
-namespace Application\Mapper;
+namespace DotBase\Mapper;
 
 interface CRUDMapperInterface
 {

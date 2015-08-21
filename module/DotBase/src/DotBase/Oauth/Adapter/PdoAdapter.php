@@ -1,6 +1,6 @@
 <?php
 
-namespace Application\Oauth\Adapter;
+namespace DotBase\Oauth\Adapter;
 
 class PdoAdapter extends \ZF\OAuth2\Adapter\PdoAdapter
 {

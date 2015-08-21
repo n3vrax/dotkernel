@@ -1,10 +1,10 @@
 <?php
 
-namespace Application\Oauth\Factory;
+namespace DotBase\Oauth\Factory;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use Application\Oauth\Adapter\PdoAdapter;
+use DotBase\Oauth\Adapter\PdoAdapter;
 use ZF\OAuth2\Controller\Exception;
 
 class PdoAdapterFactory implements FactoryInterface

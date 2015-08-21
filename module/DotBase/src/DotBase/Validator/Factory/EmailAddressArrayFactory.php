@@ -1,10 +1,10 @@
 <?php
 
-namespace Application\Validator\Factory;
+namespace DotBase\Validator\Factory;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use Application\Validator\EmailAddressArray;
+use DotBase\Validator\EmailAddressArray;
 
 class EmailAddressArrayFactory implements FactoryInterface
 {

@@ -27,13 +27,13 @@ if ($this->page->hasPages()) {
     <?php foreach ($this->page->getPages() as $subPage): ?>
     
         <?php 
-            $display = true;
-            if($subPage->resource){
+            //$display = true;
+            /*if($subPage->resource){
                 if(!$this->isAllowed($subPage->resource, $subPage->privilege)){
                     $display = false;
                 }
-            }
-            if($display)
+            }*/
+            //if($display)
                 echo $this->partial('partial/navigation-menu-level', array('page' => $subPage, 'depth' => $this->depth + 1));
         ?>
     

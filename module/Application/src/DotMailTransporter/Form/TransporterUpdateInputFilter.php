@@ -22,7 +22,7 @@ class TransporterUpdateInputFilter extends InputFilter
             ),
             'validators' => array(
                 array(
-                    'name' => 'Application\Validator\StringLengthIgnoreNull',
+                    'name' => 'DotBase\Validator\StringLengthIgnoreNull',
                     'options' => array(
                         'max' => 255,
                         'min' => 3,
@@ -41,7 +41,7 @@ class TransporterUpdateInputFilter extends InputFilter
             ),
             'validators' => array(
                 array(
-                    'name' => 'Application\Validator\StringLengthIgnoreNull',
+                    'name' => 'DotBase\Validator\StringLengthIgnoreNull',
                     'options' => array(
                         'max' => 255,
                         'min' => 1,
@@ -49,7 +49,7 @@ class TransporterUpdateInputFilter extends InputFilter
                     ),
                 ),
                 array(
-                    'name' => 'Application\Validator\HostnameIgnoreNull',
+                    'name' => 'DotBase\Validator\HostnameIgnoreNull',
                     'options' => array(
                         'allow' => \Zend\Validator\Hostname::ALLOW_ALL,
                     ),
@@ -64,7 +64,7 @@ class TransporterUpdateInputFilter extends InputFilter
             'filters' => array(),
             'validators' => array(
                 array(
-                    'name' => 'Application\Validator\IsIntIgnoreNull',
+                    'name' => 'DotBase\Validator\IsIntIgnoreNull',
                     'options' => array(),
                 ),
             ),
@@ -79,7 +79,7 @@ class TransporterUpdateInputFilter extends InputFilter
             ),
             'validators' => array(
                 array(
-                    'name' => 'Application\Validator\StringLengthIgnoreNull',
+                    'name' => 'DotBase\Validator\StringLengthIgnoreNull',
                     'options' => array(
                         'max' => 255,
                         'min' => 3,
@@ -95,7 +95,7 @@ class TransporterUpdateInputFilter extends InputFilter
             'filters' => array(),
             'validators' => array(
                 array(
-                    'name' => 'Application\Validator\StringLengthIgnoreNull',
+                    'name' => 'DotBase\Validator\StringLengthIgnoreNull',
                     'options' => array(
                         'max' => 255,
                         'min' => 3,
@@ -167,7 +167,7 @@ class TransporterUpdateInputFilter extends InputFilter
             'filters' => array(),
             'validators' => array(
                 array(
-                    'name' => 'Application\Validator\IsBooleanIgnoreNull',
+                    'name' => 'DotBase\Validator\IsBooleanIgnoreNull',
                     'options' => array(
                         
                     ),

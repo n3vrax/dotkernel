@@ -94,27 +94,12 @@ return array(
         ),
     ),
     
-    'validators' => array(
-        'invokables' => array(
-            //validators
-            'Application\Validator\IsBoolean' => 'Application\Validator\IsBoolean',
-            'Application\Validator\IsBooleanIgnoreNull' => 'Application\Validator\IsBooleanIgnoreNull',
-            'Application\Validator\StringLengthIgnoreNull' => 'Application\Validator\StringLengthIgnoreNull',
-            'Application\Validator\HostnameIgnoreNull' => 'Application\Validator\HostnameIgnoreNull',
-            'Application\Validator\IsIntIgnoreNull' => 'Application\Validator\IsIntIgnoreNull',
-        ),
-        'factories' => array(
-            'Application\Validator\EmailAddressArray' => 'Application\Validator\Factory\EmailAddressArrayFactory',
-        ),
-    ),
-    
     'service_manager' => array(
         'factories' => array(
     	   'Navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
            'Zend\Session\ManagerInterface' => 'Zend\Session\Service\SessionManagerFactory',
            'Zend\Session\Config\ConfigInterface' => 'Zend\Session\Service\SessionConfigFactory',
             
-           'Application\OAuth\Adapter\PdoAdapter'    => 'Application\OAuth\Factory\PdoAdapterFactory',
            'DotMailTransporter\Mapper\TransporterMapperInterface' => 'DotMailTransporter\Factory\TransporterDbMapperFactory',
         ),
         'abstract_factories' => array(

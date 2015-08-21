@@ -1,6 +1,6 @@
 <?php
 
-namespace Application\Validator;
+namespace DotBase\Validator;
 
 use Zend\I18n\Validator\IsInt;
 
