@@ -11,7 +11,7 @@ class PdoAdapter extends \ZF\OAuth2\Adapter\PdoAdapter
      * @param string $password
      * @return bool
      */
-    public function setUser($username, $password)
+    public function setUser($username, $password, $firstname = NULL, $lastname = NULL)
     {
         // do not store in plaintext, use bcrypt
         $this->createBcryptHash($password);
