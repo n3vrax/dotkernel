@@ -1,22 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 4.2.5
--- http://www.phpmyadmin.net
---
--- Host: 127.0.0.1:3306
--- Generation Time: Aug 10, 2015 at 01:48 AM
--- Server version: 5.5.23
--- PHP Version: 5.6.5
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-
---
 -- Database: `dotkernel`
 --
 
@@ -118,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `displayName` varchar(255) DEFAULT NULL,
   `state` enum('active','inactive','unconfirmed','deleted') NOT NULL DEFAULT 'unconfirmed',
   `dateCreated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -150,7 +131,7 @@ CREATE TABLE IF NOT EXISTS `user_role` (
   `role_id` varchar(255) NOT NULL,
   `is_default` tinyint(1) NOT NULL,
   `parent_id` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -249,12 +230,12 @@ ALTER TABLE `user_token`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
 --
 -- AUTO_INCREMENT for table `user_role`
 --
 ALTER TABLE `user_role`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
 --
 -- AUTO_INCREMENT for table `user_token`
 --
@@ -283,6 +264,14 @@ ADD CONSTRAINT `user_role_linker_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `use
 ALTER TABLE `user_token`
 ADD CONSTRAINT `user_token_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+INSERT INTO `user_role` (role_id, is_default, parent_id) VALUES ('guest', 1, NULL), ('user', 0, NULL), ('admin', 0, 'user');
+
+INSERT INTO `user` (username, password, email, displayName, state) VALUES ('admin', '$2a$10$44nfKuBG6HqfQ3I7LoCiQeNO80KI/OhQdBrz3FwcSqqtNikSvdVyG', 'admin@gmail.com', NULL, 'active'), 
+('testuser', '$2a$10$44nfKuBG6HqfQ3I7LoCiQeNO80KI/OhQdBrz3FwcSqqtNikSvdVyG', 'testuser@gmail.com', NULL, 'active');
+INSERT INTO `user_details` (userId, firstname, lastname) VALUES (1, 'Tiberiu', 'Popa'), (2, 'Test', 'User');
+
+INSERT INTO `user_role_linker` (user_id, role_id) VALUES (1, 3), (2, 2);
+
+INSERT INTO `oauth_clients` (client_id, client_secret, redirect_uri, grant_types, scope, user_id) VALUES ('admin', '$2a$10$44nfKuBG6HqfQ3I7LoCiQeNO80KI/OhQdBrz3FwcSqqtNikSvdVyG', '/admin', NULL, NULL, 'admin');
+

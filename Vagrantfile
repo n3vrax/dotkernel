@@ -1,43 +1,86 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-VAGRANTFILE_API_VERSION = '2'
-
 @script = <<SCRIPT
-DOCUMENT_ROOT_ZEND="/var/www/zf/public"
-apt-get update
-apt-get install -y apache2 git curl php5-cli php5 php5-intl libapache2-mod-php5
+DOCUMENT_ROOT="/var/www/dotkernel.local/public"
+sudo apt-get update
+sudo apt-get install -y git curl
+
+#install LAMP stack
+echo "installing LAMP stack..."
+sudo apt-get install -y apache2
+debconf-set-selections <<< 'mysql-server mysql-server/root_password password 1234'
+debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password 1234'
+sudo apt-get install -y mysql-server libapache2-mod-auth-mysql
+sudo apt-get install -y php5 php5-mysql libapache2-mod-php5 php5-mcrypt php5-curl php5-cli php5-sqlite php5-intl
+
+#install composer globally
+sudo curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
+
+#move our vhost conf file and enable it in apache2
+echo "enabling vhost..."
 echo "
 <VirtualHost *:80>
-    ServerName skeleton-zf.local
-    DocumentRoot $DOCUMENT_ROOT_ZEND
-    <Directory $DOCUMENT_ROOT_ZEND>
-        DirectoryIndex index.php
-        AllowOverride All
-        Order allow,deny
-        Allow from all
+    ServerAdmin webmaster@localhost
+
+    ServerName dotkernel.local
+    ServerAlias www.dotkernel.local
+
+    DocumentRoot /var/www/dotkernel.local/public
+    <Directory /var/www/dotkernel.local/public>
+      DirectoryIndex index.php
+      AllowOverride All
+      Order allow,deny
+      Allow from all
     </Directory>
 </VirtualHost>
-" > /etc/apache2/sites-available/skeleton-zf.conf
-a2enmod rewrite
-a2dissite 000-default
-a2ensite skeleton-zf
-service apache2 restart
-cd /var/www/zf
-curl -Ss https://getcomposer.org/installer | php
-php composer.phar install --no-progress
-echo "** [ZEND] Visit http://localhost:8085 in your browser for to view the application **"
+" > /etc/apache2/sites-available/dotkernel.local.conf
+
+sudo a2enmod rewrite
+sudo a2dissite 000-default
+sudo a2ensite dotkernel.local
+
+sudo service apache2 restart
+
+#ads vhost to hosts file to point to localhost
+if ! grep -q "dotkernel.local" /etc/hosts; then
+  echo "adding host to /etc/hosts..."
+  sudo echo "127.0.0.1 dotkernel.local" >> /etc/hosts
+fi
+
+echo "installing composer dependencies..."
+cd /var/www/dotkernel.local
+composer install --no-progress
+
+php public/index.php development enable
+
+#setup database
+mysqladmin -uroot -p1234 drop -f dotkernel
+mysqladmin -uroot -p1234 create dotkernel
+mysql -uroot -p1234 dotkernel < /vagrant/data/db/dotkernel.sql
+
+
+#install jenkins
+#install openjdk first
+echo 'installing openjdk-7...'
+sudo apt-get install -y openjdk-7-jre
+sudo apt-get install -y openjdk-7-jdk
+
+echo 'installing jenkins...'
+wget -q -O - https://jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
+sudo sh -c 'echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list'
+sudo apt-get update
+sudo apt-get install -y jenkins
 SCRIPT
 
-Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = 'chef/ubuntu-14.04'
-  config.vm.network "forwarded_port", guest: 80, host: 8085
-  config.vm.hostname = "skeleton-zf.local"
-  config.vm.synced_folder '.', '/var/www/zf'
-  config.vm.provision 'shell', inline: @script
+Vagrant.configure(2) do |config|
 
-  config.vm.provider "virtualbox" do |vb|
-    vb.customize ["modifyvm", :id, "--memory", "1024"]
-  end
+  config.vm.box = "ubuntu/trusty64"
+
+  config.vm.network "private_network", ip: "192.168.33.10"
+
+  config.vm.synced_folder "./", "/var/www/dotkernel.local"
+
+  config.vm.provision "shell", inline: @script
 
 end
