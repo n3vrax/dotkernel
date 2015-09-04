@@ -3,6 +3,8 @@
 
 @script = <<SCRIPT
 DOCUMENT_ROOT="/var/www/dotkernel.local/public"
+DB_USER="root"
+DB_PASS="1234"
 sudo apt-get update
 sudo apt-get install -y git curl
 
@@ -26,8 +28,8 @@ echo "
     ServerName dotkernel.local
     ServerAlias www.dotkernel.local
 
-    DocumentRoot /var/www/dotkernel.local/public
-    <Directory /var/www/dotkernel.local/public>
+    DocumentRoot $DOCUMENT_ROOT
+    <Directory $DOCUMENT_ROOT>
       DirectoryIndex index.php
       AllowOverride All
       Order allow,deny
@@ -55,9 +57,9 @@ composer install --no-progress
 php public/index.php development enable
 
 #setup database
-mysqladmin -uroot -p1234 drop -f dotkernel
-mysqladmin -uroot -p1234 create dotkernel
-mysql -uroot -p1234 dotkernel < /vagrant/data/db/dotkernel.sql
+mysqladmin -u$DB_USER -p$DB_PASS drop -f dotkernel
+mysqladmin -u$DB_USER -p$DB_PASS create dotkernel
+mysql -u$DB_USER -p$DB_PASS dotkernel < /vagrant/data/db/dotkernel.sql
 
 
 #install jenkins
