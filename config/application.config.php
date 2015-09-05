@@ -23,12 +23,12 @@ return array(
         'AcMailer',
         'DotBase',
         'Application',
-        'MailApi',
+        'MailApi','DotUser',
     ),
     'module_listener_options' => array(
         'module_paths' => array(
             './module',
-            './vendor','./module','./module',
+            './vendor','./module','./module','./module',
         ),
         'config_glob_paths' => array(
             'config/autoload/{{,*.}global,{,*.}local}.php',

@@ -2,6 +2,13 @@
 
 namespace DotBase\Oauth\Adapter;
 
+/**
+ * Overwrites the PdoAdapter which comes with zf2/apigility to not use the firstname and lastname columns as these are not found
+ * in the new db schema(see user_details for those). Also oauth_users table is changed to user
+ * 
+ * @author n3vrax
+ *
+ */
 class PdoAdapter extends \ZF\OAuth2\Adapter\PdoAdapter
 {
     /**

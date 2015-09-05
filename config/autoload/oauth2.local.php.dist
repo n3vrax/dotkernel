@@ -1,0 +1,17 @@
+<?php
+return array(
+    'zf-oauth2' => array(
+        'db' => array(
+            'dsn'      => 'mysql:hostname=localhost;dbname=dotkernel', // for example "mysql:dbname=oauth2_db;host=localhost"
+            'username' => 'dbuser',
+            'password' => 'dbpass',
+        ),
+        'allow_implicit' => false, // default (set to true when you need to support browser-based or mobile apps)
+        'access_lifetime' => 3600, // default (set a value in seconds for access tokens lifetime)
+        'enforce_state'  => true,  // default
+        'storage'        => 'DotBase\OAuth\Adapter\PdoAdapter', // service name for the OAuth2 storage adapter
+        'storage_settings' => array(
+            'user_table' => 'user',
+        ),
+    ),
+);

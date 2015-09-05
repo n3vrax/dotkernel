@@ -2,9 +2,9 @@
 
 namespace DotMailTransporter\Mapper;
 
-use DotBase\Mapper\CRUDMapperInterface;
+use DotBase\Mapper\CrudMapperInterface;
 
-interface TransporterMapperInterface extends CRUDMapperInterface
+interface TransporterMapperInterface extends CrudMapperInterface
 {
     
 }

@@ -2,7 +2,7 @@
 
 namespace DotBase\Mapper;
 
-interface CRUDMapperInterface
+interface CrudMapperInterface
 {
     public function create($data);
     
