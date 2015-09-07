@@ -4,9 +4,9 @@ namespace DotUser\Mapper;
 
 use DotBase\Mapper\AbstractRestDbMapper;
 
-class UserDbMapper extends AbstractRestDbMapper
+class UserDetailsDbMapper extends AbstractRestDbMapper
 {
-    protected $tableName = 'user';
+    protected $tableName = 'user_details';
     
     public function getTableName()
     {
