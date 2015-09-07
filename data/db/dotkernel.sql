@@ -1,6 +1,26 @@
 -- Database: `dotkernel`
 --
 
+--
+-- Table structure for table `email_transporter`
+--
+
+CREATE TABLE IF NOT EXISTS `email_transporter` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `hostname` varchar(255) NOT NULL,
+  `port` int(11) NOT NULL,
+  `connectionClass` enum('smtp','plain','login','crammd5') NOT NULL DEFAULT 'smtp',
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `secure` enum('ssl','tls') NOT NULL DEFAULT 'ssl',
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `dateCreated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `name` (`name`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
 -- --------------------------------------------------------
 
 --

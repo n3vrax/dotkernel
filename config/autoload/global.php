@@ -2,14 +2,10 @@
 return array(
     'zf-mvc-auth' => array(
         'authentication' => array(
-            'adapters' => array(
-                'oauth2_pdo' => array(
-                    'adapter' => 'ZF\\MvcAuth\\Authentication\\OAuth2Adapter',
-                    'storage' => array(
-                        'storage' => 'DotBase\OAuth\Adapter\PdoAdapter',
-                        'route' => '/oauth',
-                    ),
-                ),
+            'adapters' => array(),
+            'map' => array(
+                'MailApi\\V1' => 'oauth2',
+                'UserApi\\V1' => 'oauth2',
             ),
         ),
     ),

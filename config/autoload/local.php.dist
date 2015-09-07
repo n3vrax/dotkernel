@@ -11,4 +11,17 @@ return array(
             ),
         ),
     ),
+    'zf-mvc-auth' => array(
+        'authentication' => array(
+            'adapters' => array(
+                'oauth2' => array(
+                    'adapter' => 'ZF\\MvcAuth\\Authentication\\OAuth2Adapter',
+                    'storage' => array(
+                        'route' => '/oauth',
+                        'storage' => 'DotBase\\OAuth\\Adapter\\PdoAdapter',
+                    ),
+                ),
+            ),
+        ),
+    ),
 );

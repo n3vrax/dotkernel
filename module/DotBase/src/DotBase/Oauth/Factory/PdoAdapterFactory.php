@@ -5,7 +5,6 @@ namespace DotBase\Oauth\Factory;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use DotBase\Oauth\Adapter\PdoAdapter;
-use ZF\OAuth2\Controller\Exception;
 
 class PdoAdapterFactory implements FactoryInterface
 {
@@ -18,26 +17,13 @@ class PdoAdapterFactory implements FactoryInterface
     {
         $config = $services->get('Config');
 
-        if (!isset($config['zf-oauth2']['db']) || empty($config['zf-oauth2']['db'])) {
-            throw new Exception\RuntimeException(
-                'The database configuration [\'zf-oauth2\'][\'db\'] for OAuth2 is missing'
-            );
-        }
-
-        $username = isset($config['zf-oauth2']['db']['username']) ? $config['zf-oauth2']['db']['username'] : null;
-        $password = isset($config['zf-oauth2']['db']['password']) ? $config['zf-oauth2']['db']['password'] : null;
-        $options  = isset($config['zf-oauth2']['db']['options']) ? $config['zf-oauth2']['db']['options'] : [];
-
+        $connection = $services->get('database');
+        
         $oauth2ServerConfig = [];
         if (isset($config['zf-oauth2']['storage_settings']) && is_array($config['zf-oauth2']['storage_settings'])) {
             $oauth2ServerConfig = $config['zf-oauth2']['storage_settings'];
         }
 
-        return new PdoAdapter([
-            'dsn'      => $config['zf-oauth2']['db']['dsn'],
-            'username' => $username,
-            'password' => $password,
-            'options'  => $options,
-        ], $oauth2ServerConfig);
+        return new PdoAdapter($connection->getDriver()->getConnection()->getResource(), $oauth2ServerConfig);
     }
 }

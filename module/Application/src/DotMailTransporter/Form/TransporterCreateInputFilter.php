@@ -140,7 +140,7 @@ class TransporterCreateInputFilter extends InputFilter
             'filters' => array(),
             'validators' => array(
                 array(
-                    'name' => 'Application\Validator\IsBoolean',
+                    'name' => 'DotBase\Validator\IsBoolean',
                     'options' => array(
                     ),
                 ),
