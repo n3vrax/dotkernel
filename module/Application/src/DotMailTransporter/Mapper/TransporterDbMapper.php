@@ -2,9 +2,9 @@
 
 namespace DotMailTransporter\Mapper;
 
-use DotBase\Mapper\AbstractCrudDbMapper;
+use DotBase\Mapper\AbstractRestDbMapper;
 
-class TransporterDbMapper extends AbstractCrudDbMapper
+class TransporterDbMapper extends AbstractRestDbMapper
 {
     protected $tableName = 'email_transporter';
     

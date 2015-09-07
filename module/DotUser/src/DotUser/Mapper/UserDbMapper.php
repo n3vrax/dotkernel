@@ -2,9 +2,9 @@
 
 namespace DotUser\Mapper;
 
-use DotBase\Mapper\AbstractCrudDbMapper;
+use DotBase\Mapper\AbstractRestDbMapper;
 
-class UserDbMapper extends AbstractCrudDbMapper
+class UserDbMapper extends AbstractRestDbMapper
 {
     protected $tableName = 'user';
     

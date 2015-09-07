@@ -2,9 +2,9 @@
 
 namespace DotUser\Mapper;
 
-use DotBase\Mapper\CrudMapperInterface;
+use DotBase\Mapper\RestMapperInterface;
 
-interface UserMapperInterface extends CrudMapperInterface
+interface UserMapperInterface extends RestMapperInterface
 {
     
 }
