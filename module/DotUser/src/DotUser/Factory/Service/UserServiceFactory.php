@@ -12,6 +12,11 @@ class UserServiceFactory implements FactoryInterface
     {
         $userService = new UserService();
         
+        $userMapper = $serviceLocator->get('dotuser_user_mapper');
+        $userDetailsMapper = $serviceLocator->get('dotuser_user_details_mapper');
+        
+        $userService->setUserDetailsMapper($userDetailsMapper);
+        $userService->setUserMapper($userMapper);
         
         return $userService;
     }

@@ -19,6 +19,8 @@ class UserHydratingStrategy implements StrategyInterface
     
     public function extract($value)
     {
+        if($value == null) return null;
+        
         if(! $value instanceof $this->entityPrototype)
         {
             throw new \Exception('extract parameter must be of type ' . get_class($this->entityPrototype));

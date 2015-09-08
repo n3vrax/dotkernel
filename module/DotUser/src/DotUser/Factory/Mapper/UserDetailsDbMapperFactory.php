@@ -4,12 +4,12 @@ namespace DotUser\Factory\Mapper;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use DotUser\Mapper\UserDbMapper;
+use DotUser\Mapper\UserDetailsDbMapper;
 
-class UserDbMapperFactory implements FactoryInterface
+class UserDetailsDbMapperFactory implements FactoryInterface
 {
     public function createService(ServiceLocatorInterface $serviceLocator)
-    {
+    {   
         $config = $serviceLocator->get('config');
         
         if(!isset($config['dotuser']['db_adapter']) || empty($config['dotuser']['db_adapter']))
@@ -19,14 +19,11 @@ class UserDbMapperFactory implements FactoryInterface
             
         $dbAdapter = $serviceLocator->get($config['dotuser']['db_adapter']);
         
-        $userEntity = $serviceLocator->get('dotuser_user_entity');
-        $userHydrator = $serviceLocator->get('HydratorManager')->get('dotuser_user_hydrator');
-        
-        $mapper = new UserDbMapper();
+        $mapper = new UserDetailsDbMapper();
         
         $mapper->setDbAdapter($dbAdapter);
-        $mapper->setEntityPrototype($userEntity)
-               ->setHydrator($userHydrator);
+        $mapper->setEntityPrototype($serviceLocator->get('dotuser_user_details_entity'))
+               ->setHydrator($serviceLocator->get('HydratorManager')->get('dotuser_user_details_hydrator'));
         
         return $mapper;
     }

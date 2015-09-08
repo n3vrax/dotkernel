@@ -12,10 +12,4 @@ class UserDetailsDbMapper extends AbstractRestDbMapper
     {
         return $this->tableName;
     }
-    
-    public function setTableName($tableName)
-    {
-        $this->tableName = $tableName;
-        return $this;
-    }
 }

@@ -22,9 +22,9 @@ return array(
         'ZF\\DevelopmentMode',
         'AcMailer',
         'DotBase',
+        'DotUser',
         'Application',
         'MailApi',
-        'DotUser',
         'UserApi',
     ),
     'module_listener_options' => array(

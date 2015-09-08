@@ -2,15 +2,13 @@
 
 namespace DotUser\Service;
 
+use DotBase\Mapper\RestMapperInterface;
+
 class UserService
 {
     protected $userMapper;
     
     protected $userDetailsMapper;
-    
-    protected $userHydrator;
-    
-    protected $userDetailsHydrator;
     
     public function __construct()
     {
@@ -58,7 +56,7 @@ class UserService
         return $this->userMapper;
     }
     
-    public function setUserMapper($mapper)
+    public function setUserMapper(RestMapperInterface $mapper)
     {
         $this->userMapper = $mapper;
         return $this;
@@ -69,31 +67,10 @@ class UserService
         return $this->userDetailsMapper;
     }
     
-    public function setUserDetailsMapper($mapper)
+    public function setUserDetailsMapper(RestMapperInterface $mapper)
     {
         $this->userDetailsMapper = $mapper;
         return $this;
     }
     
-    public function getUserHydrator()
-    {
-        return $this->userHydrator;
-    }
-    
-    public function setUserHydrator($hydrator)
-    {
-        $this->userHydrator = $hydrator;
-        return $this;
-    }
-    
-    public function getUserDetailsHydrator()
-    {
-        return $this->userDetailsHydrator;
-    }
-    
-    public function setUserDetailsHydrator($hydrator)
-    {
-        $this->userDetailsHydrator = $hydrator;
-        return $this;
-    }
 }

@@ -42,6 +42,35 @@ return array(
             ),
         ),
     ),
+    
+    'dotuser' => array(
+        'db_adapter' => 'database',
+    ),
+    
+    'hydrators' => array(
+        'factories' => array(
+            'dotuser_user_hydrator' => 'DotUser\Factory\Entity\UserHydratorFactory',
+            'dotuser_user_details_hydrator' => 'DotUser\Factory\Entity\UserDetailsHydratorFactory',
+        ),
+    ),
+    
+    'service_manager' => array(
+        'invokables' => array(
+            'dotuser_user_entity' => 'DotUser\Entity\UserEntity',
+            'dotuser_user_details_entity' => 'DotUser\Entity\UserDetailsEntity',
+        ),
+        'factories' => array(
+            'dotuser_user_mapper' => 'DotUser\Factory\Mapper\UserDbMapperFactory',
+            'dotuser_user_details_mapper' => 'DotUser\Factory\Mapper\UserDetailsDbMapperFactory',
+            'dotuser_user_service' => 'DotUser\Factory\Service\UserServiceFactory',
+            'dotuser_user_hydrating_strategy' => 'DotUser\Factory\Entity\UserHydratingStrategyFactory',
+        ),
+        'shared' => array(
+            'dotuser_user_entity' => false,
+            'dotuser_user_details_entity' => false,
+        ),
+    ),
+    
     'view_manager' => array(
         'template_path_stack' => array(
             'DotUser' => __DIR__ . '/../view',
