@@ -1,17 +1,17 @@
 <?php
-namespace UserApi\V1\Rest\User;
+namespace UserApi\V1\Rest\UserDetails;
 
 use ZF\ApiProblem\ApiProblem;
 use ZF\Rest\AbstractResourceListener;
-use DotUser\Service\UserServiceInterface;
+use DotBase\Mapper\RestMapperInterface;
 
-class UserResource extends AbstractResourceListener
+class UserDetailsResource extends AbstractResourceListener
 {
-    protected $userService;
+    protected $mapper;
     
-    public function __construct(UserServiceInterface $userService)
+    public function __construct(RestMapperInterface $mapper)
     {
-        $this->userService = $userService;
+        $this->mapper = $mapper;
     }
     
     /**
@@ -56,10 +56,7 @@ class UserResource extends AbstractResourceListener
     public function fetch($id)
     {
         try{
-            if(is_numeric($id))
-                return $this->userService->fetch($id);
-            else 
-                return $this->userService->findUserByUsername($id);
+            return $this->mapper->fetch($id);
         }
         catch(\Exception $ex)
         {
@@ -76,15 +73,7 @@ class UserResource extends AbstractResourceListener
      */
     public function fetchAll($params = array())
     {
-        try{
-            return $this->userService->fetchAllPaginated($params);
-        }
-        catch(\Exception $ex)
-        {
-            error_log($ex);
-            return new ApiProblem(500, 'Api Server error');
-        }
-        
+        return new ApiProblem(405, 'The GET method has not been defined for collections');
     }
 
     /**

@@ -26,7 +26,7 @@ class UserHydratingStrategy implements StrategyInterface
             throw new \Exception('extract parameter must be of type ' . get_class($this->entityPrototype));
         }
         
-        return $this->detailsHydrator->extract($value);
+        return $this->hyrator->extract($value);
     }
     
     public function hydrate($value)
@@ -39,7 +39,7 @@ class UserHydratingStrategy implements StrategyInterface
             $value = null;
         }
         else {
-            $value = $this->detailsHydrator->hydrate($value, $this->entityPrototype);
+            $value = $this->hyrator->hydrate($value, $this->entityPrototype);
         }
         
         return $value;

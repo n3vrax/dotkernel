@@ -12,10 +12,11 @@ class UserServiceFactory implements FactoryInterface
     {
         $userService = new UserService();
         
-        $userMapper = $serviceLocator->get('dotuser_user_mapper');
-        $userDetailsMapper = $serviceLocator->get('dotuser_user_details_mapper');
+        $config = $serviceLocator->get('Config');
+        $userMapper = isset($config['dotuser']['user_mapper']) && !empty($config['dotuser']) ? 
+                        $serviceLocator->get($config['dotuser']['user_mapper']) : 
+                        $serviceLocator->get('DotUser\Mapper\UserDbMapper');
         
-        $userService->setUserDetailsMapper($userDetailsMapper);
         $userService->setUserMapper($userMapper);
         
         return $userService;

@@ -1,10 +1,5 @@
 <?php
 return array(
-    'controllers' => array(
-        'invokables' => array(
-            'DotUser\Controller\User' => 'DotUser\Controller\UserController',
-        ),
-    ),
     'router' => array(
         'routes' => array(
             'dot-user' => array(
@@ -44,30 +39,47 @@ return array(
     ),
     
     'dotuser' => array(
+        //customizable service names for important user classes
+        //overwrite these for custom logic of your own
         'db_adapter' => 'database',
+        
+        'user_hydrator' => 'DotUser\Entity\UserHydrator',
+        'user_details_hydrator' => 'DotUser\Mapper\UserDetailsDbMapper',
+        'user_hydrating_strategy' => array(
+            array(
+                'field' => 'details',
+                'strategy' => 'DotUser\Entity\UserHydratingStrategyFactory',
+            ),
+        ),
+        'user_entity' => 'DotUser\Entity\UserEntity',
+        'user_details_entity' => 'DotUser\Entity\UserDetailsEntity',
+        'user_mapper' => 'DotUser\Mapper\UserDbMapper',
+        'user_details_mapper' => 'DotUser\Mapper\UserDetailsDbMapper',
+        
+        'user_service' => 'DotUser\Service\UserServiceFactory',
     ),
     
     'hydrators' => array(
         'factories' => array(
-            'dotuser_user_hydrator' => 'DotUser\Factory\Entity\UserHydratorFactory',
-            'dotuser_user_details_hydrator' => 'DotUser\Factory\Entity\UserDetailsHydratorFactory',
+            'DotUser\Entity\UserHydrator' => 'DotUser\Factory\Entity\UserHydratorFactory',
+            'DotUser\Entity\UserDetailsHydrator' => 'DotUser\Factory\Entity\UserDetailsHydratorFactory',
         ),
     ),
     
     'service_manager' => array(
         'invokables' => array(
-            'dotuser_user_entity' => 'DotUser\Entity\UserEntity',
-            'dotuser_user_details_entity' => 'DotUser\Entity\UserDetailsEntity',
+            'DotUser\Entity\UserEntity' => 'DotUser\Entity\UserEntity',
+            'DotUser\Entity\UserDetailsEntity' => 'DotUser\Entity\UserDetailsEntity',
         ),
         'factories' => array(
-            'dotuser_user_mapper' => 'DotUser\Factory\Mapper\UserDbMapperFactory',
-            'dotuser_user_details_mapper' => 'DotUser\Factory\Mapper\UserDetailsDbMapperFactory',
-            'dotuser_user_service' => 'DotUser\Factory\Service\UserServiceFactory',
-            'dotuser_user_hydrating_strategy' => 'DotUser\Factory\Entity\UserHydratingStrategyFactory',
+            'DotUser\Mapper\UserDbMapper' => 'DotUser\Factory\Mapper\UserDbMapperFactory',
+            'DotUser\Mapper\UserDetailsDbMapper' => 'DotUser\Factory\Mapper\UserDetailsDbMapperFactory',
+            'DotUser\Service\UserServiceFactory' => 'DotUser\Factory\Service\UserServiceFactory',
+            'DotUser\Entity\UserHydratingStrategyFactory' => 'DotUser\Factory\Entity\UserHydratingStrategyFactory',
         ),
         'shared' => array(
-            'dotuser_user_entity' => false,
-            'dotuser_user_details_entity' => false,
+            'DotUser\Entity\UserEntity' => false,
+            'DotUser\Entity\UserDetailsEntity' => false,
         ),
     ),
     

@@ -12,6 +12,8 @@ interface RestMapperInterface
     
     public function fetch($id);
     
+    public function fetchBy($field, $value);
+    
     public function fetchAll($params);
     
     public function fetchAllPaginated($params);

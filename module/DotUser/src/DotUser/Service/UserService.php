@@ -4,11 +4,9 @@ namespace DotUser\Service;
 
 use DotBase\Mapper\RestMapperInterface;
 
-class UserService
+class UserService implements UserServiceInterface
 {
     protected $userMapper;
-    
-    protected $userDetailsMapper;
     
     public function __construct()
     {
@@ -17,37 +15,42 @@ class UserService
     
     public function createUser($data)
     {
-        
+        return $this->userMapper->create($data);
     }
     
     public function deleteUser($id)
     {
-        
+        return $this->userMapper->delete($id);
     }
     
     public function fetch($id)
     {
-        
+        return $this->userMapper->fetch($id);
     }
     
     public function fetchAll($params)
     {
-        
+        return $this->userMapper->fetchAll($params);
+    }
+    
+    public function fetchAllPaginated($params)
+    {
+        return $this->userMapper->fetchAllPaginated($params);
     }
     
     public function findUserByEmail($email)
     {
-        
+        return $this->userMapper->fetchBy('email', $email);
     }
     
     public function findUserByUsername($username)
     {
-        
+        return $this->userMapper->fetchBy('username', $username);
     }
     
     public function updateUser($id, $data)
     {
-        
+        return $this->userMapper->update($id, $data);
     }
     
     
@@ -59,17 +62,6 @@ class UserService
     public function setUserMapper(RestMapperInterface $mapper)
     {
         $this->userMapper = $mapper;
-        return $this;
-    }
-    
-    public function getUserDetailsMapper()
-    {
-        return $this->userDetailsMapper;
-    }
-    
-    public function setUserDetailsMapper(RestMapperInterface $mapper)
-    {
-        $this->userDetailsMapper = $mapper;
         return $this;
     }
     

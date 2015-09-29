@@ -12,6 +12,18 @@ class AbstractRestDbMapper extends AbstractDbMapper implements RestMapperInterfa
 {
     protected $tmpSelect;
     
+    protected $idField = 'id';
+    
+    public function getIdFieldName()
+    {
+        return $this->idField;
+    }
+    
+    public function setIdFieldName($idFieldName)
+    {
+        $this->idField = $idFieldName;
+    }
+    
     public function create($data)
     {
         $result = parent::insert($data);
@@ -21,7 +33,7 @@ class AbstractRestDbMapper extends AbstractDbMapper implements RestMapperInterfa
     
     public function delete($id)
     {
-        $result = parent::delete(array('id' => $id));
+        $result = parent::delete(array($this->idField => $id));
     
         if(!$result) return false;
     
@@ -30,7 +42,13 @@ class AbstractRestDbMapper extends AbstractDbMapper implements RestMapperInterfa
     
     public function fetch($id)
     {
-        $select = $this->getSelect()->where(array('id' => $id));
+        return $this->fetchBy($this->idField, $id);
+    
+    }
+    
+    public function fetchBy($field, $value)
+    {
+        $select = $this->getSelect()->where(array($field => $value));
     
         $entity = $this->select($select)->current();
         return $entity;

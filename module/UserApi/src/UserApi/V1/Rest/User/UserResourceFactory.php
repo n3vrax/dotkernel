@@ -5,8 +5,14 @@ class UserResourceFactory
 {
     public function __invoke($services)
     {
-        $userMapper = $services->get('dotuser_user_mapper');
+        $config = $services->get('Config');
         
-        return new UserResource($userMapper);
+        if(!isset($config['dotuser']['user_service']) || empty($config['dotuser']['user_service']))
+        {
+            throw new \Exception('no UserService defined for key `user_service`');
+        }
+        $userService = $services->get($config['dotuser']['user_service']);
+        
+        return new UserResource($userService);
     }
 }

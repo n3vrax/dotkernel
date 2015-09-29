@@ -10,8 +10,8 @@ class UserHydratingStrategyFactory implements FactoryInterface
 {
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $hydrator = $serviceLocator->get('HydratorManager')->get('dotuser_user_details_hydrator');
-        $entityPrototype = $serviceLocator->get('dotuser_user_details_entity');
+        $hydrator = $serviceLocator->get('HydratorManager')->get('DotUser\Entity\UserDetailsHydrator');
+        $entityPrototype = $serviceLocator->get('DotUser\Entity\UserDetailsEntity');
         
         return new UserHydratingStrategy($hydrator, $entityPrototype);
     }

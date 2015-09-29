@@ -3,7 +3,8 @@ namespace DotUser\Entity;
 
 class UserDetailsEntity
 {
-
+    protected $userId;
+    
     protected $firstName;
 
     protected $lastName;
@@ -19,6 +20,17 @@ class UserDetailsEntity
     protected $postalCode;
 
     protected $phone;
+    
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+    
+    public function setUserId($id)
+    {
+        $this->userId = $id;
+        return $this;
+    }
 
     /**
      *
