@@ -2,8 +2,12 @@
 namespace DotUser\Entity;
 
 use ZfcUser\Entity\UserInterface;
+use Zend\Stdlib\Hydrator\Filter\FilterProviderInterface;
+use Zend\Stdlib\Hydrator\Filter\GetFilter;
+use Zend\Stdlib\Hydrator\Filter\FilterComposite;
+use Zend\Stdlib\Hydrator\Filter\MethodMatchFilter;
 
-class UserEntity implements UserInterface
+class UserEntity implements UserInterface, FilterProviderInterface
 {
 
     protected $id;
@@ -19,6 +23,17 @@ class UserEntity implements UserInterface
     protected $state;
     
     protected $details;
+    
+    protected $filter;
+    
+    public function __construct()
+    {
+        $this->filter = new FilterComposite();
+        $this->filter->addFilter("get", new GetFilter());
+        $this->filter->addFilter("password", new MethodMatchFilter("getPassword"), FilterComposite::CONDITION_AND);
+        $this->filter->addFilter("displayName", new MethodMatchFilter("getDisplayName"), FilterComposite::CONDITION_AND);
+        
+    }
 
     /**
      *
@@ -150,7 +165,21 @@ class UserEntity implements UserInterface
         $this->details = $details;
         return $this;
     }
-
     
+    public function addHydratorFilter($name, $filter, $condition)
+    {
+        $this->filter->addFilter($name, $filter, $condition);
+    }
+    
+    public function removeHydratorFilter($name)
+    {
+        if($this->filter->hasFilter($name))
+            $this->filter->removeFilter($name);
+    }
+    
+    public function getFilter()
+    {
+       return $this->filter;
+    }
     
 }

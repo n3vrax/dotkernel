@@ -4,6 +4,8 @@ namespace UserApi\V1\Rest\User;
 use ZF\ApiProblem\ApiProblem;
 use ZF\Rest\AbstractResourceListener;
 use DotUser\Service\UserServiceInterface;
+use Zend\Stdlib\Hydrator\Filter\FilterComposite;
+use Zend\Stdlib\Hydrator\Filter\MethodMatchFilter;
 
 class UserResource extends AbstractResourceListener
 {
@@ -57,9 +59,14 @@ class UserResource extends AbstractResourceListener
     {
         try{
             if(is_numeric($id))
-                return $this->userService->fetch($id);
+                $user =  $this->userService->fetch($id);
             else 
-                return $this->userService->findUserByUsername($id);
+                $user = $this->userService->findUserByUsername($id);
+            
+            //remove details filter from user if exists
+            $user->removeHydratorFilter("details");
+            
+            return $user;
         }
         catch(\Exception $ex)
         {
@@ -77,7 +84,13 @@ class UserResource extends AbstractResourceListener
     public function fetchAll($params = array())
     {
         try{
-            return $this->userService->fetchAllPaginated($params);
+            $users = $this->userService->fetchAllPaginated($params);
+            foreach ($users as $user)
+            {
+                $user->addHydratorFilter("details", new MethodMatchFilter("getDetails"), FilterComposite::CONDITION_AND);
+            }
+            
+            return $users;
         }
         catch(\Exception $ex)
         {

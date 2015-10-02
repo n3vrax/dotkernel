@@ -44,7 +44,7 @@ return array(
         'db_adapter' => 'database',
         
         'user_hydrator' => 'DotUser\Entity\UserHydrator',
-        'user_details_hydrator' => 'DotUser\Mapper\UserDetailsDbMapper',
+        'user_details_hydrator' => 'DotUser\Entity\UserDetailsHydrator',
         'user_hydrating_strategy' => array(
             array(
                 'field' => 'details',

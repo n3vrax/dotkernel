@@ -1,7 +1,11 @@
 <?php
 namespace DotUser\Entity;
 
-class UserDetailsEntity
+use Zend\Stdlib\Hydrator\Filter\FilterProviderInterface;
+use Zend\Stdlib\Hydrator\Filter\GetFilter;
+use Zend\Stdlib\Hydrator\Filter\FilterComposite;
+
+class UserDetailsEntity implements FilterProviderInterface
 {
     protected $userId;
     
@@ -20,6 +24,15 @@ class UserDetailsEntity
     protected $postalCode;
 
     protected $phone;
+    
+    protected $filter;
+    
+    public function __construct()
+    {
+        $this->filter = new FilterComposite();
+        $this->filter->addFilter("get", new GetFilter());
+        
+    }
     
     public function getUserId()
     {
@@ -182,5 +195,21 @@ class UserDetailsEntity
     {
         $this->phone = $phone;
         return $this;
+    }
+    
+    public function addHydratorFilter($name, $filter, $condition)
+    {
+        $this->filter->addFilter($name, $filter, $condition);
+    }
+    
+    public function removeHydratorFilter($name)
+    {
+        if($this->filter->hasFilter($name))
+            $this->filter->removeFilter($name);
+    }
+    
+    public function getFilter()
+    {
+        return $this->filter;
     }
 }

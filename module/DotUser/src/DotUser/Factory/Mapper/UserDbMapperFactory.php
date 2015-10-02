@@ -27,7 +27,10 @@ class UserDbMapperFactory implements FactoryInterface
                             $serviceLocator->get('HydratorManager')->get($config['dotuser']['user_hydrator']) : 
                             $serviceLocator->get('HydratorManager')->get('DotUser\Entity\UserHydrator'); 
         
-        $userDetailsMapper = $serviceLocator->get('DotUser\Mapper\UserDetailsDbMapper');
+         $userDetailsMapper = isset($config['dotuser']['user_details_mapper']) && !empty($config['dotuser']['user_details_mapper']) ? 
+                                    $serviceLocator->get($config['dotuser']['user_details_mapper']) : 
+                                    $serviceLocator->get('DotUser\Mapper\UserDetailsDbMapper');
+        
         
         $mapper = new UserDbMapper($userDetailsMapper);
         
