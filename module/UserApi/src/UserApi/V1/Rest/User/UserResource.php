@@ -59,7 +59,7 @@ class UserResource extends AbstractResourceListener
     {
         try{
             if(is_numeric($id))
-                $user =  $this->userService->fetch($id);
+                $user =  $this->userService->fetchEntity($id);
             else 
                 $user = $this->userService->findUserByUsername($id);
             
@@ -84,7 +84,7 @@ class UserResource extends AbstractResourceListener
     public function fetchAll($params = array())
     {
         try{
-            $users = $this->userService->fetchAllPaginated($params);
+            $users = $this->userService->fetchAllEntitiesPaginated($params);
             foreach ($users as $user)
             {
                 $user->addHydratorFilter("details", new MethodMatchFilter("getDetails"), FilterComposite::CONDITION_AND);

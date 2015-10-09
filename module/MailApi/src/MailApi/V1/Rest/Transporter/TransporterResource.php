@@ -27,7 +27,7 @@ class TransporterResource extends AbstractResourceListener
             {
                 $data = $inputFilter->getValues();
             }
-            return $this->mapper->create($data);
+            return $this->mapper->createEntity($data);
         }
         catch(\Exception $ex)
         {
@@ -45,7 +45,7 @@ class TransporterResource extends AbstractResourceListener
     public function delete($id)
     {
         try{
-            return $this->mapper->delete($id);
+            return $this->mapper->deleteEntity($id);
         }
         catch(\Exception $ex)
         {
@@ -74,7 +74,7 @@ class TransporterResource extends AbstractResourceListener
     public function fetch($id)
     {
         try{
-            return $this->mapper->fetch($id);
+            return $this->mapper->fetchEntity($id);
         }
         catch(\Exception $ex)
         {
@@ -92,7 +92,7 @@ class TransporterResource extends AbstractResourceListener
     public function fetchAll($params = array())
     {
         try{
-            return $this->mapper->fetchAllPaginated($params);
+            return $this->mapper->fetchAllEntitiesPaginated($params);
         }
         catch(\Exception $ex)
         {
@@ -110,7 +110,7 @@ class TransporterResource extends AbstractResourceListener
      */
     public function patch($id, $data)
     {
-        return $this->update($id, $data);
+        return $this->updateEntity($id, $data);
     }
 
     /**
@@ -134,7 +134,7 @@ class TransporterResource extends AbstractResourceListener
     public function update($id, $data)
     {
         try{
-            return $this->mapper->update($id, $data);
+            return $this->mapper->updateEntity($id, $data);
         }
         catch(\Exception $ex)
         {

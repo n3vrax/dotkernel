@@ -56,7 +56,7 @@ class UserDetailsResource extends AbstractResourceListener
     public function fetch($id)
     {
         try{
-            return $this->mapper->fetch($id);
+            return $this->mapper->fetchEntity($id);
         }
         catch(\Exception $ex)
         {

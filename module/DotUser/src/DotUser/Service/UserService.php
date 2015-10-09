@@ -15,42 +15,42 @@ class UserService implements UserServiceInterface
     
     public function createUser($data)
     {
-        return $this->userMapper->create($data);
+        return $this->userMapper->createEntity($data);
     }
     
     public function deleteUser($id)
     {
-        return $this->userMapper->delete($id);
+        return $this->userMapper->deleteEntity($id);
     }
     
     public function fetch($id)
     {
-        return $this->userMapper->fetch($id);
+        return $this->userMapper->fetchEntity($id);
     }
     
     public function fetchAll($params)
     {
-        return $this->userMapper->fetchAll($params);
+        return $this->userMapper->fetchAllEntities($params);
     }
     
     public function fetchAllPaginated($params)
     {
-        return $this->userMapper->fetchAllPaginated($params);
+        return $this->userMapper->fetchAllEntitiesPaginated($params);
     }
     
     public function findUserByEmail($email)
     {
-        return $this->userMapper->fetchBy('email', $email);
+        return $this->userMapper->fetchEntityBy('email', $email);
     }
     
     public function findUserByUsername($username)
     {
-        return $this->userMapper->fetchBy('username', $username);
+        return $this->userMapper->fetchEntityBy('username', $username);
     }
     
     public function updateUser($id, $data)
     {
-        return $this->userMapper->update($id, $data);
+        return $this->userMapper->updateEntity($id, $data);
     }
     
     

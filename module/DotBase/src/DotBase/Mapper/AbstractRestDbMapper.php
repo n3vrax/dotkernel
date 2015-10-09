@@ -24,14 +24,14 @@ class AbstractRestDbMapper extends AbstractDbMapper implements RestMapperInterfa
         $this->idField = $idFieldName;
     }
     
-    public function create($data)
+    public function createEntity($data)
     {
         $result = parent::insert($data);
     
         return $this->fetch($result->getGeneratedValue());
     }
     
-    public function delete($id)
+    public function deleteEntity($id)
     {
         $result = parent::delete(array($this->idField => $id));
     
@@ -40,13 +40,13 @@ class AbstractRestDbMapper extends AbstractDbMapper implements RestMapperInterfa
         return true;
     }
     
-    public function fetch($id)
+    public function fetchEntity($id)
     {
         return $this->fetchBy($this->idField, $id);
     
     }
     
-    public function fetchBy($field, $value)
+    public function fetchEntityBy($field, $value)
     {
         $select = $this->getSelect()->where(array($field => $value));
     
@@ -55,7 +55,7 @@ class AbstractRestDbMapper extends AbstractDbMapper implements RestMapperInterfa
     
     }
     
-    public function fetchAll($params)
+    public function fetchAllEntities($params)
     {
         $select = $this->getSelect();
         $this->tmpSelect = $select;
@@ -65,7 +65,7 @@ class AbstractRestDbMapper extends AbstractDbMapper implements RestMapperInterfa
         return $this->select($select);
     }
     
-    public function fetchAllPaginated($params)
+    public function fetchAllEntitiesPaginated($params)
     {
         $resultSet = $this->fetchAll($params);
         $select = $this->tmpSelect;
@@ -79,7 +79,7 @@ class AbstractRestDbMapper extends AbstractDbMapper implements RestMapperInterfa
         return $collection;
     }
     
-    public function update($id, $data)
+    public function updateEntity($id, $data)
     {
         if(is_object($data))
             $data = (array) $data;

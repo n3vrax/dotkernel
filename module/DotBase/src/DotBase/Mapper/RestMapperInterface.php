@@ -4,17 +4,17 @@ namespace DotBase\Mapper;
 
 interface RestMapperInterface
 {
-    public function create($data);
+    public function createEntity($data);
     
-    public function delete($id);
+    public function deleteEntity($id);
     
-    public function update($id, $data);
+    public function updateEntity($id, $data);
     
-    public function fetch($id);
+    public function fetchEntity($id);
     
-    public function fetchBy($field, $value);
+    public function fetchEntityBy($field, $value);
     
-    public function fetchAll($params);
+    public function fetchAllEntities($params);
     
-    public function fetchAllPaginated($params);
+    public function fetchAllEntitiesPaginated($params);
 }
