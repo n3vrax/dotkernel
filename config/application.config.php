@@ -25,7 +25,7 @@ return array(
         'DotUser',
         'Application',
         'MailApi',
-        'UserApi',
+
     ),
     'module_listener_options' => array(
         'module_paths' => array(

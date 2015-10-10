@@ -7,11 +7,11 @@ interface UserServiceInterface
     
     public function deleteUser($id);
 
-    public function fetch($id);
+    public function fetchUser($id);
 
-    public function fetchAll($params);
+    public function fetchAllUsers($params);
 
-    public function fetchAllPaginated($params);
+    public function fetchAllUsersPaginated($params);
 
     public function findUserByEmail($email);
 

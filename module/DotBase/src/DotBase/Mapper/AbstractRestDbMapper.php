@@ -28,7 +28,7 @@ class AbstractRestDbMapper extends AbstractDbMapper implements RestMapperInterfa
     {
         $result = parent::insert($data);
     
-        return $this->fetch($result->getGeneratedValue());
+        return $this->fetchEntity($result->getGeneratedValue());
     }
     
     public function deleteEntity($id)
@@ -42,7 +42,7 @@ class AbstractRestDbMapper extends AbstractDbMapper implements RestMapperInterfa
     
     public function fetchEntity($id)
     {
-        return $this->fetchBy($this->idField, $id);
+        return $this->fetchEntityBy($this->idField, $id);
     
     }
     
@@ -67,7 +67,7 @@ class AbstractRestDbMapper extends AbstractDbMapper implements RestMapperInterfa
     
     public function fetchAllEntitiesPaginated($params)
     {
-        $resultSet = $this->fetchAll($params);
+        $resultSet = $this->fetchAllEntities($params);
         $select = $this->tmpSelect;
     
         $countSelect = clone $select;

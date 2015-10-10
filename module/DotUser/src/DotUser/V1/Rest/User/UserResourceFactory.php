@@ -1,5 +1,5 @@
 <?php
-namespace UserApi\V1\Rest\User;
+namespace DotUser\V1\Rest\User;
 
 class UserResourceFactory
 {

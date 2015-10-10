@@ -1,5 +1,5 @@
 <?php
-namespace UserApi;
+namespace DotUser;
 
 use ZF\Apigility\Provider\ApigilityProviderInterface;
 

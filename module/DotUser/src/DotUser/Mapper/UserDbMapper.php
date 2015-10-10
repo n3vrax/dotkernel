@@ -27,10 +27,10 @@ class UserDbMapper extends AbstractRestDbMapper
     
     public function fetchEntityBy($field, $value)
     {
-        $user = parent::fetchBy($field, $value);
+        $user = parent::fetchEntityBy($field, $value);
         if($user)
         {
-            $userDetails = $this->userDetailsMapper->fetch($user->getId());
+            $userDetails = $this->userDetailsMapper->fetchEntity($user->getId());
             if($userDetails)
                 $user->setDetails($userDetails);
         }

@@ -23,17 +23,17 @@ class UserService implements UserServiceInterface
         return $this->userMapper->deleteEntity($id);
     }
     
-    public function fetch($id)
+    public function fetchUser($id)
     {
         return $this->userMapper->fetchEntity($id);
     }
     
-    public function fetchAll($params)
+    public function fetchAllUsers($params)
     {
         return $this->userMapper->fetchAllEntities($params);
     }
     
-    public function fetchAllPaginated($params)
+    public function fetchAllUsersPaginated($params)
     {
         return $this->userMapper->fetchAllEntitiesPaginated($params);
     }

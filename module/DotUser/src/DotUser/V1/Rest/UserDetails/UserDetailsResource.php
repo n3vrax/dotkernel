@@ -1,19 +1,17 @@
 <?php
-namespace UserApi\V1\Rest\User;
+namespace DotUser\V1\Rest\UserDetails;
 
 use ZF\ApiProblem\ApiProblem;
 use ZF\Rest\AbstractResourceListener;
-use DotUser\Service\UserServiceInterface;
-use Zend\Stdlib\Hydrator\Filter\FilterComposite;
-use Zend\Stdlib\Hydrator\Filter\MethodMatchFilter;
+use DotBase\Mapper\RestMapperInterface;
 
-class UserResource extends AbstractResourceListener
+class UserDetailsResource extends AbstractResourceListener
 {
-    protected $userService;
+    protected $mapper;
     
-    public function __construct(UserServiceInterface $userService)
+    public function __construct(RestMapperInterface $mapper)
     {
-        $this->userService = $userService;
+        $this->mapper = $mapper;
     }
     
     /**
@@ -58,15 +56,7 @@ class UserResource extends AbstractResourceListener
     public function fetch($id)
     {
         try{
-            if(is_numeric($id))
-                $user =  $this->userService->fetchEntity($id);
-            else 
-                $user = $this->userService->findUserByUsername($id);
-            
-            //remove details filter from user if exists
-            $user->removeHydratorFilter("details");
-            
-            return $user;
+            return $this->mapper->fetchEntity($id);
         }
         catch(\Exception $ex)
         {
@@ -83,21 +73,7 @@ class UserResource extends AbstractResourceListener
      */
     public function fetchAll($params = array())
     {
-        try{
-            $users = $this->userService->fetchAllEntitiesPaginated($params);
-            foreach ($users as $user)
-            {
-                $user->addHydratorFilter("details", new MethodMatchFilter("getDetails"), FilterComposite::CONDITION_AND);
-            }
-            
-            return $users;
-        }
-        catch(\Exception $ex)
-        {
-            error_log($ex);
-            return new ApiProblem(500, 'Api Server error');
-        }
-        
+        return new ApiProblem(405, 'The GET method has not been defined for collections');
     }
 
     /**
