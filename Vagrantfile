@@ -7,7 +7,7 @@ DOCUMENT_ROOT="/var/www/dotkernel.local/public"
 DB_USER="root"
 DB_PASS="1234"
 sudo apt-get update
-sudo apt-get install -y git curl httpie
+sudo apt-get install -y git curl httpie autoconf libcurl4-openssl-dev python-docutils
 
 #install LAMP stack
 echo "installing LAMP stack..."
@@ -73,7 +73,26 @@ sudo cp $SHARED_DOCUMENT/provisioning/varnish /etc/default/varnish
 
 sudo cp $SHARED_DOCUMENT/provisioning/default.vcl /etc/varnish/default.vcl
 
+cd ~
+echo 'installing vagent2...'
+sudo apt-get install -y libvarnishapi-dev libmicrohttpd-dev pkg-config
+git clone https://github.com/varnish/vagent2.git
+cd vagent2/
+./autogen.sh
+./configure
+make
+sudo make install
+
+sudo ln -s /usr/local/bin/varnish-agent /usr/bin/varnish-agent
+
+echo 'admin:1234' | sudo tee /etc/varnish/agent_secret > /dev/null
+sudo cp debian/init /etc/init.d/varnish-agent
+sudo chmod +x /etc/init.d/varnish-agent
+
+sudo update-rc.d varnish-agent defaults
+
 sudo service varnish restart
+sudo service varnish-agent start
 
 SCRIPT
 

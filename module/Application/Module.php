@@ -19,8 +19,6 @@ class Module
         $eventManager        = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
-        
-        $manager = $e->getApplication()->getServiceManager()->get('Zend\Session\ManagerInterface');
     }
 
     public function getConfig()

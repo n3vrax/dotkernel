@@ -98,8 +98,6 @@ return array(
         
         'factories' => array(
     	   'Navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
-           'Zend\Session\ManagerInterface' => 'Zend\Session\Service\SessionManagerFactory',
-           'Zend\Session\Config\ConfigInterface' => 'Zend\Session\Service\SessionConfigFactory',
             
            'DotMailTransporter\Mapper\TransporterMapperInterface' => 'DotMailTransporter\Factory\TransporterDbMapperFactory',
         ),
@@ -111,17 +109,6 @@ return array(
             'translator' => 'MvcTranslator',
         ),
     ),
-    'session_manager' => array(
-        'validators' => [
-            'Zend\Session\Validator\HttpUserAgent',
-            'Zend\Session\Validator\RemoteAddr',
-        ],
-    ),
-    'session_config' => [
-        // Set the session and cookie expiries to 15 minutes
-        'cache_expire' => 900,
-        'cookie_lifetime' => 900,
-    ],
     'translator' => array(
         'locale' => 'en_US',
         'translation_file_patterns' => array(
