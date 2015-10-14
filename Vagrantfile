@@ -7,7 +7,7 @@ DOCUMENT_ROOT="/var/www/dotkernel.local/public"
 DB_USER="root"
 DB_PASS="1234"
 sudo apt-get update
-sudo apt-get install -y git curl
+sudo apt-get install -y git curl httpie
 
 #install LAMP stack
 echo "installing LAMP stack..."
