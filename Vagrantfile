@@ -91,6 +91,7 @@ sudo chmod +x /etc/init.d/varnish-agent
 
 sudo update-rc.d varnish-agent defaults
 
+cd ~
 rm -Rf vagent2/
 
 sudo service varnish restart
