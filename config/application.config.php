@@ -33,7 +33,7 @@ return array(
             './vendor',
             './module',
             './module',
-            './module',
+            './module','./module',
         ),
         'config_glob_paths' => array(
             'config/autoload/{{,*.}global,{,*.}local}.php',

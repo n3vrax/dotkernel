@@ -6,6 +6,7 @@ return array(
             'map' => array(
                 'MailApi\\V1' => 'oauth2',
                 'UserApi\\V1' => 'oauth2',
+                'DotUser\\V1' => 'oauth2',
             ),
         ),
     ),

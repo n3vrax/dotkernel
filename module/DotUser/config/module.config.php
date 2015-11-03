@@ -1,54 +1,47 @@
 <?php
 return array(
-    
     'dotuser' => array(
-        //customizable service names for important user classes
-        //overwrite these for custom logic of your own
         'db_adapter' => 'database',
-    
-        'user_hydrator' => 'DotUser\Entity\UserHydrator',
-        'user_details_hydrator' => 'DotUser\Entity\UserDetailsHydrator',
+        'user_hydrator' => 'DotUser\\Entity\\UserHydrator',
+        'user_details_hydrator' => 'DotUser\\Entity\\UserDetailsHydrator',
         'user_hydrating_strategy' => array(
-            array(
+            0 => array(
                 'field' => 'details',
-                'strategy' => 'DotUser\Entity\UserHydratingStrategyFactory',
+                'strategy' => 'DotUser\\Entity\\UserHydratingStrategyFactory',
             ),
         ),
-        'user_entity' => 'DotUser\Entity\UserEntity',
-        'user_details_entity' => 'DotUser\Entity\UserDetailsEntity',
-        'user_mapper' => 'DotUser\Mapper\UserDbMapper',
-        'user_details_mapper' => 'DotUser\Mapper\UserDetailsDbMapper',
-    
-        'user_service' => 'DotUser\Service\UserServiceFactory',
+        'user_entity' => 'DotUser\\Entity\\UserEntity',
+        'user_details_entity' => 'DotUser\\Entity\\UserDetailsEntity',
+        'user_mapper' => 'DotUser\\Mapper\\UserDbMapper',
+        'user_details_mapper' => 'DotUser\\Mapper\\UserDetailsDbMapper',
+        'user_service' => 'DotUser\\Service\\UserServiceFactory',
     ),
-    
     'hydrators' => array(
         'factories' => array(
-            'DotUser\Entity\UserHydrator' => 'DotUser\Factory\Entity\UserHydratorFactory',
-            'DotUser\Entity\UserDetailsHydrator' => 'DotUser\Factory\Entity\UserDetailsHydratorFactory',
+            'DotUser\\Entity\\UserHydrator' => 'DotUser\\Factory\\Entity\\UserHydratorFactory',
+            'DotUser\\Entity\\UserDetailsHydrator' => 'DotUser\\Factory\\Entity\\UserDetailsHydratorFactory',
         ),
     ),
-    
     'service_manager' => array(
         'invokables' => array(
-            'DotUser\Entity\UserEntity' => 'DotUser\Entity\UserEntity',
-            'DotUser\Entity\UserDetailsEntity' => 'DotUser\Entity\UserDetailsEntity',
+            'DotUser\\Entity\\UserEntity' => 'DotUser\\Entity\\UserEntity',
+            'DotUser\\Entity\\UserDetailsEntity' => 'DotUser\\Entity\\UserDetailsEntity',
         ),
         'factories' => array(
             'DotUser\\V1\\Rest\\User\\UserResource' => 'DotUser\\V1\\Rest\\User\\UserResourceFactory',
             'DotUser\\V1\\Rest\\UserDetails\\UserDetailsResource' => 'DotUser\\V1\\Rest\\UserDetails\\UserDetailsResourceFactory',
+            'DotUser\\Mapper\\UserDbMapper' => 'DotUser\\Factory\\Mapper\\UserDbMapperFactory',
+            'DotUser\\Mapper\\UserDetailsDbMapper' => 'DotUser\\Factory\\Mapper\\UserDetailsDbMapperFactory',
+            'DotUser\\Service\\UserServiceFactory' => 'DotUser\\Factory\\Service\\UserServiceFactory',
+            'DotUser\\Entity\\UserHydratingStrategyFactory' => 'DotUser\\Factory\\Entity\\UserHydratingStrategyFactory',
             
-            'DotUser\Mapper\UserDbMapper' => 'DotUser\Factory\Mapper\UserDbMapperFactory',
-            'DotUser\Mapper\UserDetailsDbMapper' => 'DotUser\Factory\Mapper\UserDetailsDbMapperFactory',
-            'DotUser\Service\UserServiceFactory' => 'DotUser\Factory\Service\UserServiceFactory',
-            'DotUser\Entity\UserHydratingStrategyFactory' => 'DotUser\Factory\Entity\UserHydratingStrategyFactory',
+            'DotUser\Listener\AuthenticationListener' => 'DotUser\Factory\Authentication\AuthenticationListenerFactory',
         ),
         'shared' => array(
-            'DotUser\Entity\UserEntity' => false,
-            'DotUser\Entity\UserDetailsEntity' => false,
+            'DotUser\\Entity\\UserEntity' => false,
+            'DotUser\\Entity\\UserDetailsEntity' => false,
         ),
     ),
-    
     'router' => array(
         'routes' => array(
             'user-api.rest.user' => array(
@@ -166,6 +159,42 @@ return array(
                 'route_name' => 'user-api.rest.user',
                 'route_identifier_name' => 'user_id',
                 'is_collection' => true,
+            ),
+        ),
+    ),
+    'zf-mvc-auth' => array(
+        'authorization' => array(
+            'DotUser\\V1\\Rest\\User\\Controller' => array(
+                'collection' => array(
+                    'GET' => true,
+                    'POST' => true,
+                    'PUT' => false,
+                    'PATCH' => false,
+                    'DELETE' => false,
+                ),
+                'entity' => array(
+                    'GET' => true,
+                    'POST' => false,
+                    'PUT' => true,
+                    'PATCH' => true,
+                    'DELETE' => true,
+                ),
+            ),
+            'DotUser\\V1\\Rest\\UserDetails\\Controller' => array(
+                'collection' => array(
+                    'GET' => false,
+                    'POST' => false,
+                    'PUT' => false,
+                    'PATCH' => false,
+                    'DELETE' => false,
+                ),
+                'entity' => array(
+                    'GET' => true,
+                    'POST' => false,
+                    'PUT' => true,
+                    'PATCH' => true,
+                    'DELETE' => false,
+                ),
             ),
         ),
     ),

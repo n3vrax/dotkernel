@@ -18,4 +18,6 @@ interface UserServiceInterface
     public function findUserByUsername($username);
 
     public function updateUser($id, $data);
+    
+    public function getUserMapper();
 }
