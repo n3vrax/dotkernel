@@ -1,13 +1,12 @@
 <?php
 namespace DotUser\Entity;
 
-use ZfcUser\Entity\UserInterface;
 use Zend\Stdlib\Hydrator\Filter\FilterProviderInterface;
 use Zend\Stdlib\Hydrator\Filter\GetFilter;
 use Zend\Stdlib\Hydrator\Filter\FilterComposite;
 use Zend\Stdlib\Hydrator\Filter\MethodMatchFilter;
 
-class UserEntity implements UserInterface, FilterProviderInterface
+class UserEntity implements FilterProviderInterface
 {
 
     protected $id;
@@ -19,6 +18,8 @@ class UserEntity implements UserInterface, FilterProviderInterface
     protected $displayName;
 
     protected $password;
+    
+    protected $roleId;
 
     protected $state;
     
@@ -51,6 +52,17 @@ class UserEntity implements UserInterface, FilterProviderInterface
     public function setId($id)
     {
         $this->id = $id;
+        return $this;
+    }
+    
+    public function getRoleId()
+    {
+        return $this->roleId;
+    }
+    
+    public function setRoleId($roleId)
+    {
+        $this->roleId = $roleId;
         return $this;
     }
 

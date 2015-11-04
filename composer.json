@@ -14,7 +14,8 @@
         "zendframework/zendservice-recaptcha" : "2.0.*",
         "zfcampus/zf-apigility": "~1.0",
         "zfcampus/zf-apigility-documentation": "~1.0",
-        "zf-commons/zfc-user": "1.2.*",
+        "zf-commons/zfc-rbac": "~2.4",
+        "zf-commons/zfc-base": "0.*",
         "acelaya/zf2-acmailer": "~5.0"
         
     },

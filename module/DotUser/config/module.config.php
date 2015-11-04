@@ -34,8 +34,8 @@ return array(
             'DotUser\\Mapper\\UserDetailsDbMapper' => 'DotUser\\Factory\\Mapper\\UserDetailsDbMapperFactory',
             'DotUser\\Service\\UserServiceFactory' => 'DotUser\\Factory\\Service\\UserServiceFactory',
             'DotUser\\Entity\\UserHydratingStrategyFactory' => 'DotUser\\Factory\\Entity\\UserHydratingStrategyFactory',
-            
-            'DotUser\Listener\AuthenticationListener' => 'DotUser\Factory\Authentication\AuthenticationListenerFactory',
+            'DotUser\\Listener\\AuthenticationListener' => 'DotUser\\Factory\\Authentication\\AuthenticationListenerFactory',
+            'DotUser\\V1\\Rest\\Role\\RoleResource' => 'DotUser\\V1\\Rest\\Role\\RoleResourceFactory',
         ),
         'shared' => array(
             'DotUser\\Entity\\UserEntity' => false,
@@ -62,12 +62,22 @@ return array(
                     ),
                 ),
             ),
+            'dot-user.rest.role' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/api/user/role[/:role_id]',
+                    'defaults' => array(
+                        'controller' => 'DotUser\\V1\\Rest\\Role\\Controller',
+                    ),
+                ),
+            ),
         ),
     ),
     'zf-versioning' => array(
         'uri' => array(
             0 => 'user-api.rest.user',
             1 => 'user-api.rest.user-details',
+            2 => 'dot-user.rest.role',
         ),
     ),
     'zf-rest' => array(
@@ -111,11 +121,34 @@ return array(
             'collection_class' => 'Zend\\Paginator\\Paginator',
             'service_name' => 'userDetails',
         ),
+        'DotUser\\V1\\Rest\\Role\\Controller' => array(
+            'listener' => 'DotUser\\V1\\Rest\\Role\\RoleResource',
+            'route_name' => 'dot-user.rest.role',
+            'route_identifier_name' => 'role_id',
+            'collection_name' => 'role',
+            'entity_http_methods' => array(
+                0 => 'GET',
+                1 => 'PATCH',
+                2 => 'PUT',
+                3 => 'DELETE',
+            ),
+            'collection_http_methods' => array(
+                0 => 'GET',
+                1 => 'POST',
+            ),
+            'collection_query_whitelist' => array(),
+            'page_size' => 25,
+            'page_size_param' => null,
+            'entity_class' => 'DotUser\\V1\\Rest\\Role\\RoleEntity',
+            'collection_class' => 'DotUser\\V1\\Rest\\Role\\RoleCollection',
+            'service_name' => 'role',
+        ),
     ),
     'zf-content-negotiation' => array(
         'controllers' => array(
             'DotUser\\V1\\Rest\\User\\Controller' => 'HalJson',
             'DotUser\\V1\\Rest\\UserDetails\\Controller' => 'HalJson',
+            'DotUser\\V1\\Rest\\Role\\Controller' => 'HalJson',
         ),
         'accept_whitelist' => array(
             'DotUser\\V1\\Rest\\User\\Controller' => array(
@@ -128,6 +161,11 @@ return array(
                 1 => 'application/hal+json',
                 2 => 'application/json',
             ),
+            'DotUser\\V1\\Rest\\Role\\Controller' => array(
+                0 => 'application/vnd.dot-user.v1+json',
+                1 => 'application/hal+json',
+                2 => 'application/json',
+            ),
         ),
         'content_type_whitelist' => array(
             'DotUser\\V1\\Rest\\User\\Controller' => array(
@@ -136,6 +174,10 @@ return array(
             ),
             'DotUser\\V1\\Rest\\UserDetails\\Controller' => array(
                 0 => 'application/vnd.user-api.v1+json',
+                1 => 'application/json',
+            ),
+            'DotUser\\V1\\Rest\\Role\\Controller' => array(
+                0 => 'application/vnd.dot-user.v1+json',
                 1 => 'application/json',
             ),
         ),
@@ -158,6 +200,18 @@ return array(
                 'entity_identifier_name' => 'id',
                 'route_name' => 'user-api.rest.user',
                 'route_identifier_name' => 'user_id',
+                'is_collection' => true,
+            ),
+            'DotUser\\V1\\Rest\\Role\\RoleEntity' => array(
+                'entity_identifier_name' => 'id',
+                'route_name' => 'dot-user.rest.role',
+                'route_identifier_name' => 'role_id',
+                'hydrator' => 'Zend\\Stdlib\\Hydrator\\ClassMethods',
+            ),
+            'DotUser\\V1\\Rest\\Role\\RoleCollection' => array(
+                'entity_identifier_name' => 'id',
+                'route_name' => 'dot-user.rest.role',
+                'route_identifier_name' => 'role_id',
                 'is_collection' => true,
             ),
         ),
