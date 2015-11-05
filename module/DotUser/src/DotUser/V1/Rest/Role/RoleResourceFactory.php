@@ -5,6 +5,8 @@ class RoleResourceFactory
 {
     public function __invoke($services)
     {
-        return new RoleResource();
+        $mapper = $services->get('DotUser\\Mapper\\UserRoleDbMapper');
+        
+        return new RoleResource($mapper);
     }
 }

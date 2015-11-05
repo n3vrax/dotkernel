@@ -3,9 +3,17 @@ namespace DotUser\V1\Rest\Role;
 
 use ZF\ApiProblem\ApiProblem;
 use ZF\Rest\AbstractResourceListener;
+use DotBase\Mapper\RestMapperInterface;
 
 class RoleResource extends AbstractResourceListener
 {
+    protected $mapper;
+    
+    public function __construct(RestMapperInterface $mapper)
+    {
+        $this->mapper = $mapper;
+    }
+    
     /**
      * Create a resource
      *
@@ -47,7 +55,14 @@ class RoleResource extends AbstractResourceListener
      */
     public function fetch($id)
     {
-        return new ApiProblem(405, 'The GET method has not been defined for individual resources');
+        try{
+            return $this->mapper->fetchEntity($id);
+        }
+        catch(\Exception $ex)
+        {
+            error_log($ex);
+            return new ApiProblem(500, 'Api Server error');
+        }
     }
 
     /**
@@ -58,7 +73,15 @@ class RoleResource extends AbstractResourceListener
      */
     public function fetchAll($params = array())
     {
-        return new ApiProblem(405, 'The GET method has not been defined for collections');
+        try{
+            $roles = $this->mapper->fetchAllEntitiesPaginated($params);   
+            return $roles;
+        }
+        catch(\Exception $ex)
+        {
+            error_log($ex);
+            return new ApiProblem(500, 'Api Server error');
+        }
     }
 
     /**

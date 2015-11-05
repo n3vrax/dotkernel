@@ -5,9 +5,11 @@ namespace DotUser\Provider;
 use ZfcRbac\Role\RoleProviderInterface;
 use DotBase\Mapper\RestMapperInterface;
 
-class RoleProvider implements RoleProviderInterface
+class DbRoleProvider implements RoleProviderInterface
 {
     protected $roleMapper;
+    
+    protected $roleCache = array();
     
     public function __construct(RestMapperInterface $roleMapper)
     {
@@ -27,7 +29,7 @@ class RoleProvider implements RoleProviderInterface
     
     public function getRoles(array $roleNames)
     {
-        // TODO Auto-generated method stub
+        //TODO: get role hierarchy
         
     }
 

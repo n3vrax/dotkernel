@@ -39,7 +39,7 @@ class AuthenticationListener extends DefaultAuthenticationListener
             }
         }
         
-        var_dump($identity);exit;
+        //var_dump($identity);exit;
         return $identity;
     }
 }

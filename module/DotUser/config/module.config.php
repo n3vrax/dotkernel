@@ -7,7 +7,7 @@ return array(
         'user_hydrating_strategy' => array(
             0 => array(
                 'field' => 'details',
-                'strategy' => 'DotUser\\Entity\\UserHydratingStrategyFactory',
+                'strategy' => 'DotUser\\Entity\\UserHydratingStrategy',
             ),
         ),
         'user_entity' => 'DotUser\\Entity\\UserEntity',
@@ -15,31 +15,36 @@ return array(
         'user_mapper' => 'DotUser\\Mapper\\UserDbMapper',
         'user_details_mapper' => 'DotUser\\Mapper\\UserDetailsDbMapper',
         'user_service' => 'DotUser\\Service\\UserServiceFactory',
+        
     ),
     'hydrators' => array(
         'factories' => array(
             'DotUser\\Entity\\UserHydrator' => 'DotUser\\Factory\\Entity\\UserHydratorFactory',
             'DotUser\\Entity\\UserDetailsHydrator' => 'DotUser\\Factory\\Entity\\UserDetailsHydratorFactory',
+            'DotUser\\Entity\\UserRoleHydrator' => 'DotUser\\Factory\\Entity\\UserRoleHydratorFactory',
         ),
     ),
     'service_manager' => array(
         'invokables' => array(
             'DotUser\\Entity\\UserEntity' => 'DotUser\\Entity\\UserEntity',
             'DotUser\\Entity\\UserDetailsEntity' => 'DotUser\\Entity\\UserDetailsEntity',
+            'DotUser\\Entity\\UserRoleEntity' => 'DotUser\\Entity\\UserRoleEntity',
         ),
         'factories' => array(
             'DotUser\\V1\\Rest\\User\\UserResource' => 'DotUser\\V1\\Rest\\User\\UserResourceFactory',
             'DotUser\\V1\\Rest\\UserDetails\\UserDetailsResource' => 'DotUser\\V1\\Rest\\UserDetails\\UserDetailsResourceFactory',
             'DotUser\\Mapper\\UserDbMapper' => 'DotUser\\Factory\\Mapper\\UserDbMapperFactory',
             'DotUser\\Mapper\\UserDetailsDbMapper' => 'DotUser\\Factory\\Mapper\\UserDetailsDbMapperFactory',
+            'DotUser\\Mapper\\UserRoleDbMapper' => 'DotUser\\Factory\\Mapper\\UserRoleDbMapperFactory',
             'DotUser\\Service\\UserServiceFactory' => 'DotUser\\Factory\\Service\\UserServiceFactory',
-            'DotUser\\Entity\\UserHydratingStrategyFactory' => 'DotUser\\Factory\\Entity\\UserHydratingStrategyFactory',
+            'DotUser\\Entity\\UserHydratingStrategy' => 'DotUser\\Factory\\Entity\\UserHydratingStrategyFactory',
             'DotUser\\Listener\\AuthenticationListener' => 'DotUser\\Factory\\Authentication\\AuthenticationListenerFactory',
             'DotUser\\V1\\Rest\\Role\\RoleResource' => 'DotUser\\V1\\Rest\\Role\\RoleResourceFactory',
         ),
         'shared' => array(
             'DotUser\\Entity\\UserEntity' => false,
             'DotUser\\Entity\\UserDetailsEntity' => false,
+            'DotUser\\Entity\\UserRoleEntity' => false,
         ),
     ),
     'router' => array(
@@ -139,8 +144,8 @@ return array(
             'collection_query_whitelist' => array(),
             'page_size' => 25,
             'page_size_param' => null,
-            'entity_class' => 'DotUser\\V1\\Rest\\Role\\RoleEntity',
-            'collection_class' => 'DotUser\\V1\\Rest\\Role\\RoleCollection',
+            'entity_class' => 'DotUser\\Entity\\UserRoleEntity',
+            'collection_class' => 'Zend\\Paginator\\Paginator',
             'service_name' => 'role',
         ),
     ),
@@ -196,23 +201,11 @@ return array(
                 'route_identifier_name' => 'user_id',
                 'hydrator' => 'DotUser\\Entity\\UserDetailsHydrator',
             ),
-            'Zend\\Paginator\\Paginator' => array(
-                'entity_identifier_name' => 'id',
-                'route_name' => 'user-api.rest.user',
-                'route_identifier_name' => 'user_id',
-                'is_collection' => true,
-            ),
-            'DotUser\\V1\\Rest\\Role\\RoleEntity' => array(
-                'entity_identifier_name' => 'id',
+            'DotUser\\Entity\\UserRoleEntity' => array(
+                'entity_identifier_name' => 'roleId',
                 'route_name' => 'dot-user.rest.role',
                 'route_identifier_name' => 'role_id',
-                'hydrator' => 'Zend\\Stdlib\\Hydrator\\ClassMethods',
-            ),
-            'DotUser\\V1\\Rest\\Role\\RoleCollection' => array(
-                'entity_identifier_name' => 'id',
-                'route_name' => 'dot-user.rest.role',
-                'route_identifier_name' => 'role_id',
-                'is_collection' => true,
+                'hydrator' => 'DotUser\\Entity\\UserRoleHydrator',
             ),
         ),
     ),
