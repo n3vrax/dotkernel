@@ -42,7 +42,7 @@ return array(
             'DotUser\\V1\\Rest\\Role\\RoleResource' => 'DotUser\\V1\\Rest\\Role\\RoleResourceFactory',
             
             'DotUser\Rbac\IdentityProvider' => 'DotUser\Rbac\IdentityProviderFactory',
-            'ZfcRbac\Role\RoleProviderInterface' => 'DotUser\Rbac\DbRoleProviderFactory',
+            'dot_role_provider' => 'DotUser\Rbac\DbRoleProviderFactory',
             'DotUser\Rbac\Authorization' => 'DotUser\Rbac\AuthorizationFactory',
         ),
         'shared' => array(
@@ -51,7 +51,7 @@ return array(
             'DotUser\\Entity\\UserRoleEntity' => false,
         ),
         'aliases' => array(
-            'ZF\MvcAuth\Authorization\AuthorizationInterface' => 'DotUser\Rbac\Authorization',
+            
         ),
     ),
     'router' => array(

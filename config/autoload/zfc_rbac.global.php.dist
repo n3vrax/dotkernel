@@ -77,11 +77,7 @@ return [
          *
          * Supported options depend of the role provider, so please refer to the official documentation
          */
-        'role_provider' => [
-            'ZfcRbac\Role\RoleProviderInterface' => [
-                
-            ],
-        ],
+        'role_provider' => [],
 
         /**
          * Configure the unauthorized strategy. It is used to render a template whenever a user is unauthorized
@@ -131,10 +127,7 @@ return [
          * plugin manager config format, and can be used to create your custom objects
          */
         // 'guard_manager'               => [],
-        'role_provider_manager'       => [
-            'factories' => [
-                'ZfcRbac\Role\RoleProviderInterface' => 'DotUser\Rbac\DbRoleProviderFactory',
-            ],
-        ]
-    ]
+        //'role_provider_manager'       => [],
+    ],
 ];
+    
