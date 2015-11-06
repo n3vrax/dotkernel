@@ -21,6 +21,7 @@ return array(
         'ZF\\Versioning',
         'ZF\\DevelopmentMode',
         'AcMailer',
+        'ZfcRbac',
         'DotBase',
         'DotUser',
         'Application',

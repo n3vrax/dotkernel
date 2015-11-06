@@ -1,8 +1,6 @@
 <?php
 
-namespace DotUser\Factory\Provider;
-
-use DotUser\Provider\DbRoleProvider;
+namespace DotUser\Rbac;
 
 class DbRoleProviderFactory
 {

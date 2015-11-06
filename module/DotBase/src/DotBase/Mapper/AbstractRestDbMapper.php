@@ -7,6 +7,7 @@ use Zend\Paginator\Adapter\DbSelect;
 use Zend\Paginator\Paginator;
 use Zend\Db\Sql\Expression;
 use Zend\Stdlib\Hydrator\HydratorInterface;
+use Zend\Db\ResultSet\HydratingResultSet;
 
 class AbstractRestDbMapper extends AbstractDbMapper implements RestMapperInterface
 {
@@ -55,25 +56,23 @@ class AbstractRestDbMapper extends AbstractDbMapper implements RestMapperInterfa
     
     }
     
-    public function fetchAllEntities($params)
+    public function fetchAllEntities($params = array())
     {
         $select = $this->getSelect();
         $this->tmpSelect = $select;
     
-        //todo filter by params
-    
         return $this->select($select);
     }
     
-    public function fetchAllEntitiesPaginated($params)
+    public function fetchAllEntitiesPaginated($params = array())
     {
-        $resultSet = $this->fetchAllEntities($params);
-        $select = $this->tmpSelect;
+        $resultSetProto = new HydratingResultSet($this->getHydrator(), $this->getEntityPrototype());
+        $select = $this->getSelect();
     
         $countSelect = clone $select;
         $countSelect->columns(array(DbSelect::ROW_COUNT_COLUMN_NAME => new Expression('COUNT(*)')));
     
-        $paginatorAdapter = new DbSelect($select, $this->dbAdapter, $resultSet, $countSelect);
+        $paginatorAdapter = new DbSelect($select, $this->dbAdapter, $resultSetProto, $countSelect);
     
         $collection = new Paginator($paginatorAdapter);
         return $collection;

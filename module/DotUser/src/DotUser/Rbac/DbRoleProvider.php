@@ -1,9 +1,10 @@
 <?php
 
-namespace DotUser\Provider;
+namespace DotUser\Rbac;
 
 use ZfcRbac\Role\RoleProviderInterface;
 use DotBase\Mapper\RestMapperInterface;
+use Rbac\Role\Role;
 
 class DbRoleProvider implements RoleProviderInterface
 {
@@ -30,7 +31,23 @@ class DbRoleProvider implements RoleProviderInterface
     public function getRoles(array $roleNames)
     {
         //TODO: get role hierarchy
+        $roles = $this->roleMapper->fetchAllEntities();
+        $out = array();
         
+        foreach($roleNames as $roleName)
+        {
+            foreach ($roles as $role)
+            {
+                if($role->getRoleId() === $roleName){
+                    $out[] = new Role($roleName);
+                    
+                    //TODO: get role permissions
+                    
+                }
+            }
+        }
+        
+        return $out;
     }
 
     

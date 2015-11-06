@@ -40,11 +40,18 @@ return array(
             'DotUser\\Entity\\UserHydratingStrategy' => 'DotUser\\Factory\\Entity\\UserHydratingStrategyFactory',
             'DotUser\\Listener\\AuthenticationListener' => 'DotUser\\Factory\\Authentication\\AuthenticationListenerFactory',
             'DotUser\\V1\\Rest\\Role\\RoleResource' => 'DotUser\\V1\\Rest\\Role\\RoleResourceFactory',
+            
+            'DotUser\Rbac\IdentityProvider' => 'DotUser\Rbac\IdentityProviderFactory',
+            'ZfcRbac\Role\RoleProviderInterface' => 'DotUser\Rbac\DbRoleProviderFactory',
+            'DotUser\Rbac\Authorization' => 'DotUser\Rbac\AuthorizationFactory',
         ),
         'shared' => array(
             'DotUser\\Entity\\UserEntity' => false,
             'DotUser\\Entity\\UserDetailsEntity' => false,
             'DotUser\\Entity\\UserRoleEntity' => false,
+        ),
+        'aliases' => array(
+            'ZF\MvcAuth\Authorization\AuthorizationInterface' => 'DotUser\Rbac\Authorization',
         ),
     ),
     'router' => array(
