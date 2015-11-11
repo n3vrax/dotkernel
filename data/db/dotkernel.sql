@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 06, 2015 at 09:54 PM
+-- Generation Time: Nov 11, 2015 at 11:43 PM
 -- Server version: 5.5.23
 -- PHP Version: 5.6.5
 
@@ -68,15 +68,9 @@ CREATE TABLE IF NOT EXISTS `oauth_access_tokens` (
 --
 
 INSERT INTO `oauth_access_tokens` (`access_token`, `client_id`, `user_id`, `expires`, `scope`) VALUES
-('04c678587ff3369b5e2bcb923fff7d848b93954a', 'admin', 'admin', '2015-11-05 19:23:14', NULL),
-('12fa8fdb3b6a690172a38f5fad80c738da852a5f', 'admin', 'admin', '2015-11-03 22:06:23', NULL),
-('1b7060c9d245cd5a037971ce55949750c390e3e8', 'admin', 'admin', '2015-09-07 19:05:21', NULL),
-('474eb15cecb3ba48fc1fc4d02e5dfdba4e3b5d31', 'admin', 'admin', '2015-09-07 18:43:18', NULL),
-('4a1c289d3714c85ef542a7dbbfd7a2a99210dbe6', 'admin', 'admin', '2015-11-04 21:12:20', NULL),
-('548f0195ac2cfa980dad90ff84f9d1be137e0ed9', 'admin', 'admin', '2015-09-07 19:32:36', NULL),
-('858a4322426ee753b5f1421e6bf99ab76a26bd35', 'admin', 'admin', '2015-09-07 19:11:28', NULL),
-('de530c9a699c9582444d35d8422c8d82ce93c8a0', 'admin', 'admin', '2015-09-07 19:12:24', NULL),
-('ea025d919074840c5708ef5f34e44d3bf7683480', 'admin', 'admin', '2015-11-03 23:21:20', NULL);
+('1e9f4cb3e9c86e888d36061a8d8e94a37995f19e', 'CrowdedApp', 'testuser', '2015-11-11 21:56:48', NULL),
+('a2a6936be441b7280aa6bcc9592a59d5409f84d9', 'CrowdedApp', 'testuser', '2015-11-11 22:01:23', 'get_user'),
+('a7343802190884ef98067637ec10a6c017bffc66', 'CrowdedApp', 'testuser', '2015-11-11 18:43:30', NULL);
 
 -- --------------------------------------------------------
 
@@ -116,7 +110,8 @@ CREATE TABLE IF NOT EXISTS `oauth_clients` (
 --
 
 INSERT INTO `oauth_clients` (`client_id`, `client_secret`, `redirect_uri`, `grant_types`, `scope`, `user_id`) VALUES
-('admin', '$2a$10$44nfKuBG6HqfQ3I7LoCiQeNO80KI/OhQdBrz3FwcSqqtNikSvdVyG', '/admin', NULL, NULL, 'admin');
+('admin', '$2a$10$44nfKuBG6HqfQ3I7LoCiQeNO80KI/OhQdBrz3FwcSqqtNikSvdVyG', '/admin', NULL, NULL, 'admin'),
+('CrowdedApp', '', '/crowded/auth', NULL, 'get_user edit_own_user', NULL);
 
 -- --------------------------------------------------------
 
@@ -151,15 +146,9 @@ CREATE TABLE IF NOT EXISTS `oauth_refresh_tokens` (
 --
 
 INSERT INTO `oauth_refresh_tokens` (`refresh_token`, `client_id`, `user_id`, `expires`, `scope`) VALUES
-('2cff1998408c8c82303b3427f3976229190b78e0', 'admin', 'admin', '2015-09-21 18:12:24', NULL),
-('45795e29752729fe618468c30f57df756602ed16', 'admin', 'admin', '2015-11-17 22:21:20', NULL),
-('65db494d8e22215af172f51fa35aaff49f2f110d', 'admin', 'admin', '2015-09-21 18:11:28', NULL),
-('7b25a2077795bd19e2f08ecc178b20ad201dfcf5', 'admin', 'admin', '2015-09-21 18:05:21', NULL),
-('a1ff75309ec1b855baeb25a851276f9b0f4245dd', 'admin', 'admin', '2015-09-21 18:32:36', NULL),
-('b2b99a055f6c574705366b7c1c8f490537f2ac0b', 'admin', 'admin', '2015-11-18 20:12:20', NULL),
-('d287136653c603fecc7df13dc971bc2c9fb3a41f', 'admin', 'admin', '2015-11-17 21:06:23', NULL),
-('d9446e1487a90f5fcbb00db0d78f0d3885127a18', 'admin', 'admin', '2015-09-21 17:43:18', NULL),
-('e8ce3c484ec62bee877b3a91297f130b18440137', 'admin', 'admin', '2015-11-19 18:23:14', NULL);
+('933ee7c70659845376538510cdf37e2c886dab8a', 'CrowdedApp', 'testuser', '2015-11-25 20:56:48', NULL),
+('bc1c6d62eb558d80e047c3eb148edf8fc5b00b5f', 'CrowdedApp', 'testuser', '2015-11-25 17:43:30', NULL),
+('fb8e8048bb79d6c4cdba59ac69d4cc85f253bd3c', 'CrowdedApp', 'testuser', '2015-11-25 21:01:23', 'get_user');
 
 -- --------------------------------------------------------
 
@@ -171,20 +160,21 @@ CREATE TABLE IF NOT EXISTS `oauth_scopes` (
   `type` varchar(255) NOT NULL DEFAULT 'supported',
   `scope` varchar(2000) DEFAULT NULL,
   `client_id` varchar(80) DEFAULT NULL,
-  `is_default` smallint(6) DEFAULT NULL
+  `is_default` smallint(6) DEFAULT NULL,
+  KEY `scope` (`scope`(255))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `scopes`
+-- Dumping data for table `oauth_scopes`
 --
 
-CREATE TABLE IF NOT EXISTS `scopes` (
-  `name` varchar(255) NOT NULL,
-  `description` text NOT NULL,
-  PRIMARY KEY (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO `oauth_scopes` (`type`, `scope`, `client_id`, `is_default`) VALUES
+('supported', 'get_user', NULL, NULL),
+('supported', 'get_users', NULL, NULL),
+('supported', 'edit_user', NULL, NULL),
+('supported', 'edit_own_user', NULL, NULL),
+('supported', 'create_user', NULL, NULL),
+('supported', 'delete_user', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -213,7 +203,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 INSERT INTO `user` (`id`, `username`, `password`, `email`, `displayName`, `roleId`, `state`, `dateCreated`) VALUES
 (1, 'admin', '$2a$10$44nfKuBG6HqfQ3I7LoCiQeNO80KI/OhQdBrz3FwcSqqtNikSvdVyG', 'admin@gmail.com', NULL, 'admin', 'active', '2015-09-07 16:38:48'),
-(2, 'testuser', '$2a$10$44nfKuBG6HqfQ3I7LoCiQeNO80KI/OhQdBrz3FwcSqqtNikSvdVyG', 'testuser@gmail.com', NULL, 'member', 'active', '2015-09-07 16:38:48');
+(2, 'testuser', '$2a$10$44nfKuBG6HqfQ3I7LoCiQeNO80KI/OhQdBrz3FwcSqqtNikSvdVyG', 'testuser@gmail.com', NULL, 'user', 'active', '2015-09-07 16:38:48');
 
 -- --------------------------------------------------------
 
@@ -252,6 +242,7 @@ INSERT INTO `user_details` (`userId`, `firstName`, `lastName`, `address`, `city`
 CREATE TABLE IF NOT EXISTS `user_role` (
   `roleId` varchar(255) NOT NULL,
   `isDefault` tinyint(4) NOT NULL DEFAULT '0',
+  `scopes` text,
   PRIMARY KEY (`roleId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -259,10 +250,11 @@ CREATE TABLE IF NOT EXISTS `user_role` (
 -- Dumping data for table `user_role`
 --
 
-INSERT INTO `user_role` (`roleId`, `isDefault`) VALUES
-('admin', 0),
-('guest', 1),
-('member', 0);
+INSERT INTO `user_role` (`roleId`, `isDefault`, `scopes`) VALUES
+('admin', 0, 'get_user get_users edit_user create_user delete_user'),
+('guest', 1, ''),
+('staff', 0, 'get_user get_users edit_user create_user'),
+('user', 0, 'get_user edit_own_user');
 
 -- --------------------------------------------------------
 
