@@ -29,26 +29,33 @@ return array(
             'DotUser\\Entity\\UserEntity' => 'DotUser\\Entity\\UserEntity',
             'DotUser\\Entity\\UserDetailsEntity' => 'DotUser\\Entity\\UserDetailsEntity',
             'DotUser\\Entity\\UserRoleEntity' => 'DotUser\\Entity\\UserRoleEntity',
+            'DotUser\\Entity\\OauthClientEntity' => 'DotUser\\Entity\\OauthClientEntity',
         ),
         'factories' => array(
             'DotUser\\V1\\Rest\\User\\UserResource' => 'DotUser\\V1\\Rest\\User\\UserResourceFactory',
             'DotUser\\V1\\Rest\\UserDetails\\UserDetailsResource' => 'DotUser\\V1\\Rest\\UserDetails\\UserDetailsResourceFactory',
+            'DotUser\\V1\\Rest\\Role\\RoleResource' => 'DotUser\\V1\\Rest\\Role\\RoleResourceFactory',
+            
+            'DotUser\\Service\\UserServiceFactory' => 'DotUser\\Factory\\Service\\UserServiceFactory',
+            'DotUser\\Entity\\UserHydratingStrategy' => 'DotUser\\Factory\\Entity\\UserHydratingStrategyFactory',
+            
+            'DotUser\Mapper\OauthClientDbMapper' => 'DotUser\Factory\Mapper\OauthClientDbMapperFactory',
             'DotUser\\Mapper\\UserDbMapper' => 'DotUser\\Factory\\Mapper\\UserDbMapperFactory',
             'DotUser\\Mapper\\UserDetailsDbMapper' => 'DotUser\\Factory\\Mapper\\UserDetailsDbMapperFactory',
             'DotUser\\Mapper\\UserRoleDbMapper' => 'DotUser\\Factory\\Mapper\\UserRoleDbMapperFactory',
-            'DotUser\\Service\\UserServiceFactory' => 'DotUser\\Factory\\Service\\UserServiceFactory',
-            'DotUser\\Entity\\UserHydratingStrategy' => 'DotUser\\Factory\\Entity\\UserHydratingStrategyFactory',
-            'DotUser\\Listener\\AuthenticationListener' => 'DotUser\\Factory\\Authentication\\AuthenticationListenerFactory',
-            'DotUser\\V1\\Rest\\Role\\RoleResource' => 'DotUser\\V1\\Rest\\Role\\RoleResourceFactory',
             
+            'DotUser\Listener\AuthenticationListener' => 'DotUser\\Factory\Authentication\AuthenticationListenerFactory',
+            'DotUser\Listener\AuthorizationListener' => 'DotUser\Factory\Authorization\AuthorizationListenerFactory',
             'DotUser\Rbac\IdentityProvider' => 'DotUser\Rbac\IdentityProviderFactory',
-            'dot_role_provider' => 'DotUser\Rbac\DbRoleProviderFactory',
-            'DotUser\Rbac\Authorization' => 'DotUser\Rbac\AuthorizationFactory',
+            //'ZfcRbac\Role\RoleProviderInterface' => 'DotUser\Rbac\DbRoleProviderFactory',
+            //'DotUser\Rbac\Authorization' => 'DotUser\Rbac\AuthorizationFactory',
+            
         ),
         'shared' => array(
             'DotUser\\Entity\\UserEntity' => false,
             'DotUser\\Entity\\UserDetailsEntity' => false,
             'DotUser\\Entity\\UserRoleEntity' => false,
+            'DotUser\\Entity\\OauthClientEntity' => false,
         ),
         'aliases' => array(
             

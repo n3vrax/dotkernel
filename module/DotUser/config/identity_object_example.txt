@@ -1,0 +1,53 @@
+object(ZF\MvcAuth\Identity\AuthenticatedIdentity)#633 (6) {
+  ["identity":protected]=>
+  array(7) {
+    ["access_token"]=>
+    string(40) "a2a6936be441b7280aa6bcc9592a59d5409f84d9"
+    ["client_id"]=>
+    string(10) "CrowdedApp"
+    ["user_id"]=>
+    string(8) "testuser"
+    ["expires"]=>
+    int(1447279283)
+    ["scope"]=>
+    string(8) "get_user"
+    ["user_data"]=>
+    array(5) {
+      ["id"]=>
+      string(1) "2"
+      ["roleId"]=>
+      string(4) "user"
+      ["username"]=>
+      string(8) "testuser"
+      ["email"]=>
+      string(18) "testuser@gmail.com"
+      ["state"]=>
+      string(6) "active"
+    }
+    ["client_data"]=>
+    array(5) {
+      ["client_id"]=>
+      string(10) "CrowdedApp"
+      ["redirect_uri"]=>
+      string(13) "/crowded/auth"
+      ["grant_types"]=>
+      NULL
+      ["scope"]=>
+      string(22) "get_user edit_own_user"
+      ["user_id"]=>
+      NULL
+    }
+  }
+  ["parent":protected]=>
+  NULL
+  ["name":protected]=>
+  string(4) "user"
+  ["permissions":protected]=>
+  array(0) {
+  }
+  ["index":protected]=>
+  int(0)
+  ["children":protected]=>
+  array(0) {
+  }
+}

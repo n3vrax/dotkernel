@@ -22,7 +22,9 @@ class AuthenticationListenerFactory extends DefaultAuthenticationListenerFactory
             $services->get('HydratorManager')->get($config['dotuser']['user_hydrator']) :
             $services->get('HydratorManager')->get('DotUser\Entity\UserHydrator');
         
-        $listener = new AuthenticationListener($userService, $userHydrator);
+        $oauthClientMapper = $services->get('DotUser\Mapper\OauthClientDbMapper');
+        
+        $listener = new AuthenticationListener($userService, $userHydrator, $oauthClientMapper);
         
         $httpAdapter = $this->retrieveHttpAdapter($services);
         if ($httpAdapter) {
