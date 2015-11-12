@@ -25,6 +25,8 @@ class Authorization implements AuthorizationInterface
     
     public function isAuthorized(IdentityInterface $identity, $resource, $privilege)
     {
-        
+        $isGranted = $this->authorizationService->isGranted('get_user');
+        //TODO: check permissions
+        return true;
     }
 }

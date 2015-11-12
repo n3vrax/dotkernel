@@ -40,15 +40,14 @@ return array(
             'DotUser\\Entity\\UserHydratingStrategy' => 'DotUser\\Factory\\Entity\\UserHydratingStrategyFactory',
             
             'DotUser\Mapper\OauthClientDbMapper' => 'DotUser\Factory\Mapper\OauthClientDbMapperFactory',
-            'DotUser\\Mapper\\UserDbMapper' => 'DotUser\\Factory\\Mapper\\UserDbMapperFactory',
-            'DotUser\\Mapper\\UserDetailsDbMapper' => 'DotUser\\Factory\\Mapper\\UserDetailsDbMapperFactory',
-            'DotUser\\Mapper\\UserRoleDbMapper' => 'DotUser\\Factory\\Mapper\\UserRoleDbMapperFactory',
+            'DotUser\Mapper\UserDbMapper' => 'DotUser\Factory\Mapper\UserDbMapperFactory',
+            'DotUser\Mapper\UserDetailsDbMapper' => 'DotUser\Factory\Mapper\UserDetailsDbMapperFactory',
+            'DotUser\Mapper\UserRoleDbMapper' => 'DotUser\Factory\Mapper\UserRoleDbMapperFactory',
             
-            'DotUser\Listener\AuthenticationListener' => 'DotUser\\Factory\Authentication\AuthenticationListenerFactory',
-            'DotUser\Listener\AuthorizationListener' => 'DotUser\Factory\Authorization\AuthorizationListenerFactory',
+            'DotUser\Listener\AuthenticationListener' => 'DotUser\Factory\Authentication\AuthenticationListenerFactory',
             'DotUser\Rbac\IdentityProvider' => 'DotUser\Rbac\IdentityProviderFactory',
-            //'ZfcRbac\Role\RoleProviderInterface' => 'DotUser\Rbac\DbRoleProviderFactory',
-            //'DotUser\Rbac\Authorization' => 'DotUser\Rbac\AuthorizationFactory',
+            'DotUser\Rbac\DbRoleProvider' => 'DotUser\Rbac\DbRoleProviderFactory',
+            'DotUser\Rbac\Authorization' => 'DotUser\Rbac\AuthorizationFactory',
             
         ),
         'shared' => array(
@@ -58,7 +57,7 @@ return array(
             'DotUser\\Entity\\OauthClientEntity' => false,
         ),
         'aliases' => array(
-            
+            'ZF\MvcAuth\Authorization\AuthorizationInterface' => 'DotUser\Rbac\Authorization',
         ),
     ),
     'router' => array(

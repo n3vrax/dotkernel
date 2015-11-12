@@ -17,41 +17,27 @@
  */
 
 /**
- * Copy-paste this file to your config/autoload folder (don't forget to remove the .dist extension!)
+ * Copy-paste this file to your config/autoload folder (don't forget to remove the .
+ * dist extension!)
  */
-
 return [
     'zfc_rbac' => [
-         'identity_provider' => 'DotUser\Rbac\IdentityProvider',
-         'guest_role' => 'guest',
-         'guards' => [],
-         'protection_policy' => \ZfcRbac\Guard\GuardInterface::POLICY_ALLOW,
+        'identity_provider' => 'DotUser\Rbac\IdentityProvider',
+        'guest_role' => 'guest',
+        'guards' => [],
+        'rest_guards' => [
+            
+        ],
+        'protection_policy' => \ZfcRbac\Guard\GuardInterface::POLICY_ALLOW,
         
-         'role_provider' => [
-            'ZfcRbac\Role\InMemoryRoleProvider' => [
-                'admin' => [
-                    'permissions' => [
-                        'delete_user',
-                        'edit_user',
-                        'create_user',
-                        'get_user',
-                    ],
-                ],
-                'user' => [
-                    'permissions' => [
-                        'get_user',
-                        'edit_own_user',
-                        'create_user',
-                    ],
-                ],
-                'guest' => [
-                    'permissions' => [
-                        'get_user',
-                    ],
-                ],
+        'role_provider' => [
+            'DotUser\Rbac\DbRoleProvider' => [],
+        ],
+        'role_provider_manager' => [
+            'factories' => [
+                'DotUser\Rbac\DbRoleProvider' => 'DotUser\Rbac\DbRoleProviderFactory'
             ],
         ],
-        //'role_provider_manager'       => [],
     ],
 ];
     

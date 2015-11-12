@@ -61,7 +61,6 @@ class AuthenticationListener extends DefaultAuthenticationListener
             $identity->setName($authIdentity['user_data']['roleId']);
         }
         
-        var_dump($identity);exit;
         return $identity;
     }
 }

@@ -2,13 +2,20 @@
 
 namespace DotUser\Rbac;
 
+use Zend\ServiceManager\ServiceLocatorInterface;
+
 class DbRoleProviderFactory
 {
-    public function __invoke($services)
+    public function __invoke(ServiceLocatorInterface $services)
     {
+        $services = $services->getServiceLocator();
+        
         $roleMapper = $services->get('DotUser\Mapper\UserRoleDbMapper');
         
-        $roleProvider = new DbRoleProvider($roleMapper);
+        $authenticationService = $services->get('authentication');
+        
+        $roleProvider = new DbRoleProvider($roleMapper, $authenticationService);
+        
         
         return $roleProvider;
     }

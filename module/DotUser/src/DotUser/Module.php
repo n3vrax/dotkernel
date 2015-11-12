@@ -35,7 +35,6 @@ class Module implements ApigilityProviderInterface
         $services = $e->getApplication()->getServiceManager();
     
         $eventManager->attach(MvcAuthEvent::EVENT_AUTHENTICATION, $services->get('DotUser\Listener\AuthenticationListener'), 100);
-        //$eventManager->attach(MvcAuthEvent::EVENT_AUTHORIZATION, $services->get('DotUser\Listener\AuthorizationListener'), 100);
         
     }
 }

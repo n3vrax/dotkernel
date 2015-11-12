@@ -20,7 +20,7 @@ return array(
         'ZF\\Rpc',
         'ZF\\Versioning',
         'ZF\\DevelopmentMode',
-        //'ZfcRbac',
+        'ZfcRbac',
         'DotBase',
         'DotUser',
         'Application',

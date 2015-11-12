@@ -9,6 +9,7 @@ class UserRoleEntity
     
     protected $isDefault;
     
+    protected $scopes;
 
     public function setRoleId($roleId)
     {
@@ -29,7 +30,20 @@ class UserRoleEntity
     
     public function getIsDefault()
     {
-        return $this->isDefault;
+
+        
     }
+    public function getScopes()
+    {
+        return $this->scopes;
+    }
+
+    public function setScopes($scopes)
+    {
+        $this->scopes = $scopes;
+        return $this;
+    }
+
+    
     
 }

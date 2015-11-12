@@ -3,6 +3,7 @@
 namespace DotUser\Rbac;
 
 use Zend\ServiceManager\ServiceLocatorInterface;
+
 class AuthorizationFactory
 {
     public function __invoke(ServiceLocatorInterface $services)
