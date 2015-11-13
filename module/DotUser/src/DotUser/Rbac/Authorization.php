@@ -25,8 +25,23 @@ class Authorization implements AuthorizationInterface
     
     public function isAuthorized(IdentityInterface $identity, $resource, $privilege)
     {
-        $isGranted = $this->authorizationService->isGranted('get_user');
-        //TODO: check permissions
+        $restGuard = $this->config['rest_guards'];
+        list($controller, $group) = explode('::', $resource);
+        if(isset($restGuard[$controller][$group][$privilege])) 
+        {
+            $result = $restGuard[$controller][$group][$privilege];
+            if(is_array($result))
+            {
+                $and = true;
+                foreach ($result as $r)
+                {
+                    $and = $and && $this->authorizationService->isGranted($r);
+                }
+                $result = $and;
+            }
+            return $result;
+        }
+        
         return true;
     }
 }

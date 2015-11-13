@@ -23,6 +23,7 @@ return array(
         'ZfcRbac',
         'DotBase',
         'DotUser',
+        'AcMailer',
         'Application',
         'MailApi',
 

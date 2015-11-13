@@ -69,6 +69,7 @@ class DbRoleProvider implements RoleProviderInterface
             $permissions = $roleEntity->getScopes();
             if(!empty($permissions))
                 $permissions = explode(' ', $permissions);
+            else $permissions = [];
             
             
             $client_permissions = $permissions;

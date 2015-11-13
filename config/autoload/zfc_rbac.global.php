@@ -26,7 +26,31 @@ return [
         'guest_role' => 'guest',
         'guards' => [],
         'rest_guards' => [
-            
+            'DotUser\V1\Rest\User\\Controller' => [
+                'entity' => [
+                    'GET' => ['get_user'],
+                    'POST' => false,
+                    'PATCH' => ['edit_user'],
+                    'PUT' => ['edit_user'],
+                    'DELETE' => ['delete_user'],
+                ],
+                'collection' => [
+                    'GET' => ['get_users'],
+                    'POST' => ['create_user'],
+                    'PATCH' => false,
+                    'PUT' => false,
+                    'DELETE' => false,
+                ],
+            ],
+            'MailApi\\V1\\Rpc\\Send\\Controller' => [
+                'send' => [
+                    'GET' => false,
+                    'POST' => ['send_email'],
+                    'PATCH' => false,
+                    'PUT' => false,
+                    'DELETE' => false,
+                ],
+            ],
         ],
         'protection_policy' => \ZfcRbac\Guard\GuardInterface::POLICY_ALLOW,
         
