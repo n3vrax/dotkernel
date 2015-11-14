@@ -20,9 +20,10 @@ return array(
         'ZF\\Rpc',
         'ZF\\Versioning',
         'ZF\\DevelopmentMode',
-        'AcMailer',
+        'ZfcRbac',
         'DotBase',
-        //'DotUser',
+        'DotUser',
+        'AcMailer',
         'Application',
         'MailApi',
         'UserApi',
@@ -31,9 +32,6 @@ return array(
         'module_paths' => array(
             './module',
             './vendor',
-            './module',
-            './module',
-            './module',
         ),
         'config_glob_paths' => array(
             'config/autoload/{{,*.}global,{,*.}local}.php',

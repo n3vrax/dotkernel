@@ -1,5 +1,5 @@
 <?php
-namespace DotUser\V1\Rest\Role;
+namespace UserApi\V1\Rest\Role;
 
 class RoleResourceFactory
 {

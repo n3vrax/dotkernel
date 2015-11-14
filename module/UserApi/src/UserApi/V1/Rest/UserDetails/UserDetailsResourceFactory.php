@@ -1,5 +1,6 @@
 <?php
-namespace DotUser\V1\Rest\UserDetails;
+
+namespace UserApi\V1\Rest\UserDetails;
 
 class UserDetailsResourceFactory
 {

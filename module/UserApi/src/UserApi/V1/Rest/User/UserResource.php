@@ -1,17 +1,19 @@
 <?php
-namespace DotUser\V1\Rest\Role;
+namespace UserApi\V1\Rest\User;
 
 use ZF\ApiProblem\ApiProblem;
 use ZF\Rest\AbstractResourceListener;
-use DotBase\Mapper\RestMapperInterface;
+use DotUser\Service\UserServiceInterface;
+use Zend\Stdlib\Hydrator\Filter\FilterComposite;
+use Zend\Stdlib\Hydrator\Filter\MethodMatchFilter;
 
-class RoleResource extends AbstractResourceListener
+class UserResource extends AbstractResourceListener
 {
-    protected $mapper;
+    protected $userService;
     
-    public function __construct(RestMapperInterface $mapper)
+    public function __construct(UserServiceInterface $userService)
     {
-        $this->mapper = $mapper;
+        $this->userService = $userService;
     }
     
     /**
@@ -56,7 +58,17 @@ class RoleResource extends AbstractResourceListener
     public function fetch($id)
     {
         try{
-            return $this->mapper->fetchEntity($id);
+            if(is_numeric($id))
+                $user =  $this->userService->fetchUser($id);
+            else 
+                $user = $this->userService->findUserByUsername($id);
+            
+            if($user) {
+                //remove details filter from user if exists
+                $user->removeHydratorFilter("details");
+            }
+            
+            return $user;
         }
         catch(\Exception $ex)
         {
@@ -74,14 +86,20 @@ class RoleResource extends AbstractResourceListener
     public function fetchAll($params = array())
     {
         try{
-            $roles = $this->mapper->fetchAllEntitiesPaginated($params);   
-            return $roles;
+            $users = $this->userService->fetchAllUsersPaginated($params);
+            foreach ($users as $user)
+            {
+                $user->addHydratorFilter("details", new MethodMatchFilter("getDetails"), FilterComposite::CONDITION_AND);
+            }
+            
+            return $users;
         }
         catch(\Exception $ex)
         {
             error_log($ex);
             return new ApiProblem(500, 'Api Server error');
         }
+        
     }
 
     /**

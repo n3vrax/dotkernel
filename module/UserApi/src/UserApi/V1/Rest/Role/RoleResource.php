@@ -1,11 +1,11 @@
 <?php
-namespace DotUser\V1\Rest\UserDetails;
+namespace UserApi\V1\Rest\Role;
 
 use ZF\ApiProblem\ApiProblem;
 use ZF\Rest\AbstractResourceListener;
 use DotBase\Mapper\RestMapperInterface;
 
-class UserDetailsResource extends AbstractResourceListener
+class RoleResource extends AbstractResourceListener
 {
     protected $mapper;
     
@@ -73,7 +73,15 @@ class UserDetailsResource extends AbstractResourceListener
      */
     public function fetchAll($params = array())
     {
-        return new ApiProblem(405, 'The GET method has not been defined for collections');
+        try{
+            $roles = $this->mapper->fetchAllEntitiesPaginated($params);   
+            return $roles;
+        }
+        catch(\Exception $ex)
+        {
+            error_log($ex);
+            return new ApiProblem(500, 'Api Server error');
+        }
     }
 
     /**

@@ -26,7 +26,7 @@ return [
         'guest_role' => 'guest',
         'guards' => [],
         'rest_guards' => [
-            'DotUser\V1\Rest\User\\Controller' => [
+            'UserApi\V1\Rest\User\\Controller' => [
                 'entity' => [
                     'GET' => ['get_user'],
                     'POST' => false,
