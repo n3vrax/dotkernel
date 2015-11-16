@@ -55,11 +55,11 @@ return [
         'protection_policy' => \ZfcRbac\Guard\GuardInterface::POLICY_ALLOW,
         
         'role_provider' => [
-            'DotUser\Rbac\DbRoleProvider' => [],
+            'ZfcRbac\Role\RoleProviderInterface' => [],
         ],
         'role_provider_manager' => [
             'factories' => [
-                'DotUser\Rbac\DbRoleProvider' => 'DotUser\Rbac\DbRoleProviderFactory'
+                'ZfcRbac\Role\RoleProviderInterface' => 'DotUser\Rbac\DbRoleProviderFactory'
             ],
         ],
     ],

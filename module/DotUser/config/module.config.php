@@ -42,7 +42,7 @@ return array(
             
             'DotUser\Listener\AuthenticationListener' => 'DotUser\Factory\Authentication\AuthenticationListenerFactory',
             'DotUser\Rbac\IdentityProvider' => 'DotUser\Rbac\IdentityProviderFactory',
-            'DotUser\Rbac\DbRoleProvider' => 'DotUser\Rbac\DbRoleProviderFactory',
+            'ZfcRbac\Role\RoleProviderInterface' => 'DotUser\Rbac\DbRoleProviderFactory',
             'DotUser\Rbac\Authorization' => 'DotUser\Rbac\AuthorizationFactory',
             
         ),

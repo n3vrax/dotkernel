@@ -16,6 +16,7 @@
         "zfcampus/zf-apigility-documentation": "~1.0",
         "zf-commons/zfc-rbac": "~2.4",
         "zf-commons/zfc-base": "0.*",
+        "zfr/zfr-cors": "1.*",
         "acelaya/zf2-acmailer": "~5.0"
         
     },
