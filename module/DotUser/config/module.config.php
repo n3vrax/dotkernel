@@ -40,7 +40,7 @@ return array(
             'DotUser\Mapper\UserDetailsDbMapper' => 'DotUser\Factory\Mapper\UserDetailsDbMapperFactory',
             'DotUser\Mapper\UserRoleDbMapper' => 'DotUser\Factory\Mapper\UserRoleDbMapperFactory',
             
-            'DotUser\Listener\AuthenticationListener' => 'DotUser\Factory\Authentication\AuthenticationListenerFactory',
+            'DotUser\Authentication\AuthenticationListener' => 'DotUser\Authentication\AuthenticationListenerFactory',
             'DotUser\Rbac\IdentityProvider' => 'DotUser\Rbac\IdentityProviderFactory',
             'ZfcRbac\Role\RoleProviderInterface' => 'DotUser\Rbac\DbRoleProviderFactory',
             'DotUser\Rbac\Authorization' => 'DotUser\Rbac\AuthorizationFactory',

@@ -38,28 +38,13 @@
                     <a class="navbar-brand" href="<?php echo $this->url('home') ?>"><img src="<?php echo $this->basePath('img/logo.png') ?>" alt="DotKernel"/>&nbsp;<?php echo $this->translate('DotKernel') ?></a>
                 </div>
                 <div class="collapse navbar-collapse">
-                    <?php echo $this->navigation('navigation')->menu()->setPartial(array('partial/navigation.phtml', 'Application')); ?>
+                    
                 </div><!--/.nav-collapse -->
                 
             </div>
         </nav>
 
         <div class="container">
-            <?php 
-                $namespaces = array('error'=>'danger','success'=>'success','info'=>'info','default'=>'warning');
-                foreach ($namespaces as $namespace => $alert)
-                {
-                    $flashMessages = $this->flashmessenger()->render($namespace);
-                    if(!empty($flashMessages))
-                    {?>
-                        <div id="dot-alert" class="alert alert-<?=$alert ?>" data-alert="alert">
-                            <a class="close" data-dismiss="alert">x</a>
-                            <?=$flashMessages?>
-                        </div>    
-                    <?php
-                    }
-                }
-            ?>
             <?php echo $this->content; ?>
             <hr>
             <footer>

@@ -1,6 +1,6 @@
 <?php
 
-namespace DotUser\Listener;
+namespace DotUser\Authentication;
 
 use ZF\MvcAuth\MvcAuthEvent;
 use ZF\MvcAuth\Authentication\DefaultAuthenticationListener;

@@ -20,70 +20,6 @@ return array(
                     ),
                 ),
             ),
-            // The following is a route to simplify getting started creating
-            // new controllers and actions without needing to create a new
-            // module. Simply drop new controllers in, and you can access them
-            // using the path /application/:controller/:action
-            'page' => array(
-                'type'    => 'Literal',
-                'options' => array(
-                    'route'    => '/page',
-                    'defaults' => array(
-                        '__NAMESPACE__' => 'Application\Controller',
-                        'controller'    => 'Page',
-                        'action'        => 'index',
-                    ),
-                ),
-                'may_terminate' => true,
-                'child_routes' => array(
-                    'default' => array(
-                        'type'    => 'Segment',
-                        'options' => array(
-                            'route'    => '[/:action]',
-                            'constraints' => array(
-                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                            ),
-                            'defaults' => array(
-                                '__NAMESPACE__' => 'Application\Controller',
-                                'controller' => 'Page',
-                                'action' => 'index',
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        ),
-    ),
-    'navigation' => array(
-    	'default' => array(
-    	   array(
-    	       'label' => 'Home',
-    	       'id' => 'home',
-    	       'route' => 'home',
-    	       'icon' => 'glyphicon glyphicon-home',
-    	   ),
-    	   array(
-    	   		'label' => 'Pages',
-    	   		'id' => 'pages',
-    	   		'route' => 'page/default',
-    	        'icon' => 'glyphicon glyphicon-book',
-    	   		'pages' => array(
-        	   		array(
-        	   				'label' => 'About Us',
-        	   				'id' => 'about_us',
-        	   				'route' => 'page/default',
-        	   				'controller' => 'page',
-        	   				'action' => 'about',
-        	   		),
-        	   		array(
-        	   				'label' => 'Who we are',
-        	   				'id' => 'who_we_are',
-        	   				'route' => 'page/default',
-        	   				'controller' => 'page',
-        	   				'action' => 'who-we-are',
-        	   		),
-    	        ),
-    	   ),
         ),
     ),
     
@@ -97,8 +33,6 @@ return array(
     'service_manager' => array(
         
         'factories' => array(
-    	   'Navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
-            
            'DotMailTransporter\Mapper\TransporterMapperInterface' => 'DotMailTransporter\Factory\TransporterDbMapperFactory',
         ),
         'abstract_factories' => array(
@@ -122,7 +56,6 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Application\Controller\Index' => 'Application\Controller\IndexController',
-            'Application\Controller\Page' => 'Application\Controller\PageController',
         ),
     ),
     'view_manager' => array(

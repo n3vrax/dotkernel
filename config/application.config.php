@@ -22,6 +22,7 @@ return array(
         'ZF\\DevelopmentMode',
         'ZfcRbac',
         'ZfrCors',
+        'ZfcBase',
         'DotBase',
         'DotUser',
         'AcMailer',

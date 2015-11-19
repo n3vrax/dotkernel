@@ -27,6 +27,11 @@ class UserEntity implements FilterProviderInterface
     
     protected $filter;
     
+    const ACTIVE = 'active';
+    const UNCONFIRMED = 'unconfirmed';
+    const DELETED = 'deleted';
+    const INACTIVE = 'inactive';
+    
     public function __construct()
     {
         $this->filter = new FilterComposite();
@@ -51,7 +56,7 @@ class UserEntity implements FilterProviderInterface
      */
     public function setId($id)
     {
-        $this->id = $id;
+        $this->id = (int) $id;
         return $this;
     }
     
@@ -148,6 +153,8 @@ class UserEntity implements FilterProviderInterface
      */
     public function getState()
     {
+        if(is_null($this->state))
+            $this->state = self::UNCONFIRMED;
         return $this->state;
     }
 
@@ -177,6 +184,7 @@ class UserEntity implements FilterProviderInterface
         $this->details = $details;
         return $this;
     }
+    
     
     public function addHydratorFilter($name, $filter, $condition)
     {

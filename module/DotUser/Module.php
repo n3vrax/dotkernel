@@ -18,7 +18,7 @@ class Module
         
         $services = $e->getApplication()->getServiceManager();
         
-        $eventManager->attach(MvcAuthEvent::EVENT_AUTHENTICATION, $services->get('DotUser\Listener\AuthenticationListener'), 100);
+        $eventManager->attach(MvcAuthEvent::EVENT_AUTHENTICATION, $services->get('DotUser\Authentication\AuthenticationListener'), 100);
         
         UriFactory::registerScheme('chrome-extension', 'Zend\Uri\Uri');
         $this->fixBrokenOriginHeader($e->getRequest());

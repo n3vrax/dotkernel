@@ -1,10 +1,10 @@
 <?php
 
-namespace DotUser\Factory\Authentication;
+namespace DotUser\Authentication;
 
 use ZF\MvcAuth\Factory\DefaultAuthenticationListenerFactory;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use DotUser\Listener\AuthenticationListener;
+use DotUser\Authentication\AuthenticationListener;
 
 class AuthenticationListenerFactory extends DefaultAuthenticationListenerFactory
 {
