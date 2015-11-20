@@ -1,5 +1,44 @@
 <?php
 return array(
+    
+    'router' => array(
+        'routes' => array(
+            'dotuser' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/user',
+                    'defaults' => array(
+                        'controller' => 'DotUser\Controller\UserController',
+                        'action'     => 'index',
+                    ),
+                ),
+                'may_terminate' => true,
+                'child_routes' => array(
+                    'login' => array(
+                        'type' => 'Literal',
+                        'options' => array(
+                            'route' => '/login',
+                            'defaults' => array(
+                                'controller' => 'DotUser\Controller\UserController',
+                                'action'     => 'login',
+                            ),
+                        ),
+                    ),
+                    'logout' => array(
+                        'type' => 'Literal',
+                        'options' => array(
+                            'route' => '/logout',
+                            'defaults' => array(
+                                'controller' => 'DotUser\Controller\UserController',
+                                'action'     => 'logout',
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        ),
+    ),
+    
     'dotuser' => array(
         'db_adapter' => 'database',
         'user_hydrator' => 'DotUser\\Entity\\UserHydrator',
@@ -24,6 +63,13 @@ return array(
             'DotUser\\Entity\\UserRoleHydrator' => 'DotUser\\Factory\\Entity\\UserRoleHydratorFactory',
         ),
     ),
+    
+    'controllers' => array(
+        'factories' => array(
+            'DotUser\Controller\UserController' => 'DotUser\Controller\UserControllerFactory',
+        ),
+    ),
+    
     'service_manager' => array(
         'invokables' => array(
             'DotUser\\Entity\\UserEntity' => 'DotUser\\Entity\\UserEntity',
@@ -45,6 +91,11 @@ return array(
             'ZfcRbac\Role\RoleProviderInterface' => 'DotUser\Rbac\DbRoleProviderFactory',
             'DotUser\Rbac\Authorization' => 'DotUser\Rbac\AuthorizationFactory',
             
+            'Zend\Authentication\AuthenticationService' => 'DotUser\Authentication\SessionAuthenticationServiceFactory',
+            'Zend\Authentication\Adapter\AbstractAdapter' => 'DotUser\Authentication\SessionAuthenticationAdapterFactory',
+            
+            'DotUser\Form\LoginForm' => 'DotUser\Form\LoginFormFactory',
+            
         ),
         'shared' => array(
             'DotUser\\Entity\\UserEntity' => false,
@@ -54,6 +105,13 @@ return array(
         ),
         'aliases' => array(
             'ZF\MvcAuth\Authorization\AuthorizationInterface' => 'DotUser\Rbac\Authorization',
+            'session_authentication' => 'Zend\Authentication\AuthenticationService',
+            'session_auth_adapter' => 'Zend\Authentication\Adapter\AbstractAdapter',
+        ),
+    ),
+    'view_manager' => array(
+        'template_path_stack' => array(
+            __DIR__ . '/../view',
         ),
     ),
 );
