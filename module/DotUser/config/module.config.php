@@ -93,6 +93,7 @@ return array(
             
             'Zend\Authentication\AuthenticationService' => 'DotUser\Authentication\SessionAuthenticationServiceFactory',
             'Zend\Authentication\Adapter\AbstractAdapter' => 'DotUser\Authentication\SessionAuthenticationAdapterFactory',
+            'DotUser\Authentication\UserIdProvider' => 'DotUser\Authentication\UserIdProviderFactory',
             
             'DotUser\Form\LoginForm' => 'DotUser\Form\LoginFormFactory',
             
@@ -105,6 +106,7 @@ return array(
         ),
         'aliases' => array(
             'ZF\MvcAuth\Authorization\AuthorizationInterface' => 'DotUser\Rbac\Authorization',
+            'ZF\OAuth2\Provider\UserId' => 'DotUser\Authentication\UserIdProvider',
             'session_authentication' => 'Zend\Authentication\AuthenticationService',
             'session_auth_adapter' => 'Zend\Authentication\Adapter\AbstractAdapter',
         ),
@@ -112,6 +114,10 @@ return array(
     'view_manager' => array(
         'template_path_stack' => array(
             __DIR__ . '/../view',
+        ),
+        'template_map' => array(
+            'oauth/authorize' => __DIR__ . '/../view/dot-user/oauth/authorize.phtml',
+            'oauth/receive-code' => __DIR__ . '/../view/dot-user/oauth/receive-code.phtml',
         ),
     ),
 );

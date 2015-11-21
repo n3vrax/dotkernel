@@ -41,7 +41,8 @@ class UserController extends AbstractActionController
     
     public function loginAction()
     {
-        $redirect = false;
+        $redirect = $this->getRequest()->getQuery('redirect', false);
+        
         $errors = [];
         
         if($this->authentication->hasIdentity())
@@ -52,6 +53,7 @@ class UserController extends AbstractActionController
         if($this->getRequest()->isPost())
         {
             $this->loginForm->setData($this->getRequest()->getPost());
+            $redirect = $this->getRequest()->getPost()->get('redirect', false);
             
             if($this->loginForm->isValid())
             {
@@ -74,6 +76,8 @@ class UserController extends AbstractActionController
                     $session = new Container($this->authentication->getStorage()->getNameSpace());
                     $session->getDefaultManager()->regenerateId();
                     
+                    if($redirect)
+                        return $this->redirect()->toUrl($redirect);
                     
                     return $this->redirect()->toRoute('dotuser');
                     

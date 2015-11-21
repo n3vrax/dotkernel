@@ -1,0 +1,10 @@
+<div class="form-container">
+<form method="post" class="form">
+    <h2><?php echo $this->escapeHtml($this->clientId) ?> wants access to your profile data</h2><br />
+    <label>Allow access to this client? You are logged in as <b style="color: blue;"><?php echo $this->identity()->getUsername() ?></b></label>
+    <br />
+    <br />
+    <input type="submit" name="authorized" value="yes" class="btn btn-default">&nbsp;&nbsp;
+    <input type="submit" name="authorized" value="no" class="btn btn-default">
+</form>
+</div>
