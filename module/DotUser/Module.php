@@ -63,6 +63,10 @@ class Module
                 $response->sendHeaders();
                 exit;
             }
+            else{
+                //check to see if user already ganted permissions and is not revoked
+                
+            }
         }
     }
     

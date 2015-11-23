@@ -15,7 +15,7 @@ class UserIdProvider implements UserIdProviderInterface
     /**
      * @var string
      */
-    private $userId = 'id';
+    private $userId = 'username';
 
     /**
      *  Set authentication service
