@@ -4,7 +4,7 @@ namespace DotUser\Oauth;
 
 use Zend\ServiceManager\ServiceLocatorInterface;
 use ZF\OAuth2\Controller\Exception;
-use OAuth2\Server as OAuth2Server;
+use OAuth2\Server as Oauth2Server;
 use OAuth2\GrantType\AuthorizationCode;
 use OAuth2\GrantType\ClientCredentials;
 use OAuth2\GrantType\RefreshToken;
@@ -97,7 +97,7 @@ class OAuth2ServerInstanceFactory
         ], $options);
 
         // Pass a storage object or array of storage objects to the OAuth2 server class
-        $server = new OAuth2Server($storage, $options);
+        $server = new Oauth2Server($storage, $options);
         $availableGrantTypes = $config['grant_types'];
 
         if (isset($availableGrantTypes['client_credentials']) && $availableGrantTypes['client_credentials'] === true) {

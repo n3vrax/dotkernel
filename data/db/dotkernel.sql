@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 14, 2015 at 12:18 AM
+-- Generation Time: Nov 25, 2015 at 11:42 PM
 -- Server version: 5.5.23
 -- PHP Version: 5.6.5
 
@@ -63,21 +63,6 @@ CREATE TABLE IF NOT EXISTS `oauth_access_tokens` (
   PRIMARY KEY (`access_token`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `oauth_access_tokens`
---
-
-INSERT INTO `oauth_access_tokens` (`access_token`, `client_id`, `user_id`, `expires`, `scope`) VALUES
-('1e9f4cb3e9c86e888d36061a8d8e94a37995f19e', 'CrowdedApp', 'testuser', '2015-11-11 21:56:48', NULL),
-('4ab3688fba3304dfd5cce473900d51c73ac36006', 'CrowdedApp', 'testuser', '2015-11-12 19:17:01', 'get_user'),
-('4ab7906cd10df167323aec9e0fa4fba326b522e6', 'CrowdedApp', 'testuser', '2015-11-12 23:35:00', NULL),
-('58ad17b8fd3c73215290009c6cc9b69ec8fc7b1b', 'CrowdedApp', 'testuser', '2015-11-13 18:56:21', 'get_user'),
-('6a8c6035917a5e9a7f13f9fdb04f01c6f46737d5', 'CrowdedApp', 'testuser', '2015-11-13 18:51:28', NULL),
-('8b11ced0494cc44f558fdf767d5bd6a8ddc26890', 'CrowdedApp', 'testuser', '2015-11-12 22:34:05', 'get_user'),
-('a2a6936be441b7280aa6bcc9592a59d5409f84d9', 'CrowdedApp', 'testuser', '2015-11-11 22:01:23', 'get_user'),
-('a7343802190884ef98067637ec10a6c017bffc66', 'CrowdedApp', 'testuser', '2015-11-11 18:43:30', NULL),
-('f5fbc5fa8739b0f0dddaa4a21726514718c5a39c', 'CrowdedApp', 'testuser', '2015-11-12 23:57:13', NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -94,6 +79,13 @@ CREATE TABLE IF NOT EXISTS `oauth_authorization_codes` (
   `id_token` varchar(2000) DEFAULT NULL,
   PRIMARY KEY (`authorization_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `oauth_authorization_codes`
+--
+
+INSERT INTO `oauth_authorization_codes` (`authorization_code`, `client_id`, `user_id`, `redirect_uri`, `expires`, `scope`, `id_token`) VALUES
+('d6e1017a2357579b4ee464abccaf923e7d242cba', 'CrowdedApp', 'testuser', '/oauth/receivecode', '2015-11-25 21:41:55', 'openid profile get_users edit_own_user', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3Q6ODA4MCIsInN1YiI6InRlc3R1c2VyIiwiYXVkIjoiQ3Jvd2RlZEFwcCIsImlhdCI6MTQ0ODQ4NzY4NSwiZXhwIjoxNDQ4NDk4NDg1LCJhdXRoX3RpbWUiOjE0NDg0ODc2ODV9.1hc1BsxuyV4Hz9iwBjL-k9aHX1P4TX6aPwUvqTdjqqkOfqjbu7rkK1ZjBcf8dv8yi3DbQTFFPX90Qm_yxPiifpA-ITKduI9iBdgBT0XN6eRB6GbyFhmghmrr3hP-Io1oXMpq0EaeE3Bq5q5Gx7RWJqBVy-nAayfkAsFnAEffqEg');
 
 -- --------------------------------------------------------
 
@@ -117,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `oauth_clients` (
 
 INSERT INTO `oauth_clients` (`client_id`, `client_secret`, `redirect_uri`, `grant_types`, `scope`, `user_id`) VALUES
 ('admin', '$2a$10$44nfKuBG6HqfQ3I7LoCiQeNO80KI/OhQdBrz3FwcSqqtNikSvdVyG', '/admin', NULL, NULL, 'admin'),
-('CrowdedApp', '', '/crowded/auth', NULL, 'get_user edit_own_user get_users', NULL);
+('CrowdedApp', '', '/oauth/receivecode', NULL, 'openid offline_access profile email address phone get_user get_users edit_own_user', NULL);
 
 -- --------------------------------------------------------
 
@@ -135,6 +127,28 @@ CREATE TABLE IF NOT EXISTS `oauth_jwt` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `oauth_public_keys`
+--
+
+CREATE TABLE IF NOT EXISTS `oauth_public_keys` (
+  `client_id` varchar(80) DEFAULT NULL,
+  `public_key` varchar(2000) NOT NULL,
+  `private_key` varchar(2000) NOT NULL,
+  `encryption_algorithm` varchar(100) NOT NULL DEFAULT 'RS256',
+  UNIQUE KEY `client_id_2` (`client_id`),
+  KEY `client_id` (`client_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `oauth_public_keys`
+--
+
+INSERT INTO `oauth_public_keys` (`client_id`, `public_key`, `private_key`, `encryption_algorithm`) VALUES
+(NULL, '-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDZjLo+8X1F6gfL0R8JDpwehVnj\nyCN6bS9odBc0DxsiIBIkw9IeXAejmAODJd0hi0YoYTOiB3fQQ6kiwzwXyPU6Rryr\nJ2MnowWSEbX7wxJnTpoiUpx2xrlUmYewuQOkkf9dR2KlOZHVT36r6+6ggHgK363s\nMvjeVlwM+7hnnn8dyQIDAQAB\n-----END PUBLIC KEY-----', '-----BEGIN RSA PRIVATE KEY-----\nMIICWwIBAAKBgQDZjLo+8X1F6gfL0R8JDpwehVnjyCN6bS9odBc0DxsiIBIkw9Ie\nXAejmAODJd0hi0YoYTOiB3fQQ6kiwzwXyPU6RryrJ2MnowWSEbX7wxJnTpoiUpx2\nxrlUmYewuQOkkf9dR2KlOZHVT36r6+6ggHgK363sMvjeVlwM+7hnnn8dyQIDAQAB\nAoGARJFGYnBau553tpXC4mfobPY6zsBV7lBbkOCGL7JTKv5QuaW+pDL9dWKEOOHG\nQLxU8IUycO9JpCqvNHW0iwqbv52kgUeblmP/1GFIYJwebTEnFELjWyU+7OHvnzcm\n7L63xckqMcvRR7yiYIb3vsp19MwM+R+4Wwh/YFOmnKAnasECQQDvegJ1D9TgLhi8\nES6djLAF9n2k5/eCQiHqW2d2BcA6bbE6u5BgNRvZZdlGKEcNVK3SKsJuBswDW+b+\n9iJcYvFTAkEA6I9pr8lVithckV76TWRJbtt+4Pgj8dmGwEUPE7ijbeukgKfv5Dr4\nWNJ2hb8jrym32PEnO4IZc8nnfJLf2F5E8wJAOCBgcw9C1Uf4hBuC0Won1z3uNLgp\nSl41lLfXh9HRO+B5qUpMjD/mRw2X3tmRzY4LLzbWWvM83YyslxUY+I44AQJAMSwJ\nm6qFVMs0n2QmpnB6+l6csDKnXv6weDzh2DilDZvSd4WKuoYhdp5hgxwMDoBSqCMt\nOW7jtNDPCk7/137vMwJAFZN6Xg5cMQAZJlmlR0y+nZUzKlHuZhyWVLPozKSjEiJP\noaA6Ibn8qmLVdfroTTV7U8lYiLK6uhQ7RSLQV89AGg==\n-----END RSA PRIVATE KEY-----', 'RS256');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `oauth_refresh_tokens`
 --
 
@@ -147,21 +161,6 @@ CREATE TABLE IF NOT EXISTS `oauth_refresh_tokens` (
   PRIMARY KEY (`refresh_token`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `oauth_refresh_tokens`
---
-
-INSERT INTO `oauth_refresh_tokens` (`refresh_token`, `client_id`, `user_id`, `expires`, `scope`) VALUES
-('561d11bf473956d8807b662ee7ec59dc13d828a3', 'CrowdedApp', 'testuser', '2015-11-27 17:51:28', NULL),
-('5ceeb83657fdfb7249223f3b5decca2cb5a2fd38', 'CrowdedApp', 'testuser', '2015-11-26 22:35:00', NULL),
-('7e506b2049aeb27032fbfa336d061ed0412e4694', 'CrowdedApp', 'testuser', '2015-11-26 22:30:08', 'get_user'),
-('933ee7c70659845376538510cdf37e2c886dab8a', 'CrowdedApp', 'testuser', '2015-11-25 20:56:48', NULL),
-('a727f6f44624e317374f5cba85c6c5a0a1216c75', 'CrowdedApp', 'testuser', '2015-11-27 17:56:21', 'get_user'),
-('bb7186c290fb7edfb1514758d988902b791f2405', 'CrowdedApp', 'testuser', '2015-11-26 22:57:13', NULL),
-('bc1c6d62eb558d80e047c3eb148edf8fc5b00b5f', 'CrowdedApp', 'testuser', '2015-11-25 17:43:30', NULL),
-('d54c7186195c548d687de02572ecb6742beeb5e6', 'CrowdedApp', 'testuser', '2015-11-26 18:17:01', 'get_user'),
-('fb8e8048bb79d6c4cdba59ac69d4cc85f253bd3c', 'CrowdedApp', 'testuser', '2015-11-25 21:01:23', 'get_user');
-
 -- --------------------------------------------------------
 
 --
@@ -170,24 +169,31 @@ INSERT INTO `oauth_refresh_tokens` (`refresh_token`, `client_id`, `user_id`, `ex
 
 CREATE TABLE IF NOT EXISTS `oauth_scopes` (
   `type` varchar(255) NOT NULL DEFAULT 'supported',
-  `scope` varchar(2000) DEFAULT NULL,
+  `scope` varchar(255) DEFAULT NULL,
   `client_id` varchar(80) DEFAULT NULL,
   `is_default` smallint(6) DEFAULT NULL,
-  KEY `scope` (`scope`(255))
+  `description` text NOT NULL,
+  UNIQUE KEY `scope` (`scope`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `oauth_scopes`
 --
 
-INSERT INTO `oauth_scopes` (`type`, `scope`, `client_id`, `is_default`) VALUES
-('supported', 'get_user', NULL, NULL),
-('supported', 'get_users', NULL, NULL),
-('supported', 'edit_user', NULL, NULL),
-('supported', 'edit_own_user', NULL, NULL),
-('supported', 'create_user', NULL, NULL),
-('supported', 'delete_user', NULL, NULL),
-('supported', 'send_email', NULL, NULL);
+INSERT INTO `oauth_scopes` (`type`, `scope`, `client_id`, `is_default`, `description`) VALUES
+('api', 'get_user', NULL, NULL, 'Client can view any particular user info'),
+('api', 'get_users', NULL, NULL, 'Client can view the list of users'),
+('api', 'edit_user', NULL, NULL, 'Client can edit any user'),
+('api', 'edit_own_user', NULL, NULL, 'Client can edit its own user info'),
+('api', 'create_user', NULL, NULL, 'Client can create other users'),
+('api', 'delete_user', NULL, NULL, 'Client can delete a user'),
+('api', 'send_email', NULL, NULL, 'Client can use the send mail function'),
+('openid', 'openid', NULL, NULL, 'OpenId Connect enable id_token in response'),
+('user_claim', 'profile', NULL, NULL, 'Client can read profile data'),
+('openid', 'offline_access', NULL, NULL, 'Enable refresh token for openid connect'),
+('user_claim', 'email', NULL, NULL, 'Client can read user email'),
+('user_claim', 'address', NULL, NULL, 'Client can read user''s address'),
+('user_claim', 'phone', NULL, NULL, 'Client can read user''s phone');
 
 -- --------------------------------------------------------
 
@@ -264,10 +270,10 @@ CREATE TABLE IF NOT EXISTS `user_role` (
 --
 
 INSERT INTO `user_role` (`roleId`, `isDefault`, `scopes`) VALUES
-('admin', 0, 'get_user get_users edit_user create_user delete_user send_email'),
+('admin', 0, 'openid offline_access profile email address phone  get_user get_users edit_user create_user delete_user send_email'),
 ('guest', 1, ''),
-('staff', 0, 'get_user get_users edit_user create_user'),
-('user', 0, 'get_user edit_own_user get_users');
+('staff', 0, 'openid offline_access profile email address phone get_user get_users edit_user create_user'),
+('user', 0, 'openid offline_access profile email address phone get_user edit_own_user get_users');
 
 -- --------------------------------------------------------
 

@@ -94,6 +94,7 @@ return array(
             'Zend\Authentication\AuthenticationService' => 'DotUser\Authentication\SessionAuthenticationServiceFactory',
             'Zend\Authentication\Adapter\AbstractAdapter' => 'DotUser\Authentication\SessionAuthenticationAdapterFactory',
             'DotUser\Authentication\UserIdProvider' => 'DotUser\Authentication\UserIdProviderFactory',
+            'DotUser\Authentication\OauthRouteGuard' => 'DotUser\Authentication\OauthRouteGuardFactory',
             
             'ZF\OAuth2\Service\OAuth2Server'  => 'DotUser\Oauth\Oauth2ServerFactory',
             

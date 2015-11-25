@@ -9,12 +9,34 @@ namespace DotBase\Oauth\Adapter;
  * @author n3vrax
  *
  */
-class PdoAdapter extends \ZF\OAuth2\Adapter\PdoAdapter
+class PdoAdapter extends \ZF\OAuth2\Adapter\PdoAdapter implements UserRevokeInterface
 {
-    const PROFILE_CLAIM_VALUES  = 'username state display_name details firstName lastName';
-    const ADDRESS_CLAIM_VALUES  = 'address city region country postalCode';
-    const PHONE_CLAIM_VALUES    = 'phone';
-    
+    /**
+     * Checks to see if client is still authorized by user
+     * 
+     * @see \DotBase\Oauth\Adapter\UserRevokeInterface::isAuthorized()
+     */
+    public function isAuthorized($client_id, $user_id)
+    {
+        $stmt = $this->db->prepare(sprintf('SELECT * FROM %s WHERE client_id=:client_id AND user_id=:user_id', $this->config['access_token_table']));
+        $stmt->execute(compact('client_id','user_id'));
+        
+        $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        
+        return empty($result);
+    }
+
+    /**
+     * Revoke permissions for client and user pair
+     * 
+     * @see \DotBase\Oauth\Adapter\UserRevokeInterface::revokeAccess()
+     */
+    public function revokeAccess($client_id, $user_id)
+    {
+        //TODO: to be implemented
+        throw new \Exception('revokeAccess is no implemented');
+    }
+
     /**
      * Set the user
      *
@@ -52,12 +74,10 @@ class PdoAdapter extends \ZF\OAuth2\Adapter\PdoAdapter
         if (!$userInfo = $stmt->fetch(\PDO::FETCH_ASSOC)) {
             return false;
         }
-        
     
         // the default behavior is to use "username" as the user_id
         return array_merge(array(
             'user_id' => $username
         ), $userInfo);
     }
-    
 }

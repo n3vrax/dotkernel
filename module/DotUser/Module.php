@@ -22,7 +22,7 @@ class Module
         
         $eventManager->attach(MvcAuthEvent::EVENT_AUTHENTICATION, $this->services->get('DotUser\Authentication\AuthenticationListener'), 100);
         
-        $eventManager->attach(MvcEvent::EVENT_ROUTE, array($this, 'oauthGuard'));
+        $eventManager->attach(MvcEvent::EVENT_ROUTE, $this->services->get('DotUser\Authentication\OauthRouteGuard'));
         
         UriFactory::registerScheme('chrome-extension', 'Zend\Uri\Uri');
         $this->fixBrokenOriginHeader($e->getRequest());
@@ -42,32 +42,6 @@ class Module
                 ),
             ),
         );
-    }
-    
-    public function oauthGuard(MvcEvent $event)
-    {
-        if($event->getRouteMatch()->getMatchedRouteName() === 'oauth/authorize' || 
-            $event->getRouteMatch()->getMatchedRouteName() === 'oauth/code')
-        {
-            $auth = $this->services->get('session_authentication');
-            if(!$auth->hasIdentity())
-            {
-                $url = $event->getRouter()->assemble([], array('name' => 'dotuser/login'));
-                $host = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'on' ? 'https://' : 'http://';
-                $host .= $_SERVER['HTTP_HOST'];
-                $url = $host . $url . '?redirect=' . urlencode($event->getRequest()->getUriString());
-                
-                $response = $event->getResponse();
-                $response->getHeaders()->addHeaderLine('Location', $url);
-                $response->setStatusCode(302);
-                $response->sendHeaders();
-                exit;
-            }
-            else{
-                //check to see if user already ganted permissions and is not revoked
-                
-            }
-        }
     }
     
     public function fixBrokenOriginHeader(RequestInterface $request)
