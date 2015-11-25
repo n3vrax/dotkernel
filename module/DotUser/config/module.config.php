@@ -95,6 +95,8 @@ return array(
             'Zend\Authentication\Adapter\AbstractAdapter' => 'DotUser\Authentication\SessionAuthenticationAdapterFactory',
             'DotUser\Authentication\UserIdProvider' => 'DotUser\Authentication\UserIdProviderFactory',
             
+            'ZF\OAuth2\Service\OAuth2Server'  => 'DotUser\Oauth\Oauth2ServerFactory',
+            
             'DotUser\Form\LoginForm' => 'DotUser\Form\LoginFormFactory',
             
         ),
@@ -107,6 +109,7 @@ return array(
         'aliases' => array(
             'ZF\MvcAuth\Authorization\AuthorizationInterface' => 'DotUser\Rbac\Authorization',
             'ZF\OAuth2\Provider\UserId' => 'DotUser\Authentication\UserIdProvider',
+            
             'session_authentication' => 'Zend\Authentication\AuthenticationService',
             'session_auth_adapter' => 'Zend\Authentication\Adapter\AbstractAdapter',
         ),

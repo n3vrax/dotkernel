@@ -11,6 +11,10 @@ namespace DotBase\Oauth\Adapter;
  */
 class PdoAdapter extends \ZF\OAuth2\Adapter\PdoAdapter
 {
+    const PROFILE_CLAIM_VALUES  = 'username state display_name details firstName lastName';
+    const ADDRESS_CLAIM_VALUES  = 'address city region country postalCode';
+    const PHONE_CLAIM_VALUES    = 'phone';
+    
     /**
      * Set the user
      *
@@ -39,4 +43,21 @@ class PdoAdapter extends \ZF\OAuth2\Adapter\PdoAdapter
     
         return $stmt->execute(compact('username', 'password'));
     }
+    
+    public function getUser($username)
+    {
+        $stmt = $this->db->prepare($sql = sprintf('SELECT * from %s u LEFT JOIN %s as d ON u.id = d.userId WHERE username=:username ', $this->config['user_table'], $this->config['user_details_table']));
+        $stmt->execute(array('username' => $username));
+        
+        if (!$userInfo = $stmt->fetch(\PDO::FETCH_ASSOC)) {
+            return false;
+        }
+        
+    
+        // the default behavior is to use "username" as the user_id
+        return array_merge(array(
+            'user_id' => $username
+        ), $userInfo);
+    }
+    
 }
