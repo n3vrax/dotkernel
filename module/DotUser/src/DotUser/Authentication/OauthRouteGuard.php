@@ -44,10 +44,14 @@ class OauthRouteGuard
                 $client_id = $request->getQuery('client_id');
                 //check to see if user already ganted permissions and is not revoked
                 if($event->getRouteMatch()->getMatchedRouteName() === 'oauth/authorize'){
-                    if($this->userRevokeStorage->isAuthorized($client_id, $identity->getId()))
+                    if($this->userRevokeStorage->isAuthorized($client_id, $identity->getUsername()))
                     {
-                        $request->setMethod(\Zend\Http\Request::METHOD_POST);
-                        $request->getPost()->set('authorized', 'yes');
+                        $newRequest = new \ZF\ContentNegotiation\Request();
+                       
+                        $newRequest->setMethod(\Zend\Http\Request::METHOD_POST);
+                        $newRequest->getPost()->set('authorized', 'yes');
+                        
+                        $event->setRequest($newRequest);
                     }
                 }
             }

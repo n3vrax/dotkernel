@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3ecea101ed05faab0b3900120871478c",
+    "hash": "bae895bbd6c3f13fb7f80cc22e348814",
     "content-hash": "f206a47abc343398ef9616ed96f80f6b",
     "packages": [
         {
@@ -1156,16 +1156,16 @@
         },
         {
             "name": "symfony/process",
-            "version": "v2.7.6",
+            "version": "v2.7.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "4a959dd4e19c2c5d7512689413921e0a74386ec7"
+                "reference": "f6290983c8725d0afa29bdc3e5295879de3e58f5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/4a959dd4e19c2c5d7512689413921e0a74386ec7",
-                "reference": "4a959dd4e19c2c5d7512689413921e0a74386ec7",
+                "url": "https://api.github.com/repos/symfony/process/zipball/f6290983c8725d0afa29bdc3e5295879de3e58f5",
+                "reference": "f6290983c8725d0afa29bdc3e5295879de3e58f5",
                 "shasum": ""
             },
             "require": {
@@ -1180,7 +1180,10 @@
             "autoload": {
                 "psr-4": {
                     "Symfony\\Component\\Process\\": ""
-                }
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -1198,20 +1201,20 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "time": "2015-10-23 14:47:27"
+            "time": "2015-11-19 16:11:24"
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.7.6",
+            "version": "v2.7.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "eca9019c88fbe250164affd107bc8057771f3f4d"
+                "reference": "4cfcd7a9fceba662b3c036b7d9a91f6197af046c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/eca9019c88fbe250164affd107bc8057771f3f4d",
-                "reference": "eca9019c88fbe250164affd107bc8057771f3f4d",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/4cfcd7a9fceba662b3c036b7d9a91f6197af046c",
+                "reference": "4cfcd7a9fceba662b3c036b7d9a91f6197af046c",
                 "shasum": ""
             },
             "require": {
@@ -1226,7 +1229,10 @@
             "autoload": {
                 "psr-4": {
                     "Symfony\\Component\\Yaml\\": ""
-                }
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -1244,7 +1250,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2015-10-11 09:39:48"
+            "time": "2015-11-18 13:41:01"
         },
         {
             "name": "zendframework/zend-authentication",
@@ -1426,20 +1432,20 @@
         },
         {
             "name": "zendframework/zend-captcha",
-            "version": "2.5.1",
+            "version": "2.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-captcha.git",
-                "reference": "5f01e50b6f1f197245dd26e66e1b1e560a6ab15d"
+                "reference": "43c276df6e94e498bf530538aea53876a24fc47c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-captcha/zipball/5f01e50b6f1f197245dd26e66e1b1e560a6ab15d",
-                "reference": "5f01e50b6f1f197245dd26e66e1b1e560a6ab15d",
+                "url": "https://api.github.com/repos/zendframework/zend-captcha/zipball/43c276df6e94e498bf530538aea53876a24fc47c",
+                "reference": "43c276df6e94e498bf530538aea53876a24fc47c",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.23",
+                "php": ">=5.5",
                 "zendframework/zend-math": "~2.5",
                 "zendframework/zend-stdlib": "~2.5"
             },
@@ -1452,7 +1458,7 @@
                 "zendframework/zendservice-recaptcha": "*"
             },
             "suggest": {
-                "zendframework/zend-resources": "Translations of captcha messages",
+                "zendframework/zend-i18n-resources": "Translations of captcha messages",
                 "zendframework/zend-session": "Zend\\Session component",
                 "zendframework/zend-text": "Zend\\Text component",
                 "zendframework/zend-validator": "Zend\\Validator component",
@@ -1479,7 +1485,7 @@
                 "captcha",
                 "zf2"
             ],
-            "time": "2015-06-03 15:31:59"
+            "time": "2015-11-23 15:37:27"
         },
         {
             "name": "zendframework/zend-code",
@@ -1644,20 +1650,20 @@
         },
         {
             "name": "zendframework/zend-crypt",
-            "version": "2.5.1",
+            "version": "2.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-crypt.git",
-                "reference": "15537e8e438a98923f05c40c45c162342ea8235a"
+                "reference": "b7a5f99f530e7f77762e3eb4011ed1029ffc062f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-crypt/zipball/15537e8e438a98923f05c40c45c162342ea8235a",
-                "reference": "15537e8e438a98923f05c40c45c162342ea8235a",
+                "url": "https://api.github.com/repos/zendframework/zend-crypt/zipball/b7a5f99f530e7f77762e3eb4011ed1029ffc062f",
+                "reference": "b7a5f99f530e7f77762e3eb4011ed1029ffc062f",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.23",
+                "php": ">=5.5",
                 "zendframework/zend-math": "~2.5",
                 "zendframework/zend-servicemanager": "~2.5",
                 "zendframework/zend-stdlib": "~2.5"
@@ -1691,7 +1697,7 @@
                 "crypt",
                 "zf2"
             ],
-            "time": "2015-06-03 15:32:00"
+            "time": "2015-11-23 16:35:19"
         },
         {
             "name": "zendframework/zend-db",

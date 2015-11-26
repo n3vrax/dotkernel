@@ -22,8 +22,7 @@ class PdoAdapter extends \ZF\OAuth2\Adapter\PdoAdapter implements UserRevokeInte
         $stmt->execute(compact('client_id','user_id'));
         
         $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-        
-        return empty($result);
+        return !empty($result);
     }
 
     /**
@@ -31,10 +30,16 @@ class PdoAdapter extends \ZF\OAuth2\Adapter\PdoAdapter implements UserRevokeInte
      * 
      * @see \DotBase\Oauth\Adapter\UserRevokeInterface::revokeAccess()
      */
-    public function revokeAccess($client_id, $user_id)
+    public function revokeToken($token, $token_type_hint = null)
     {
-        //TODO: to be implemented
-        throw new \Exception('revokeAccess is no implemented');
+        if($token_type_hint === null)
+        {
+            //delete any token
+            
+        }
+        
+        $stmt = $this->db->prepare(sprintf('DELETE FROM %s WHERE %s=:token', $this->config[$token_type_hint . '_table'], $token_type_hint));
+        return $stmt->execute(compact('token'));
     }
 
     /**
