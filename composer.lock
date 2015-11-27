@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "bae895bbd6c3f13fb7f80cc22e348814",
-    "content-hash": "f206a47abc343398ef9616ed96f80f6b",
+    "hash": "cae635cae9ac5a08b5e473b3065a8ab7",
+    "content-hash": "58b48ed3804c8f050ed9bf8e42367bc7",
     "packages": [
         {
             "name": "acelaya/zf2-acmailer",
@@ -244,6 +244,66 @@
                 "minification"
             ],
             "time": "2014-12-12 05:04:05"
+        },
+        {
+            "name": "perimeter/rate-limiter-php",
+            "version": "dev-develop",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/perimeter/rate-limiter-php.git",
+                "reference": "639bc5f14cf305258a1897ccaf7812527e85b802"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/perimeter/rate-limiter-php/zipball/639bc5f14cf305258a1897ccaf7812527e85b802",
+                "reference": "639bc5f14cf305258a1897ccaf7812527e85b802",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "predis/predis": "1.0.*"
+            },
+            "require-dev": {
+                "doctrine/orm": "2.4.*"
+            },
+            "suggest": {
+                "perimeter/cache-bundle": "Required to use the Cache storage engine",
+                "perimeter/rate-limit-bundle": "allows you to integrate with symfony2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Perimeter\\RateLimiter\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Brent Shaffer",
+                    "email": "bshafs@gmail.com"
+                },
+                {
+                    "name": "Gary Rogers",
+                    "email": "garogers@adobe.com"
+                },
+                {
+                    "name": "Courtney Ferguson",
+                    "email": "cofergus@adobe.com"
+                }
+            ],
+            "description": "A very simple Rate Limiter for PHP",
+            "homepage": "http://github.com/perimeter/rate-limiter-php",
+            "keywords": [
+                "api",
+                "api-gateway",
+                "perimeter",
+                "ratelimit",
+                "redis"
+            ],
+            "time": "2015-05-05 20:10:58"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
@@ -721,6 +781,56 @@
                 "xunit"
             ],
             "time": "2015-10-02 06:51:40"
+        },
+        {
+            "name": "predis/predis",
+            "version": "v1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nrk/predis.git",
+                "reference": "84060b9034d756b4d79641667d7f9efe1aeb8e04"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nrk/predis/zipball/84060b9034d756b4d79641667d7f9efe1aeb8e04",
+                "reference": "84060b9034d756b4d79641667d7f9efe1aeb8e04",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "suggest": {
+                "ext-curl": "Allows access to Webdis when paired with phpiredis",
+                "ext-phpiredis": "Allows faster serialization and deserialization of the Redis protocol"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Predis\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniele Alessandri",
+                    "email": "suppakilla@gmail.com",
+                    "homepage": "http://clorophilla.net"
+                }
+            ],
+            "description": "Flexible and feature-complete PHP client library for Redis",
+            "homepage": "http://github.com/nrk/predis",
+            "keywords": [
+                "nosql",
+                "predis",
+                "redis"
+            ],
+            "time": "2015-07-30 18:34:15"
         },
         {
             "name": "rwoverdijk/assetmanager",
@@ -5407,7 +5517,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "perimeter/rate-limiter-php": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

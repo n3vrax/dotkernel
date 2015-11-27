@@ -28,12 +28,12 @@ return array(
         'AcMailer',
         'Application',
         'MailApi',
-        'UserApi',
+        'UserApi','RateLimit',
     ),
     'module_listener_options' => array(
         'module_paths' => array(
             './module',
-            './vendor',
+            './vendor','./module',
         ),
         'config_glob_paths' => array(
             'config/autoload/{{,*.}global,{,*.}local}.php',

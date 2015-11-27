@@ -22,7 +22,36 @@ class PdoAdapter extends \ZF\OAuth2\Adapter\PdoAdapter implements UserRevokeInte
         $stmt->execute(compact('client_id','user_id'));
         
         $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        if(empty($result))
+        {
+            //check also refresh token just in case
+            $stmt = $this->db->prepare(sprintf('SELECT * FROM %s WHERE client_id=:client_id AND user_id=:user_id', $this->config['refresh_token_table']));
+            $stmt->execute(compact('client_id','user_id'));
+            
+            $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        }
+        
         return !empty($result);
+    }
+    
+    /**
+     * Revokes all tokens given to a client, and implicitly removed the grant given by user to this client
+     * @see \DotBase\Oauth\Adapter\UserRevokeInterface::revokeAccess()
+     */
+    public function revokeAccess($client_id, $user_id)
+    {
+        //clear all access to given client and user
+        //delete all refresh, access and codes from db associated with these ids
+        $stmt = $this->db->prepare(sprintf('DELETE FROM %s WHERE client_id=:client_id AND user_id=:user_id', $this->config['access_token_table']));
+        $stmt->execute(compact('client_id', 'user_id'));
+        
+        $stmt = $this->db->prepare(sprintf('DELETE FROM %s WHERE client_id=:client_id AND user_id=:user_id', $this->config['refresh_token_table']));
+        $stmt->execute(compact('client_id', 'user_id'));
+        
+        $stmt = $this->db->prepare(sprintf('DELETE FROM %s WHERE client_id=:client_id AND user_id=:user_id', $this->config['code_table']));
+        $stmt->execute(compact('client_id', 'user_id'));
+        
+        return true;
     }
 
     /**
@@ -34,12 +63,32 @@ class PdoAdapter extends \ZF\OAuth2\Adapter\PdoAdapter implements UserRevokeInte
     {
         if($token_type_hint === null)
         {
-            //delete any token
+            //try to match the token type
+            $stmt = $this->db->prepare(sprintf('SELECT * FROM %s WHERE access_token=:token', $this->config['access_token_table']));
+            $stmt->execute(compact('token'));
             
+            $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+            if(empty($result))
+            {
+                $stmt = $this->db->prepare(sprintf('SELECT * FROM %s WHERE refresh_token=:token', $this->config['refresh_token_table']));
+                $stmt->execute(compact('token'));
+                
+                $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+                if(!empty($result))
+                {
+                    $token_type_hint = 'refresh_token';
+                }
+            }
+            else{
+                $token_type_hint = 'access_token';
+            }
         }
         
-        $stmt = $this->db->prepare(sprintf('DELETE FROM %s WHERE %s=:token', $this->config[$token_type_hint . '_table'], $token_type_hint));
-        return $stmt->execute(compact('token'));
+        if($token_type_hint !== null)
+        {
+            $stmt = $this->db->prepare(sprintf('DELETE FROM %s WHERE %s=:token', $this->config[$token_type_hint . '_table'], $token_type_hint));
+            return $stmt->execute(compact('token'));
+        }
     }
 
     /**

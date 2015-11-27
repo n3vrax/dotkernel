@@ -7,4 +7,6 @@ interface UserRevokeInterface
     public function revokeToken($token, $token_type_hint = null);
     
     public function isAuthorized($client_id, $user_id);
+    
+    public function revokeAccess($client_id, $user_id);
 }
