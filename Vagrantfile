@@ -17,6 +17,11 @@ debconf-set-selections <<< 'mysql-server mysql-server/root_password_again passwo
 sudo apt-get install -y mysql-server libapache2-mod-auth-mysql
 sudo apt-get install -y php5 php5-mysql libapache2-mod-php5 php5-mcrypt php5-curl php5-cli php5-sqlite php5-intl
 
+#setup database
+mysqladmin -u$DB_USER -p$DB_PASS drop -f dotkernel
+mysqladmin -u$DB_USER -p$DB_PASS create dotkernel
+mysql -u$DB_USER -p$DB_PASS dotkernel < /vagrant/data/db/dotkernel.sql
+
 #install composer globally
 sudo curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
 
@@ -44,11 +49,10 @@ composer install --no-progress
 
 php public/index.php development enable
 
-#setup database
-mysqladmin -u$DB_USER -p$DB_PASS drop -f dotkernel
-mysqladmin -u$DB_USER -p$DB_PASS create dotkernel
-mysql -u$DB_USER -p$DB_PASS dotkernel < /vagrant/data/db/dotkernel.sql
-
+#install redis
+echo 'installing redis-server...'
+sudo apt-get install -y redis-server
+sudo service redis-server restart
 
 #install jenkins
 #install openjdk first
@@ -87,7 +91,8 @@ sudo make install
 
 sudo ln -s /usr/local/bin/varnish-agent /usr/bin/varnish-agent
 
-echo 'admin:1234' | sudo tee /etc/varnish/agent_secret > /dev/null
+sudo mkdir -p /usr/local/etc/varnish
+echo 'admin:1234' | sudo tee /usr/local/etc/varnish/agent_secret > /dev/null
 sudo cp /home/vagrant/vagent2/debian/init /etc/init.d/varnish-agent
 sudo chmod +x /etc/init.d/varnish-agent
 

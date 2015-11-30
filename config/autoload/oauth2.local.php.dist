@@ -6,6 +6,11 @@ return array(
             'username' => 'dbuser',
             'password' => 'dbpass',
         ),
+        'options' => [
+            'use_openid_connect' => true,
+            'id_lifetime' => 3600,
+            'issuer' => 'http://dotkernel.local'
+        ],
         'allow_implicit' => false, // default (set to true when you need to support browser-based or mobile apps)
         'access_lifetime' => 3600, // default (set a value in seconds for access tokens lifetime)
         'enforce_state'  => true,  // default

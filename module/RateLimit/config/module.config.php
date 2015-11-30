@@ -1,75 +1,89 @@
 <?php
 return array(
     'rate_limit' => [
-        'options' => [
-            'rate_period' => 3600,
-        ],
-        
-        'package_limits' => [
-            'warn_treshold' => 3,
-            'limit_treshold' => 5,
-            'basic' => [
-                'warn_treshold' => 5,
-                'limit_treshold' => 10,
-            ],
-            'developer' => [
-                'warn_treshold' => 20,
-                'limit_treshold' => 40,
-            ],
-            'enterprise' => [
-                'warn_treshold' => 50,
-                'limit_treshold' => 80,
-            ],
-        ],
-        
-        'route_limits' => [
-            
-        ],
-        
-        'controller_limits' => [
-            
-        ],
-        
-        'rest_limits' => [
-            'UserApi\\V1\Rest\\User\\Controller' => [
-                'entity' => [
-                    'GET' => [
-                        'warn_treshold' => 5,
-                        'limit_treshold' => 10,
-                        'basic' => [
-                            'warn_treshold' => 5,
-                            'limit_treshold' => 10,
-                        ],
-                        'developer' => [
-                            'warn_treshold' => 20,
-                            'limit_treshold' => 30,
-                        ],
-                        'enterprise' => [
-                            'warn_treshold' => 40,
-                            'limit_treshold' => 50,
-                        ],
-                    ],
-                    'POST' => null,
-                    'PATCH' => [
-                        
-                    ],
-                    'PUT' => [
-                        
-                    ],
-                    'DELETE' => [
-                        
-                    ],
+        'throttlers' => [
+            'per_second' => [
+                'options' => [
+                    'type' => 'redis',
+                    'rate_period' => 3600,
                 ],
-                'collection' => [
-                    'GET' => [
-                        
+            ],
+            
+            'daily_limits' => [
+                'options' => [
+                    'type' => 'redis',
+                    'rate_period' => 86400,
+                ],
+            ],
+        ],
+        
+        'limits' => [
+            'package_limits' => [
+                'warn_threshold' => ['per_second' => 5, 'daily_limits' => 980],
+                'limit_threshold' => ['per_second' => 10, 'daily_limits' => 1000],
+                'basic' => [
+                    'warn_threshold' => ['per_second' => 5, 'daily_limits' => 980],
+                    'limit_threshold' => ['per_second' => 10, 'daily_limits' => 1000],
+                ],
+                'developer' => [
+                    'warn_threshold' => ['per_second' => 10, 'daily_limits' => 9800],
+                    'limit_threshold' => ['per_second' => 20, 'daily_limits' => 10000],
+                ],
+                'enterprise' => [
+                    'warn_threshold' => ['per_second' => 50, 'daily_limits' => 90500],
+                    'limit_threshold' => ['per_second' => 70, 'daily_limits' => 100000],
+                ],
+            ],
+            
+            'route_limits' => [
+            
+            ],
+            
+            'controller_limits' => [
+            
+            ],
+            
+            'rest_limits' => [
+                'UserApi\\V1\Rest\\User\\Controller' => [
+                    'entity' => [
+                        'GET' => [
+                            'warn_threshold' => ['per_second' => 5, 'daily_limits' => 20],
+                            'limit_threshold' => ['per_second' => 10, 'daily_limits' => 30],
+                            'basic' => [
+                                'warn_threshold' => ['per_second' => 5, 'daily_limits' => 20],
+                                'limit_threshold' => ['per_second' => 10, 'daily_limits' => 30],
+                            ],
+                            'developer' => [
+                                'warn_threshold' => ['per_second' => 10, 'daily_limits' => 20],
+                                'limit_threshold' => ['per_second' => 20, 'daily_limits' => 30],
+                            ],
+                            'enterprise' => [
+                                'warn_threshold' => ['per_second' => 50, 'daily_limits' => 20],
+                                'limit_threshold' => ['per_second' => 70, 'daily_limits' => 30],
+                            ],
+                        ],
+                        'POST' => null,
+                        'PATCH' => [
+            
+                        ],
+                        'PUT' => [
+            
+                        ],
+                        'DELETE' => [
+            
+                        ],
                     ],
-                    'POST' => [
-                        
+                    'collection' => [
+                        'GET' => [
+            
+                        ],
+                        'POST' => [
+            
+                        ],
+                        'PATCH' => null,
+                        'PUT' => null,
+                        'DELETE' => null,
                     ],
-                    'PATCH' => null,
-                    'PUT' => null,
-                    'DELETE' => null,
                 ],
             ],
         ],
@@ -78,6 +92,7 @@ return array(
     'service_manager' => [
         'factories' => [
             'RateLimit\Listener\RouteListener' => 'RateLimit\Listener\RouteListenerFactory',
+            'RateLimit\Service\RateLimitService' => 'RateLimit\Service\RateLimitServiceFactory',
         ],
     ],
 );

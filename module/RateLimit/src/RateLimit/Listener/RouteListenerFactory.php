@@ -3,10 +3,12 @@
 namespace RateLimit\Listener;
 
 use Zend\ServiceManager\ServiceLocatorInterface;
-class ReouteListenerFactory
+class RouteListenerFactory
 {
     public function __invoke(ServiceLocatorInterface $services)
     {
-        return new RouteListener();
+        $rateLimitService = $services->get('RateLimit\Service\RateLimitService');
+        
+        return new RouteListener($rateLimitService);
     }
 }
