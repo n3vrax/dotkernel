@@ -2,51 +2,56 @@
 
 namespace RateLimit\Service;
 
-use Perimeter\RateLimiter\Throttler\RedisThrottler;
+
 class RateLimitService
 {
     protected $throttlers = array();
     
-    protected $packageLimits;
+    protected $limits = array();
     
-    protected $routeLimits;
-    
-    protected $controllerLimits;
-    
-    protected $restLimits;
-    
-    
-    public function __construct(array $config)
+    public function __construct(array $throttlers, array $limits)
     {
-        if(!isset($config['throttlers']) || empty($config['throttlers']))
-            return;
-        
-        foreach($config['throttlers'] as $name => $throttlerConfig)
+        $this->throttlers = $throttlers;
+        $this->limits = $limits;
+    }
+    
+    public function consume($meterId)
+    {
+        $node = $this->getClosestMeterIdMatch($meterId);
+        var_dump($node);exit;
+        foreach ($this->throttlers as $throttlerName)
         {
-            switch($throttlerConfig['options']['type'])
-            {
-                default:
-                case 'redis':
-                    $redis = new \Predis\Client();
-                    $throttler = new RedisThrottler($redis, $throttlerConfig['options']);
-                break;
-                case 'doctrine':
-                    //TODO: initialize doctrine throttler
-                    $throttler = null;
-                break;
-            }
+            $warnThreshold = $node->getWarnThreshold($throttlerName);
+            $limitThreshold = $node->getLimitThreshold($throttlerName);
             
-            if($throttler !== null)
-                $this->throttlers[$name] = $throttler;
+            if(isset($this->throttlers[$throttlerName]) && $warnThreshold !== null && $limitThreshold !== null)
+                $this->throttlers[$throttlerName]->consume($node->getKey(), $warnThreshold, $limitThreshold);
         }
     }
     
-    public function consume($meterId, $warnThreshold, $limitThreshold, $throttlers = array())
+    protected function getClosestMeterIdMatch($meterId)
     {
-        foreach ($throttlers as $throttlerName)
+        $parts = explode('::', $meterId);
+        $m = $parts[0];
+        $p = isset($parts[1]) ? $parts[1] : '';
+        
+        $parts = explode(':', $m);
+        
+        $s = implode(':', $parts);
+        while($s !== '')
         {
-            if(isset($this->throttlers[$throttlerName]))
-                $this->throttlers[$throttlerName]->consume($meterId, $warnThreshold, $limitThreshold);
+            if(!empty($p)){
+                $withPackage = $s . '::' . $p;
+                if(isset($this->limits[$withPackage]))
+                    return $this->limits[$withPackage];
+            }
+            
+            if(isset($this->limits[$s]))
+                return $this->limits[$s];
+            
+            array_pop($parts);
+            $s = implode(':', $parts);
+            
         }
     }
     

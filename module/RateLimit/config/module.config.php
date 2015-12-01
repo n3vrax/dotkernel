@@ -1,6 +1,7 @@
 <?php
 return array(
     'rate_limit' => [
+        
         'throttlers' => [
             'per_second' => [
                 'options' => [
@@ -18,9 +19,10 @@ return array(
         ],
         
         'limits' => [
+            'warn_threshold' => ['per_second' => 5, 'daily_limits' => 980],
+            'limit_threshold' => ['per_second' => 10, 'daily_limits' => 1000],
+            
             'package_limits' => [
-                'warn_threshold' => ['per_second' => 5, 'daily_limits' => 980],
-                'limit_threshold' => ['per_second' => 10, 'daily_limits' => 1000],
                 'basic' => [
                     'warn_threshold' => ['per_second' => 5, 'daily_limits' => 980],
                     'limit_threshold' => ['per_second' => 10, 'daily_limits' => 1000],
@@ -35,20 +37,30 @@ return array(
                 ],
             ],
             
-            'route_limits' => [
-            
-            ],
-            
-            'controller_limits' => [
-            
-            ],
-            
-            'rest_limits' => [
-                'UserApi\\V1\Rest\\User\\Controller' => [
-                    'entity' => [
-                        'GET' => [
+            'UserApi\\V1\Rest\\User\\Controller' => [
+                
+                //limits defined for all methods for this action/resource
+                'warn_threshold' => ['per_second' => 5, 'daily_limits' => 20],
+                'limit_threshold' => ['per_second' => 10, 'daily_limits' => 30],
+                
+                'entity' => [
+                    //limits defined for all methods for this action/resource
+                    'warn_threshold' => ['per_second' => 5, 'daily_limits' => 20],
+                    'limit_threshold' => ['per_second' => 10, 'daily_limits' => 30],
+                    
+                    'package_limits' => [
+                        'basic' => [
                             'warn_threshold' => ['per_second' => 5, 'daily_limits' => 20],
                             'limit_threshold' => ['per_second' => 10, 'daily_limits' => 30],
+                        ],
+                    ],
+                    
+                    'GET' => [
+                        //limits defined for all packages for this controller/action/method pair
+                        'warn_threshold' => ['per_second' => 5, 'daily_limits' => 20],
+                        'limit_threshold' => ['per_second' => 10, 'daily_limits' => 30],
+                        
+                        'package_limits' => [
                             'basic' => [
                                 'warn_threshold' => ['per_second' => 5, 'daily_limits' => 20],
                                 'limit_threshold' => ['per_second' => 10, 'daily_limits' => 30],
@@ -62,28 +74,33 @@ return array(
                                 'limit_threshold' => ['per_second' => 70, 'daily_limits' => 30],
                             ],
                         ],
-                        'POST' => null,
-                        'PATCH' => [
-            
-                        ],
-                        'PUT' => [
-            
-                        ],
-                        'DELETE' => [
-            
+                    ],
+                    'POST' => null,
+                    'PATCH' => [
+                        'package_limits' => [
+                            'enterprise' => [
+                                'warn_threshold' => ['per_second' => 50, 'daily_limits' => 20],
+                                'limit_threshold' => ['per_second' => 70, 'daily_limits' => 30],
+                            ],
                         ],
                     ],
-                    'collection' => [
-                        'GET' => [
-            
-                        ],
-                        'POST' => [
-            
-                        ],
-                        'PATCH' => null,
-                        'PUT' => null,
-                        'DELETE' => null,
+                    'PUT' => [
+        
                     ],
+                    'DELETE' => [
+        
+                    ],
+                ],
+                'collection' => [
+                    'GET' => [
+        
+                    ],
+                    'POST' => [
+        
+                    ],
+                    'PATCH' => null,
+                    'PUT' => null,
+                    'DELETE' => null,
                 ],
             ],
         ],

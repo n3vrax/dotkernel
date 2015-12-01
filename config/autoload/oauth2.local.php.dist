@@ -7,16 +7,18 @@ return array(
             'password' => 'dbpass',
         ),
         'options' => [
+            'issuer' => 'http://localhost:8080',
             'use_openid_connect' => true,
-            'id_lifetime' => 3600,
-            'issuer' => 'http://dotkernel.local'
+            'id_lifetime' => 10800, //we set this to be the same as the access token lifetime
         ],
-        'allow_implicit' => false, // default (set to true when you need to support browser-based or mobile apps)
-        'access_lifetime' => 3600, // default (set a value in seconds for access tokens lifetime)
+        'allow_implicit' => true, // default (set to true when you need to support browser-based or mobile apps)
+        'access_lifetime' => 10800, // default (set a value in seconds for access tokens lifetime) - 3h
         'enforce_state'  => true,  // default
         'storage'        => 'DotBase\OAuth\Adapter\PdoAdapter', // service name for the OAuth2 storage adapter
         'storage_settings' => array(
+            'bcrypt_cost' => 10,
             'user_table' => 'user',
+            'user_details_table' => 'user_details',
         ),
     ),
 );
