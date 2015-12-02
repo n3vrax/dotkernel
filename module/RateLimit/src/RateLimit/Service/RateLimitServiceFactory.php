@@ -4,7 +4,6 @@ namespace RateLimit\Service;
 
 use Perimeter\RateLimiter\Throttler\RedisThrottler;
 use RateLimit\LimitsNode;
-use RateLimit\RateLimit;
 class RateLimitServiceFactory
 {
     public function __invoke($services)

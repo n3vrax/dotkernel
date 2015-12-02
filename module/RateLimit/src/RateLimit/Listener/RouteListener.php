@@ -15,6 +15,8 @@ class RouteListener
     
     public function __invoke(MvcEvent $e)
     {
+        $request = $e->getRequest();
+        
         //$this->rateLimitService->consume('dotlimit:UserApi\V1\Rest\User\Controller:entity:PATCH::enterprise');
     }
 }

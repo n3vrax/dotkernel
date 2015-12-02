@@ -18,7 +18,7 @@ class RateLimitService
     public function consume($meterId)
     {
         $node = $this->getClosestMeterIdMatch($meterId);
-        var_dump($node);exit;
+        
         foreach ($this->throttlers as $throttlerName)
         {
             $warnThreshold = $node->getWarnThreshold($throttlerName);
