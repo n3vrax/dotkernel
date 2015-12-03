@@ -19,18 +19,28 @@ class RateLimitService
     {
         $node = $this->getClosestMeterIdMatch($meterId);
         
-        foreach ($this->throttlers as $throttlerName)
+        if($node === null) return;
+        
+        foreach ($this->throttlers as $throttlerName => $throttler)
         {
             $warnThreshold = $node->getWarnThreshold($throttlerName);
             $limitThreshold = $node->getLimitThreshold($throttlerName);
             
-            if(isset($this->throttlers[$throttlerName]) && $warnThreshold !== null && $limitThreshold !== null)
-                $this->throttlers[$throttlerName]->consume($node->getKey(), $warnThreshold, $limitThreshold);
+            //if threshold are missing for this throttler or are set to 0 we dont rate limit the meterId
+            
+            if($warnThreshold !== null && $limitThreshold !== null && $warnThreshold !== 0 && $limitThreshold != 0)
+                $throttler->consume($meterId . '-' . $throttlerName, $warnThreshold, $limitThreshold);
         }
     }
     
     protected function getClosestMeterIdMatch($meterId)
     {
+        //dotlimit:<controller_name>:<action_name>:<method>::<package>#<token>
+        
+        //token removal
+        $parts = explode('#', $meterId);
+        $meterId = $parts[0];
+        
         $parts = explode('::', $meterId);
         $m = $parts[0];
         $p = isset($parts[1]) ? $parts[1] : '';
@@ -53,6 +63,8 @@ class RateLimitService
             $s = implode(':', $parts);
             
         }
+        
+        return null;
     }
     
     public function isLimitWarning()
@@ -77,5 +89,11 @@ class RateLimitService
         }
         
         return $result;
+    }
+    
+    public function getTopMeters($throttlerName)
+    {
+        if(isset($this->throttlers[$throttlerName]))
+            return $this->throttlers[$throttlerName]->getTopMeters();
     }
 }

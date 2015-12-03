@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 25, 2015 at 11:42 PM
+-- Generation Time: Dec 02, 2015 at 09:12 PM
 -- Server version: 5.5.23
 -- PHP Version: 5.6.5
 
@@ -63,6 +63,13 @@ CREATE TABLE IF NOT EXISTS `oauth_access_tokens` (
   PRIMARY KEY (`access_token`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `oauth_access_tokens`
+--
+
+INSERT INTO `oauth_access_tokens` (`access_token`, `client_id`, `user_id`, `expires`, `scope`) VALUES
+('9685c149dd8004bdb148172f2e7aad9ac0839102', 'CrowdedApp', 'admin', '2015-11-27 19:59:13', 'openid profile get_users edit_own_user offline_access');
+
 -- --------------------------------------------------------
 
 --
@@ -85,7 +92,8 @@ CREATE TABLE IF NOT EXISTS `oauth_authorization_codes` (
 --
 
 INSERT INTO `oauth_authorization_codes` (`authorization_code`, `client_id`, `user_id`, `redirect_uri`, `expires`, `scope`, `id_token`) VALUES
-('d6e1017a2357579b4ee464abccaf923e7d242cba', 'CrowdedApp', 'testuser', '/oauth/receivecode', '2015-11-25 21:41:55', 'openid profile get_users edit_own_user', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3Q6ODA4MCIsInN1YiI6InRlc3R1c2VyIiwiYXVkIjoiQ3Jvd2RlZEFwcCIsImlhdCI6MTQ0ODQ4NzY4NSwiZXhwIjoxNDQ4NDk4NDg1LCJhdXRoX3RpbWUiOjE0NDg0ODc2ODV9.1hc1BsxuyV4Hz9iwBjL-k9aHX1P4TX6aPwUvqTdjqqkOfqjbu7rkK1ZjBcf8dv8yi3DbQTFFPX90Qm_yxPiifpA-ITKduI9iBdgBT0XN6eRB6GbyFhmghmrr3hP-Io1oXMpq0EaeE3Bq5q5Gx7RWJqBVy-nAayfkAsFnAEffqEg');
+('5866e037ccaf24ede54f10b52becb475c514ffff', 'CrowdedApp', 'admin', '/oauth/receivecode', '2015-11-27 16:59:59', 'openid profile get_users edit_own_user', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3Q6ODA4MCIsInN1YiI6ImFkbWluIiwiYXVkIjoiQ3Jvd2RlZEFwcCIsImlhdCI6MTQ0ODY0MzU2OSwiZXhwIjoxNDQ4NjU0MzY5LCJhdXRoX3RpbWUiOjE0NDg2NDM1Njl9.yN2e244Gt2KQg5o1fyBJavw_fDZgewiiUFjOAGla1uzFfwUCvxqtabklXwo1Rtzhut4lJsnzPFbwBnd_84CqUucfIQa019dV5YqzjfppliZ1OO16_PfNPNV1P0Mv8M4H_rj6QYMcyefxyQsLVqVBTdTG5dxYH9U5wEwo9lFq1ms'),
+('6a2124302925a5f75772eae336ae8f2dde35e399', 'CrowdedApp', 'admin', '/oauth/receivecode', '2015-11-27 17:00:05', 'openid profile', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3Q6ODA4MCIsInN1YiI6ImFkbWluIiwiYXVkIjoiQ3Jvd2RlZEFwcCIsImlhdCI6MTQ0ODY0MzU3NSwiZXhwIjoxNDQ4NjU0Mzc1LCJhdXRoX3RpbWUiOjE0NDg2NDM1NzV9.x7N_2uQZdqc6rcbE4XAoJSaJRuPuxZcDIvi1wqdn0K-jTIxMYuVXt7digz9aaPk-6HjywCEAo4CRI5DMs7n3oBBatZuM8rMW9eIz3j_fpTdGq-KsUAyMMH3zGTcH7tXtjRp72fIuG9CEtqem8XLVPRagR7YJ-ETjJ_lGwtKtQSM');
 
 -- --------------------------------------------------------
 
@@ -161,6 +169,13 @@ CREATE TABLE IF NOT EXISTS `oauth_refresh_tokens` (
   PRIMARY KEY (`refresh_token`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `oauth_refresh_tokens`
+--
+
+INSERT INTO `oauth_refresh_tokens` (`refresh_token`, `client_id`, `user_id`, `expires`, `scope`) VALUES
+('3462f98423d5ce5d8be885341de3d1952878641b', 'CrowdedApp', 'admin', '2015-12-11 16:59:13', 'openid profile get_users edit_own_user offline_access');
+
 -- --------------------------------------------------------
 
 --
@@ -208,6 +223,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `email` varchar(255) NOT NULL,
   `displayName` varchar(255) DEFAULT NULL,
   `roleId` varchar(255) NOT NULL DEFAULT 'guest',
+  `package` enum('basic','developer','enterprise') NOT NULL DEFAULT 'basic',
   `state` enum('active','inactive','unconfirmed','deleted') NOT NULL DEFAULT 'unconfirmed',
   `dateCreated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
@@ -220,9 +236,9 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `username`, `password`, `email`, `displayName`, `roleId`, `state`, `dateCreated`) VALUES
-(1, 'admin', '$2a$10$44nfKuBG6HqfQ3I7LoCiQeNO80KI/OhQdBrz3FwcSqqtNikSvdVyG', 'admin@gmail.com', NULL, 'admin', 'active', '2015-09-07 16:38:48'),
-(2, 'testuser', '$2a$10$44nfKuBG6HqfQ3I7LoCiQeNO80KI/OhQdBrz3FwcSqqtNikSvdVyG', 'testuser@gmail.com', NULL, 'user', 'active', '2015-09-07 16:38:48');
+INSERT INTO `user` (`id`, `username`, `password`, `email`, `displayName`, `roleId`, `package`, `state`, `dateCreated`) VALUES
+(1, 'admin', '$2a$10$44nfKuBG6HqfQ3I7LoCiQeNO80KI/OhQdBrz3FwcSqqtNikSvdVyG', 'admin@gmail.com', NULL, 'admin', 'basic', 'active', '2015-09-07 16:38:48'),
+(2, 'testuser', '$2a$10$44nfKuBG6HqfQ3I7LoCiQeNO80KI/OhQdBrz3FwcSqqtNikSvdVyG', 'testuser@gmail.com', NULL, 'user', 'basic', 'active', '2015-09-07 16:38:48');
 
 -- --------------------------------------------------------
 

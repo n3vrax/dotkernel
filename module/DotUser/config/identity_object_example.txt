@@ -23,6 +23,8 @@ object(ZF\MvcAuth\Identity\AuthenticatedIdentity)#633 (6) {
       string(18) "testuser@gmail.com"
       ["state"]=>
       string(6) "active"
+      ["package"]=>
+      string(5) "basic"
     }
     ["client_data"]=>
     array(5) {

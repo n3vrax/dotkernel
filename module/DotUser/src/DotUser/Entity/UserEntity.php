@@ -20,6 +20,8 @@ class UserEntity implements FilterProviderInterface
     protected $password;
     
     protected $roleId;
+    
+    protected $package;
 
     protected $state;
     
@@ -31,6 +33,10 @@ class UserEntity implements FilterProviderInterface
     const UNCONFIRMED = 'unconfirmed';
     const DELETED = 'deleted';
     const INACTIVE = 'inactive';
+    
+    const PACKAGE_BASIC = 'basic';
+    const PACKAGE_DEVELOPER = 'developer';
+    const PACKAGE_ENTERPRISE = 'enterprise';
     
     public function __construct()
     {
@@ -69,6 +75,17 @@ class UserEntity implements FilterProviderInterface
     {
         $this->roleId = $roleId;
         return $this;
+    }
+    
+    public function setPackage($package)
+    {
+        $this->package = $package;
+        return $this;
+    }
+    
+    public function getPackage()
+    {
+        return $this->package;
     }
 
     /**

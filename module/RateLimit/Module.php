@@ -45,6 +45,6 @@ class Module implements AutoloaderProviderInterface
         
         $services = $e->getApplication()->getServiceManager();
         
-        $eventManager->attach(MvcEvent::EVENT_ROUTE, $services->get('RateLimit\Listener\RouteListener'), 100);
+        $eventManager->attach(MvcEvent::EVENT_ROUTE, $services->get('RateLimit\Listener\RouteListener'), -1000);
     }
 }

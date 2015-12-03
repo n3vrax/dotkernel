@@ -58,7 +58,7 @@ class LimitsNode
     
     public function getWarnThreshold($key)
     {
-        return isset($this->warnThresholds[$key]) ?: null;
+        return isset($this->warnThresholds[$key]) ? $this->warnThresholds[$key] : null;
     }
     
     public function addLimitThreshold($key, $value)
@@ -69,6 +69,6 @@ class LimitsNode
     
     public function getLimitThreshold($key)
     {
-        return isset($this->limitThresholds[$key]) ?: null;
+        return isset($this->limitThresholds[$key]) ? $this->limitThresholds[$key] : null;
     }
 }

@@ -56,14 +56,16 @@ class RateLimitServiceFactory
         $packageLimits = $this->processPackageLimits($prefix, $config);
         $limits = array_merge($limits, $packageLimits);
         
-        foreach($config as $n => $c)
+        if(is_array($config))
         {
-            if($n === 'warn_threshold' || $n === 'limit_threshold' || $n === 'package_limits')
-                continue;
+            foreach($config as $n => $c)
+            {
+                if($n === 'warn_threshold' || $n === 'limit_threshold' || $n === 'package_limits')
+                    continue;
             
-            $this->processLimits($prefix . ':' . $n, $c, $limits);
+                $this->processLimits($prefix . ':' . $n, $c, $limits);
+            }
         }
-        
     }
     
     
