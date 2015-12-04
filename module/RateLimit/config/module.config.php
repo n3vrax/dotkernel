@@ -43,7 +43,7 @@ return array(
                 ],
             ],*/
             
-            'ZF\\Oauth2\\Controller\\Auth' => [
+            'ZF\\OAuth2\\Controller\\Auth' => [
                 'warn_threshold' => ['per_second' => 0, 'daily_limits' => 0],
                 'limit_threshold' => ['per_second' => 0, 'daily_limits' => 0],
             ],

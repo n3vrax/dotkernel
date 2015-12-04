@@ -63,6 +63,7 @@ class RouteListener
         $token = empty($token) ? $_SERVER['REMOTE_ADDR'] : $token;
         $token = md5($token);
         
+        
         $routeMatch = $e->getRouteMatch();
         
         $controller = $routeMatch->getParam('controller', '');
