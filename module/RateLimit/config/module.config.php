@@ -25,8 +25,8 @@ return array(
         ],
         
         'limits' => [
-            'warn_threshold' => ['per_second' => 1, 'daily_limits' => 5],
-            'limit_threshold' => ['per_second' => 2, 'daily_limits' => 6],
+            //'warn_threshold' => ['per_second' => 1, 'daily_limits' => 5],
+            //'limit_threshold' => ['per_second' => 2, 'daily_limits' => 6],
             
             /*'package_limits' => [
                 'basic' => [

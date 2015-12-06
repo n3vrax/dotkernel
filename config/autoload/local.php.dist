@@ -6,7 +6,7 @@ return array(
                 'charset' => 'utf8',
                 'database' => 'dotkernel',
                 'driver' => 'PDO_Mysql',
-                'hostname' => 'localhost',
+                'hostname' => '127.0.0.1',
                 'username' => 'root',
             ),
         ),
