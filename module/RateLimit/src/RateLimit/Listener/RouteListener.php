@@ -4,100 +4,67 @@ namespace RateLimit\Listener;
 
 use Zend\Mvc\MvcEvent;
 use RateLimit\Service\RateLimitService;
-use RateLimit\PackageNameProviderInterface;
-use Zend\Http\Request;
-use Zend\Mvc\Router\RouteMatch;
+use Zend\EventManager\EventManagerInterface;
+use RateLimit\MvcLimitEvent;
+use Zend\Http\Response;
 class RouteListener
 {
     protected $rateLimitService;
     
-    protected $userPackageProvider;
+    protected $eventManager;
     
-    protected $restControllers;
+    protected $mvcLimitEvent;
     
-    public function __construct(RateLimitService $rateLimitService, PackageNameProviderInterface $userPackageProvider, array $restControllers = array())
+    public function __construct(RateLimitService $rateLimitService, 
+        EventManagerInterface $eventManager,
+        MvcLimitEvent $mvcLimitEvent
+        )
     {
         $this->rateLimitService = $rateLimitService;
-        $this->userPackageProvider = $userPackageProvider;
-        $this->restControllers = $restControllers;
+        $this->eventManager = $eventManager;
+        $this->mvcLimitEvent = $mvcLimitEvent;
+    }
+    
+    public function setEventManager(EventManagerInterface $ev)
+    {
+        $this->eventManager = $ev;
+        return $this;
+    }
+    
+    public function getEventManager()
+    {
+        return $this->eventManager;
     }
     
     public function __invoke(MvcEvent $e)
     {
         $response = $e->getResponse();
-        $meterId = $this->buildMeterId($e);
-        $this->rateLimitService->consume($meterId);
+        $this->rateLimitService->consume($e->getRouteMatch(), $e->getRequest());
         
         //var_dump($this->rateLimitService->getTopMeters('daily_limits'));exit;
         
-        if($this->rateLimitService->isLimitWarning())
-        {
-            //add a warning rate limit header
-            $headers = $response->getHeaders();
-            $headers->addHeaderLine('X-Ratelimit-Warning', 'slow down the requests');
-            $response->setHeaders($headers);
-        }
-        
         if($this->rateLimitService->isLimitExceeded())
         {
-            $response->setStatusCode(429);
-            $response->setReasonPhrase('Too Many Requests');
+            //trigger the ratelimit exceeded event
+            $mvcLimitEvent = $this->mvcLimitEvent;
+            $response = $this->eventManager->trigger(MvcLimitEvent::EVENT_RATELIMIT_EXCEEDED, $mvcLimitEvent, function($r){
+                return $r instanceof Response;
+            });
             
-            $headers = $response->getHeaders();
-            $headers->addHeaderLine('X-Ratelimit-Error', 'you have reached the request limit');
-            $response->setHeaders($headers);
+            $response = $response->last();
             
             return $response;
         }
-    }
-    
-    public function buildMeterId(MvcEvent $e)
-    {
-        $request = $e->getRequest();
+        elseif($this->rateLimitService->isLimitWarning())
+        {
+            //trigger the ratelimit warning event
+            $mvcLimitEvent = $this->mvcLimitEvent;
+            $response = $this->eventManager->trigger(MvcLimitEvent::EVENT_RATELIMIT_WARN, $mvcLimitEvent, function($r){
+                return $r instanceof Response;
+            });
         
-        $prefix = 'dotlimit';
-        $packageName = $this->userPackageProvider->getPackageName();
-        $packageName = empty($packageName) ? '' : $packageName;
-        
-        $token = $this->userPackageProvider->getUniqueClientToken();
-        $token = empty($token) ? $_SERVER['REMOTE_ADDR'] : $token;
-        $token = md5($token);
-        
-        
-        $routeMatch = $e->getRouteMatch();
-        
-        $controller = $routeMatch->getParam('controller', '');
-        
-        $action = '';
-        if (!array_key_exists($controller, $this->restControllers)) {
-            $action = $routeMatch->getParam('action', 'index');
+                $response = $response->last();
+                $e->setResponse($response);
         }
-        else{
-            $identifierName = $this->restControllers[$controller];
-            $id = $this->getIdentifier($identifierName, $routeMatch, $request);
-            $action = $id ? 'entity' : 'collection';
-        }
-        
-        $method = $request->getMethod();
-        
-        if(!empty($packageName))
-            return sprintf('%s::%s#%s', implode(':', [$prefix, $controller, $action, $method]), $packageName, $token);
-        else 
-            return sprintf('%s#%s', implode(':', [$prefix, $controller, $action, $method]), $token);
-        
-    }
-    
-    protected function getIdentifier($identifierName, RouteMatch $routeMatch, $request)
-    {
-        $id = $routeMatch->getParam($identifierName, false);
-        if ($id) {
-            return $id;
-        }
-    
-        if (!$request instanceof Request) {
-            return false;
-        }
-    
-        return $request->getQuery($identifierName, false);
     }
 }

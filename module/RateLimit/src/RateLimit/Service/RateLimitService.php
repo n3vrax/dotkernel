@@ -3,11 +3,18 @@
 namespace RateLimit\Service;
 
 
+use Zend\Mvc\Router\RouteMatch;
+use Zend\Http\Request;
+use RateLimit\PackageNameProviderInterface;
 class RateLimitService
 {
     protected $throttlers = array();
     
     protected $limits = array();
+    
+    protected $userPackageProvider;
+    
+    protected $restControllers;
     
     public function __construct(array $throttlers, array $limits)
     {
@@ -15,8 +22,31 @@ class RateLimitService
         $this->limits = $limits;
     }
     
-    public function consume($meterId)
+    public function setPackageProvider(PackageNameProviderInterface $provider)
     {
+        $this->userPackageProvider = $provider;
+        return $this;
+    }
+    
+    public function getPackageProvider()
+    {
+        return $this->userPackageProvider;
+    }
+    
+    public function setRestControllers(array $restControllers)
+    {
+        $this->restControllers = $restControllers;
+        return $this;
+    }
+    
+    public function getRestControllers()
+    {
+        return $this->restControllers;
+    }
+    
+    public function consume(RouteMatch $routeMatch, Request $request)
+    {
+        $meterId = $this->buildMeterId($routeMatch, $request);
         $node = $this->getClosestMeterIdMatch($meterId);
         
         if($node === null) return;
@@ -67,6 +97,37 @@ class RateLimitService
         return null;
     }
     
+    public function buildMeterId(RouteMatch $routeMatch, Request $request)
+    {
+        $prefix = 'dotlimit';
+        $packageName = $this->userPackageProvider->getPackageName();
+        $packageName = empty($packageName) ? '' : $packageName;
+    
+        $token = $this->userPackageProvider->getUniqueClientToken();
+        $token = empty($token) ? $_SERVER['REMOTE_ADDR'] : $token;
+        $token = md5($token);
+    
+        $controller = $routeMatch->getParam('controller', '');
+    
+        $action = '';
+        if (!array_key_exists($controller, $this->restControllers)) {
+            $action = $routeMatch->getParam('action', 'index');
+        }
+        else{
+            $identifierName = $this->restControllers[$controller];
+            $id = $this->getIdentifier($identifierName, $routeMatch, $request);
+            $action = $id ? 'entity' : 'collection';
+        }
+    
+        $method = $request->getMethod();
+    
+        if(!empty($packageName))
+            return sprintf('%s::%s#%s', implode(':', [$prefix, $controller, $action, $method]), $packageName, $token);
+        else
+            return sprintf('%s#%s', implode(':', [$prefix, $controller, $action, $method]), $token);
+    
+    }
+    
     public function isLimitWarning()
     {
         $result = false;
@@ -95,5 +156,19 @@ class RateLimitService
     {
         if(isset($this->throttlers[$throttlerName]))
             return $this->throttlers[$throttlerName]->getTopMeters();
+    }
+    
+    protected function getIdentifier($identifierName, RouteMatch $routeMatch, $request)
+    {
+        $id = $routeMatch->getParam($identifierName, false);
+        if ($id) {
+            return $id;
+        }
+    
+        if (!$request instanceof Request) {
+            return false;
+        }
+    
+        return $request->getQuery($identifierName, false);
     }
 }

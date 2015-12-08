@@ -25,8 +25,8 @@ return array(
         ],
         
         'limits' => [
-            //'warn_threshold' => ['per_second' => 1, 'daily_limits' => 5],
-            //'limit_threshold' => ['per_second' => 2, 'daily_limits' => 6],
+            'warn_threshold' => ['per_second' => 1, 'daily_limits' => 5],
+            'limit_threshold' => ['per_second' => 2, 'daily_limits' => 6],
             
             /*'package_limits' => [
                 'basic' => [
@@ -119,9 +119,11 @@ return array(
     
     'service_manager' => [
         'factories' => [
-            'RateLimit\Listener\RouteListener' => 'RateLimit\Listener\RouteListenerFactory',
             'RateLimit\Service\RateLimitService' => 'RateLimit\Service\RateLimitServiceFactory',
             'RateLimit\UserPackageNameProvider' => 'RateLimit\UserPackageNameProviderFactory',
+            
+            'RateLimit\Listener\DefaultLimitWarningListener' => 'RateLimit\Factory\DefaultLimitWarningListenerFactory',
+            'RateLimit\Listener\DefaultLimitExceededListener' => 'RateLimit\Factory\DefaultLimitExceededListenerFactory',
         ],
     ],
 );

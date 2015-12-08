@@ -12,6 +12,7 @@ namespace RateLimit;
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
+use RateLimit\Listener\RouteListener;
 
 class Module implements AutoloaderProviderInterface
 {
@@ -45,6 +46,16 @@ class Module implements AutoloaderProviderInterface
         
         $services = $e->getApplication()->getServiceManager();
         
-        $eventManager->attach(MvcEvent::EVENT_ROUTE, $services->get('RateLimit\Listener\RouteListener'), -1000);
+        $rateLimitService = $services->get('RateLimit\Service\RateLimitService');
+        
+        $mvcLimitEvent = new MvcLimitEvent($e);
+        
+        $routeListener = new RouteListener($rateLimitService, $eventManager, $mvcLimitEvent);
+        
+        $eventManager->attach(MvcEvent::EVENT_ROUTE, $routeListener, -1000);
+        
+        $eventManager->attach(MvcLimitEvent::EVENT_RATELIMIT_WARN, $services->get('RateLimit\Listener\DefaultLimitWarningListener'));
+        
+        $eventManager->attach(MvcLimitEvent::EVENT_RATELIMIT_EXCEEDED, $services->get('RateLimit\Listener\DefaultLimitExceededListener'));
     }
 }

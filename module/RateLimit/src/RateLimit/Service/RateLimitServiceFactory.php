@@ -12,6 +12,8 @@ class RateLimitServiceFactory
         if(!isset($config['rate_limit']))
             throw new \Exception('no throttlers defined in the config. This is required if using RateLimit module');
         
+        $restControllers = $this->getRestServicesFromConfig($config);
+        
         $config = $config['rate_limit'];
         
         $throttlers = array();
@@ -42,10 +44,31 @@ class RateLimitServiceFactory
         if(isset($config['limits']) && !empty($config['limits']))
             $this->processLimits('dotlimit', $config['limits'], $limits);
         
+        $packageProvider = $services->get('RateLimit\UserPackageNameProvider');
         
-        return new RateLimitService($throttlers, $limits);
+        $rateLimitService = new RateLimitService($throttlers, $limits);
+        $rateLimitService->setRestControllers($restControllers);
+        $rateLimitService->setPackageProvider($packageProvider);
+        
+        return $rateLimitService;
     }
     
+    protected function getRestServicesFromConfig(array $config)
+    {
+        $restServices = [];
+        if (!isset($config['zf-rest'])) {
+            return $restServices;
+        }
+    
+        foreach ($config['zf-rest'] as $controllerService => $restConfig) {
+            if (!isset($restConfig['route_identifier_name'])) {
+                continue;
+            }
+            $restServices[$controllerService] = $restConfig['route_identifier_name'];
+        }
+    
+        return $restServices;
+    }
     
     public function processLimits($prefix, $config, &$limits)
     {
