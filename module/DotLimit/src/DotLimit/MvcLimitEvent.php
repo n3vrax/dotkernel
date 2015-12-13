@@ -1,6 +1,6 @@
 <?php
 
-namespace RateLimit;
+namespace DotLimit;
 
 use Zend\Cache\Storage\Event;
 use Zend\Mvc\MvcEvent;

@@ -1,6 +1,6 @@
 <?php
 
-namespace RateLimit;
+namespace DotLimit;
 
 use Zend\Authentication\AuthenticationService;
 use ZF\MvcAuth\Identity\AuthenticatedIdentity;

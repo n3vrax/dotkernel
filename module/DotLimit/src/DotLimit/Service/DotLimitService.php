@@ -1,12 +1,12 @@
 <?php
 
-namespace RateLimit\Service;
+namespace DotLimit\Service;
 
 
 use Zend\Mvc\Router\RouteMatch;
 use Zend\Http\Request;
-use RateLimit\PackageNameProviderInterface;
-class RateLimitService
+use DotLimit\PackageNameProviderInterface;
+class DotLimitService
 {
     protected $throttlers = array();
     

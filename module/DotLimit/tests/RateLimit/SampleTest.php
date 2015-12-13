@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace RateLimitTest;
+namespace DotLimitTest;
 
 class SampleTest extends Framework\TestCase
 {

@@ -7,12 +7,12 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace RateLimit;
+namespace DotLimit;
 
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
-use RateLimit\Listener\RouteListener;
+use DotLimit\Listener\RouteListener;
 
 class Module implements AutoloaderProviderInterface
 {
@@ -46,7 +46,7 @@ class Module implements AutoloaderProviderInterface
         
         $services = $e->getApplication()->getServiceManager();
         
-        $rateLimitService = $services->get('RateLimit\Service\RateLimitService');
+        $rateLimitService = $services->get('DotLimit\Service\DotLimitService');
         
         $mvcLimitEvent = new MvcLimitEvent($e);
         
@@ -54,8 +54,8 @@ class Module implements AutoloaderProviderInterface
         
         $eventManager->attach(MvcEvent::EVENT_ROUTE, $routeListener, -1000);
         
-        $eventManager->attach(MvcLimitEvent::EVENT_RATELIMIT_WARN, $services->get('RateLimit\Listener\DefaultLimitWarningListener'));
+        $eventManager->attach(MvcLimitEvent::EVENT_RATELIMIT_WARN, $services->get('DotLimit\Listener\DefaultLimitWarningListener'));
         
-        $eventManager->attach(MvcLimitEvent::EVENT_RATELIMIT_EXCEEDED, $services->get('RateLimit\Listener\DefaultLimitExceededListener'));
+        $eventManager->attach(MvcLimitEvent::EVENT_RATELIMIT_EXCEEDED, $services->get('DotLimit\Listener\DefaultLimitExceededListener'));
     }
 }

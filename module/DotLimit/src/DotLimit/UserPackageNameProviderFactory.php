@@ -1,6 +1,6 @@
 <?php
 
-namespace RateLimit;
+namespace DotLimit;
 
 class UserPackageNameProviderFactory
 {

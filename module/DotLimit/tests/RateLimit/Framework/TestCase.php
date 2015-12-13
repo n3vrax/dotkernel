@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace RateLimitTest\Framework;
+namespace DotLimitTest\Framework;
 
 use PHPUnit_Framework_TestCase;
 

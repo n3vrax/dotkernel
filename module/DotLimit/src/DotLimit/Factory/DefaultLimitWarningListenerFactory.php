@@ -1,8 +1,8 @@
 <?php
 
-namespace RateLimit\Factory;
+namespace DotLimit\Factory;
 
-use RateLimit\Listener\DefaultLimitWarningListener;
+use DotLimit\Listener\DefaultLimitWarningListener;
 class DefaultLimitWarningListenerFactory
 {
     public function __invoke($services)

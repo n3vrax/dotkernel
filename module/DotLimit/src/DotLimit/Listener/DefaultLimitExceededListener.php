@@ -1,8 +1,8 @@
 <?php
 
-namespace RateLimit\Listener;
+namespace DotLimit\Listener;
 
-use RateLimit\MvcLimitEvent;
+use DotLimit\MvcLimitEvent;
 class DefaultLimitExceededListener
 {
     public function __invoke(MvcLimitEvent $event)

@@ -1,10 +1,10 @@
 <?php
 
-namespace RateLimit\Service;
+namespace DotLimit\Service;
 
 use Perimeter\RateLimiter\Throttler\RedisThrottler;
-use RateLimit\LimitsNode;
-class RateLimitServiceFactory
+use DotLimit\LimitsNode;
+class DotLimitServiceFactory
 {
     public function __invoke($services)
     {
@@ -44,9 +44,9 @@ class RateLimitServiceFactory
         if(isset($config['limits']) && !empty($config['limits']))
             $this->processLimits('dotlimit', $config['limits'], $limits);
         
-        $packageProvider = $services->get('RateLimit\UserPackageNameProvider');
+        $packageProvider = $services->get('DotLimit\UserPackageNameProvider');
         
-        $rateLimitService = new RateLimitService($throttlers, $limits);
+        $rateLimitService = new DotLimitService($throttlers, $limits);
         $rateLimitService->setRestControllers($restControllers);
         $rateLimitService->setPackageProvider($packageProvider);
         

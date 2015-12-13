@@ -26,9 +26,10 @@ return array(
         'DotBase',
         'DotUser',
         'AcMailer',
+        'DotLimit',
         'Application',
         'MailApi',
-        'UserApi','RateLimit',
+        'UserApi',
     ),
     'module_listener_options' => array(
         'module_paths' => array(

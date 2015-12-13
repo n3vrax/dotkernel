@@ -1,8 +1,8 @@
 <?php
 
-namespace RateLimit\Factory;
+namespace DotLimit\Factory;
 
-use RateLimit\Listener\DefaultLimitExceededListener;
+use DotLimit\Listener\DefaultLimitExceededListener;
 class DefaultLimitExceededListenerFactory
 {
     public function __invoke($services)

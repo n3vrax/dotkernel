@@ -1,11 +1,11 @@
 <?php
 
-namespace RateLimit\Listener;
+namespace DotLimit\Listener;
 
 use Zend\Mvc\MvcEvent;
-use RateLimit\Service\RateLimitService;
+use DotLimit\Service\DotLimitService;
 use Zend\EventManager\EventManagerInterface;
-use RateLimit\MvcLimitEvent;
+use DotLimit\MvcLimitEvent;
 use Zend\Http\Response;
 class RouteListener
 {
@@ -15,7 +15,7 @@ class RouteListener
     
     protected $mvcLimitEvent;
     
-    public function __construct(RateLimitService $rateLimitService, 
+    public function __construct(DotLimitService $rateLimitService, 
         EventManagerInterface $eventManager,
         MvcLimitEvent $mvcLimitEvent
         )
