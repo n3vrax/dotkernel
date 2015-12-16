@@ -52,7 +52,8 @@ class Module implements AutoloaderProviderInterface
         
         $routeListener = new RouteListener($rateLimitService, $eventManager, $mvcLimitEvent);
         
-        $eventManager->attach(MvcEvent::EVENT_ROUTE, $routeListener, -1000);
+        //set to -500 priority in order to happen after authentication but before authorization
+        $eventManager->attach(MvcEvent::EVENT_ROUTE, $routeListener, -500);
         
         $eventManager->attach(MvcLimitEvent::EVENT_RATELIMIT_WARN, $services->get('DotLimit\Listener\DefaultLimitWarningListener'));
         

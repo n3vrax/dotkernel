@@ -27,6 +27,7 @@ class OauthRouteGuard
             $auth = $this->authentication;
             if(!$auth->hasIdentity())
             {
+                //redirect to login form before granting permissions - exception would be client_credentials grant type
                 $url = $event->getRouter()->assemble([], array('name' => 'dotuser/login'));
                 $host = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'on' ? 'https://' : 'http://';
                 $host .= $_SERVER['HTTP_HOST'];
@@ -42,7 +43,7 @@ class OauthRouteGuard
                 $identity = $auth->getIdentity();
                 $request = $event->getRequest(); 
                 $client_id = $request->getQuery('client_id');
-                //check to see if user already ganted permissions and is not revoked
+                //check to see if user already ganted permissions and is not revoked to skip the step and redirecting directly
                 if($event->getRouteMatch()->getMatchedRouteName() === 'oauth/authorize'){
                     if($this->userRevokeStorage->isAuthorized($client_id, $identity->getUsername()))
                     {
