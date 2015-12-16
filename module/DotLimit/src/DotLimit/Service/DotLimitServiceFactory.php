@@ -2,8 +2,8 @@
 
 namespace DotLimit\Service;
 
-use Perimeter\RateLimiter\Throttler\RedisThrottler;
 use DotLimit\LimitsNode;
+use DotLimit\Throttler\RedisThrottler;
 class DotLimitServiceFactory
 {
     public function __invoke($services)
@@ -31,6 +31,7 @@ class DotLimitServiceFactory
                         $throttler = new RedisThrottler($redis, $throttlerConfig['options']);
                         break;
                     case 'doctrine':
+                        throw new \Exception("doctrine throttler not yet supported");
                         //TODO: initialize doctrine throttler
                         $throttler = null;
                         break;

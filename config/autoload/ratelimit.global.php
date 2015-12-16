@@ -3,8 +3,8 @@
 return [
     'rate_limit' => [
         'limits' => [
-            'warn_threshold' => ['per_second' => 1, 'daily_limits' => 5],
-            'limit_threshold' => ['per_second' => 2, 'daily_limits' => 6],
+            'warn_threshold' => ['per_second' => 1, 'daily_limits' => 95],
+            'limit_threshold' => ['per_second' => 2, 'daily_limits' => 100],
     
             /*'package_limits' => [
              'basic' => [

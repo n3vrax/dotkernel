@@ -48,7 +48,7 @@ class Module implements AutoloaderProviderInterface
         
         $rateLimitService = $services->get('DotLimit\Service\DotLimitService');
         
-        $mvcLimitEvent = new MvcLimitEvent($e);
+        $mvcLimitEvent = new MvcLimitEvent($e, $rateLimitService);
         
         $routeListener = new RouteListener($rateLimitService, $eventManager, $mvcLimitEvent);
         

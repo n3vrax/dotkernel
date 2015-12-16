@@ -42,6 +42,16 @@ class RouteListener
         $this->rateLimitService->consume($e->getRouteMatch(), $e->getRequest());
         
         //var_dump($this->rateLimitService->getTopMeters('daily_limits'));exit;
+        $status = $this->rateLimitService->getLimitStatus($e->getRouteMatch(), $e->getRequest(), 'daily_limits');
+        if(!empty($status))
+        {
+            //add info headers
+            $headers = $response->getHeaders();
+            $headers->addHeaderLine('X-RateLimit-Limit', $status['limit']);
+            $headers->addHeaderLine('X-RateLimit-Remaining', $status['remaining']);
+            $headers->addHeaderLine('X-RateLimit-Reset', $status['reset']);
+            $response->setHeaders($headers);
+        }
         
         if($this->rateLimitService->isLimitExceeded())
         {

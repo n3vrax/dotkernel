@@ -44,6 +44,21 @@ class DotLimitService
         return $this->restControllers;
     }
     
+    public function getLimitStatus(RouteMatch $routeMatch, Request $request, $throttlerName)
+    {
+        if(!isset($this->throttlers[$throttlerName])) return [];
+        
+        $meterId = $this->buildMeterId($routeMatch, $request);
+        $node = $this->getClosestMeterIdMatch($meterId);
+        
+        if($node === null) return [];
+        
+         $limitThreshold = $node->getLimitThreshold($throttlerName);
+        
+        $throttler = $this->throttlers[$throttlerName];
+        return $throttler->getLimitStatus($meterId . '-' . $throttlerName, $limitThreshold);
+    }
+    
     public function consume(RouteMatch $routeMatch, Request $request)
     {
         $meterId = $this->buildMeterId($routeMatch, $request);

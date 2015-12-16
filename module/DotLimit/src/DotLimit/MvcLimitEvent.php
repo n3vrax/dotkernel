@@ -11,9 +11,12 @@ class MvcLimitEvent extends Event
     
     protected $mvcEvent;
     
-    public function __construct(MvcEvent $mvcEvent)
+    protected $limitService;
+    
+    public function __construct(MvcEvent $mvcEvent, $limitService)
     {
         $this->mvcEvent = $mvcEvent;
+        $this->limitService = $limitService;
     }
     
     public function setMvcEvent(MvcEvent $event)
@@ -25,5 +28,16 @@ class MvcLimitEvent extends Event
     public function getMvcEvent()
     {
         return $this->mvcEvent;
+    }
+    
+    public function setLimitService($limitService)
+    {
+        $this->limitService = $limitService;
+        return $this;
+    }
+    
+    public function getLimitService()
+    {
+        return $this->limitService;
     }
 }

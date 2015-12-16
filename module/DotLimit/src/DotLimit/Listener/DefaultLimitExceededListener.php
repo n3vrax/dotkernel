@@ -9,13 +9,11 @@ class DefaultLimitExceededListener
     {
         $mvcEvent = $event->getMvcEvent();
         $response = $mvcEvent->getResponse();
+        $limitService = $event->getLimitService();
         
+        //change responses status code to reflect limit exceeded
         $response->setStatusCode(429);
         $response->setReasonPhrase('Too Many Requests');
-        
-        $headers = $response->getHeaders();
-        $headers->addHeaderLine('X-Ratelimit-Error', 'you have reached the request limit');
-        $response->setHeaders($headers);
         
         return $response;
     }
