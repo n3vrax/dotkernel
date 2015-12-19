@@ -6,6 +6,22 @@ return [
             'warn_threshold' => ['per_second' => 1, 'daily_limits' => 95],
             'limit_threshold' => ['per_second' => 2, 'daily_limits' => 100],
     
+            //dont apply rate limiting on these controllers
+            'ZF\\OAuth2\\Controller\\Auth' => [
+                'warn_threshold' => ['per_second' => 0, 'daily_limits' => 0],
+                'limit_threshold' => ['per_second' => 0, 'daily_limits' => 0],
+            ],
+            
+            'DotUser\\Controller\\UserController' => [
+                'warn_threshold' => ['per_second' => 0, 'daily_limits' => 0],
+                'limit_threshold' => ['per_second' => 0, 'daily_limits' => 0],
+            ],
+            
+            'Application\\Controller\\Index' => [
+                'warn_threshold' => ['per_second' => 0, 'daily_limits' => 0],
+                'limit_threshold' => ['per_second' => 0, 'daily_limits' => 0],
+            ],
+            
             /*'package_limits' => [
              'basic' => [
                  'warn_threshold' => ['per_second' => 5, 'daily_limits' => 980],

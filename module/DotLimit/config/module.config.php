@@ -1,6 +1,7 @@
 <?php
 return array(
     'rate_limit' => [
+        //we have defined 2 default throttlers which are most usual
         'throttlers' => [
             'per_second' => [
                 'options' => [
@@ -24,21 +25,7 @@ return array(
         ],
         
         'limits' => [
-            'ZF\\OAuth2\\Controller\\Auth' => [
-                'warn_threshold' => ['per_second' => 0, 'daily_limits' => 0],
-                'limit_threshold' => ['per_second' => 0, 'daily_limits' => 0],
-            ],
-            
-            'DotUser\\Controller\\UserController' => [
-                'warn_threshold' => ['per_second' => 0, 'daily_limits' => 0],
-                'limit_threshold' => ['per_second' => 0, 'daily_limits' => 0],
-            ],
-            
-            'Application\\Controller\\Index' => [
-                'warn_threshold' => ['per_second' => 0, 'daily_limits' => 0],
-                'limit_threshold' => ['per_second' => 0, 'daily_limits' => 0],
-            ],
-            
+            //see ratelimit.global.php.dist
         ],
     ],
     
